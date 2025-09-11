@@ -59,9 +59,8 @@ export const RightSidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="fixed right-0 top-16 h-[calc(100vh-4rem)] w-80 bg-background border-l border-border overflow-y-auto">
-      <div className="p-4 space-y-6">
-        {/* Quick Contact */}
+    <div className="p-4 space-y-6">
+      {/* Quick Contact */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center">
@@ -151,6 +150,5 @@ export const RightSidebar: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    </aside>
-  );
-};
+    );
+  };

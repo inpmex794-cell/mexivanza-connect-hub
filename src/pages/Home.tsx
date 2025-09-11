@@ -226,36 +226,42 @@ export const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-card border-b border-border sticky top-0 z-50 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-3">
+      {/* Sticky Header */}
+      <header className="bg-card border-b border-border fixed top-0 left-0 right-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-sm">
                 <span className="text-primary-foreground font-bold text-lg">M</span>
               </div>
-              <h1 className="text-xl font-bold text-foreground">Mexivanza</h1>
+              <div>
+                <h1 className="text-xl font-bold text-foreground">Mexivanza</h1>
+                <p className="text-xs text-muted-foreground">AI Master Platform</p>
+              </div>
             </div>
             
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="hover:bg-accent">
                 <Languages className="h-4 w-4 mr-2" />
                 ES/EN
               </Button>
               
               {user ? (
-                <div className="flex items-center space-x-2">
-                  <Badge variant={isAdmin ? "default" : "secondary"}>
-                    {isAdmin ? "Admin" : "Usuario"}
+                <div className="flex items-center space-x-3">
+                  <Badge variant={isAdmin ? "default" : "secondary"} className="px-3 py-1">
+                    {isAdmin ? "Administrador" : "Usuario"}
                   </Badge>
                   {isAdmin && (
-                    <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
+                    <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-sm">
                       <Link to="/admin-dashboard">
                         <Shield className="mr-2 h-4 w-4" />
-                        Admin
+                        Panel Admin
                       </Link>
                     </Button>
                   )}
+                  <Button variant="ghost" size="sm" onClick={handleLogout} className="text-destructive hover:text-destructive">
+                    <LogOut className="h-4 w-4" />
+                  </Button>
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
@@ -265,7 +271,7 @@ export const Home: React.FC = () => {
                       Entrar
                     </Link>
                   </Button>
-                  <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
+                  <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-sm">
                     <Link to="/auth">
                       <UserPlus className="mr-2 h-4 w-4" />
                       Registrar
@@ -278,76 +284,88 @@ export const Home: React.FC = () => {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto flex">
-        {/* Left Sidebar - Navigation */}
-        <aside className="w-64 min-h-screen bg-card border-r border-border p-4 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
-          <nav className="space-y-2">
-            <Button variant="ghost" className="w-full justify-start bg-accent text-primary">
-              <HomeIcon className="mr-3 h-5 w-5" />
-              Inicio
-            </Button>
-            
-            {user && (
-              <>
-                <Button asChild variant="ghost" className="w-full justify-start">
-                  <Link to="/dashboard">
-                    <User className="mr-3 h-5 w-5" />
-                    Dashboard
-                  </Link>
+      {/* Main Layout - Three Column Structure */}
+      <div className="pt-16 min-h-screen bg-muted/30">
+        <div className="max-w-7xl mx-auto flex">
+          {/* Left Sidebar - Fixed Navigation */}
+          <aside className="w-64 bg-card border-r border-border fixed left-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto shadow-sm">
+            <div className="p-4">
+              <nav className="space-y-2">
+                <Button variant="ghost" className="w-full justify-start bg-primary/10 text-primary font-medium rounded-lg">
+                  <HomeIcon className="mr-3 h-5 w-5" />
+                  Inicio
                 </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  <Settings className="mr-3 h-5 w-5" />
-                  Configuración
-                </Button>
-                <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
-                  <LogOut className="mr-3 h-5 w-5" />
-                  Cerrar Sesión
-                </Button>
-              </>
-            )}
-          </nav>
+                
+                {user && (
+                  <>
+                    <Button asChild variant="ghost" className="w-full justify-start hover:bg-accent rounded-lg">
+                      <Link to="/dashboard">
+                        <User className="mr-3 h-5 w-5" />
+                        Mi Dashboard
+                      </Link>
+                    </Button>
+                    <Button variant="ghost" className="w-full justify-start hover:bg-accent rounded-lg">
+                      <Settings className="mr-3 h-5 w-5" />
+                      Configuración
+                    </Button>
+                  </>
+                )}
+              </nav>
 
-          {/* Services Section */}
-          <div className="mt-8">
-            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-              Servicios
-            </h3>
-            <div className="space-y-2">
-              <Button variant="ghost" className="w-full justify-start text-sm">
-                <Plane className="mr-3 h-4 w-4" />
-                Viajes
-              </Button>
-              <Button variant="ghost" className="w-full justify-start text-sm">
-                <Scale className="mr-3 h-4 w-4" />
-                Legal
-              </Button>
-              <Button variant="ghost" className="w-full justify-start text-sm">
-                <Building className="mr-3 h-4 w-4" />
-                Inmobiliaria
-              </Button>
-              <Button variant="ghost" className="w-full justify-start text-sm">
-                <Monitor className="mr-3 h-4 w-4" />
-                Desarrollo Web
-              </Button>
+              {/* Services Section */}
+              <div className="mt-6">
+                <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
+                  Servicios Premium
+                </h3>
+                <div className="space-y-1">
+                  <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
+                    <Plane className="mr-3 h-4 w-4 text-primary" />
+                    <div className="text-left">
+                      <div className="font-medium">Viajes</div>
+                      <div className="text-xs text-muted-foreground">Paquetes premium</div>
+                    </div>
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
+                    <Scale className="mr-3 h-4 w-4 text-success" />
+                    <div className="text-left">
+                      <div className="font-medium">Legal</div>
+                      <div className="text-xs text-muted-foreground">Consulta gratuita</div>
+                    </div>
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
+                    <Building className="mr-3 h-4 w-4 text-primary" />
+                    <div className="text-left">
+                      <div className="font-medium">Inmobiliaria</div>
+                      <div className="text-xs text-muted-foreground">+500 propiedades</div>
+                    </div>
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
+                    <Monitor className="mr-3 h-4 w-4 text-primary" />
+                    <div className="text-left">
+                      <div className="font-medium">Desarrollo Web</div>
+                      <div className="text-xs text-muted-foreground">Soluciones digitales</div>
+                    </div>
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
-        </aside>
+          </aside>
 
-        {/* Center Feed */}
-        <main className="flex-1 min-h-screen bg-muted p-6">
-          <div className="max-w-2xl mx-auto space-y-6">
-            {/* Create Post Card */}
-            {user && (
-              <Card className="shadow-sm border-border">
-                <CardContent className="p-4">
+          {/* Center Feed - Main Content */}
+          <main className="flex-1 min-h-screen bg-background ml-64 mr-80">
+            <div className="max-w-2xl mx-auto p-6 space-y-6">
+              {/* Create Post Card */}
+              {user && (
+                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-shadow duration-200">
+                <CardContent className="p-6">
                   {!showPostForm ? (
                     <Button 
                       onClick={() => setShowPostForm(true)}
                       variant="outline" 
-                      className="w-full justify-start"
+                      className="w-full justify-start h-12 text-muted-foreground hover:text-foreground hover:bg-accent border-dashed"
                     >
-                      <Plus className="mr-2 h-4 w-4" />
-                      ¿Qué tienes en mente?
+                      <Plus className="mr-3 h-5 w-5" />
+                      <span className="text-base">¿Qué quieres compartir hoy?</span>
                     </Button>
                   ) : (
                     <div className="space-y-4">
@@ -355,16 +373,18 @@ export const Home: React.FC = () => {
                         placeholder="Título del post..."
                         value={newPost.title}
                         onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                        className="text-base font-medium"
                       />
                       <Textarea
-                        placeholder="Escribe algo..."
+                        placeholder="Comparte tu experiencia..."
                         value={newPost.content}
                         onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-                        rows={3}
+                        rows={4}
+                        className="resize-none"
                       />
                       <Select value={newPost.category} onValueChange={(value) => setNewPost({ ...newPost, category: value })}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Categoría" />
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Selecciona una categoría" />
                         </SelectTrigger>
                         <SelectContent>
                           {categories.map((category) => (
@@ -374,129 +394,133 @@ export const Home: React.FC = () => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <div className="flex space-x-2">
-                        <Button onClick={handleCreatePost} size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
-                          Publicar
-                        </Button>
+                      <div className="flex justify-between items-center pt-2">
                         <Button 
                           onClick={() => setShowPostForm(false)} 
-                          variant="outline" 
+                          variant="ghost" 
                           size="sm"
                         >
                           Cancelar
+                        </Button>
+                        <Button onClick={handleCreatePost} size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground px-6">
+                          Publicar
                         </Button>
                       </div>
                     </div>
                   )}
                 </CardContent>
               </Card>
-            )}
+              )}
 
-            {/* Hero Gallery Section */}
-            <Card className="shadow-sm border-border overflow-hidden">
-              <CardContent className="p-0">
-                <Gallery images={heroGallery} cols={3} className="mb-0" />
-                <div className="p-6">
-                  <div className="text-center">
-                    <EditableContent 
-                      contentKey="hero-title"
-                      defaultValue="Plataforma Integral Mexivanza"
-                      className="text-2xl font-bold mb-2 block"
-                    />
-                    <EditableContent 
-                      contentKey="hero-description"
-                      defaultValue="Servicios profesionales de viaje, legal, desarrollo web y bienes raíces. Conectando México con soluciones de primera clase."
-                      className="text-muted-foreground mb-4 block"
-                      multiline
-                    />
-                    <div className="flex justify-center gap-4">
-                      <WhatsAppButton
-                        message={t("whatsapp.general_inquiry", "¡Hola! Estoy interesado en los servicios de Mexivanza.")}
-                        className="bg-primary hover:bg-primary-hover"
-                      >
-                        Contactar WhatsApp
-                      </WhatsAppButton>
-                      <Button variant="outline">
-                        Ver Servicios
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between mt-6 pt-4 border-t border-border">
-                    <div className="flex items-center space-x-4">
-                      <Button size="sm" variant="ghost">
-                        <Heart className="mr-2 h-4 w-4" />
-                        124
-                      </Button>
-                      <Button size="sm" variant="ghost">
-                        <MessageSquare className="mr-2 h-4 w-4" />
-                        28
-                      </Button>
-                      <Button size="sm" variant="ghost">
-                        <Share className="mr-2 h-4 w-4" />
-                        Compartir
-                      </Button>
-                    </div>
-                    <Badge className="bg-primary text-primary-foreground">
-                      Destacado
-                    </Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Posts Feed */}
-            {posts.map((post) => (
-              <Card key={post.id} className="shadow-sm border-border">
-                <CardContent className="p-4">
-                  <div className="flex items-start space-x-3">
-                    <Avatar className="w-10 h-10">
-                      <AvatarImage src={post.profiles?.avatar_url} />
-                      <AvatarFallback className="bg-accent text-primary">
-                        {post.profiles?.name?.charAt(0) || 'U'}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <span className="font-semibold text-foreground">
-                          {post.profiles?.name || 'Usuario'}
-                        </span>
-                        {post.category && (
-                          <Badge variant="secondary" className="text-xs">
-                            {post.category}
-                          </Badge>
-                        )}
-                        <span className="text-sm text-gray-500">
-                          <Clock className="inline h-3 w-3 mr-1" />
-                          {new Date(post.created_at).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <h3 className="font-semibold mb-2 text-foreground">{post.title}</h3>
-                      <p className="text-muted-foreground mb-4">{post.content}</p>
-                      
-                      <div className="flex items-center space-x-4 pt-2 border-t border-border">
-                        <Button variant="ghost" size="sm">
-                          <Heart className="mr-2 h-4 w-4" />
-                          Me gusta
-                        </Button>
-                        <Button variant="ghost" size="sm">
+              {/* Hero Gallery Section */}
+              <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 overflow-hidden">
+                <CardContent className="p-0">
+                  <Gallery images={heroGallery} cols={3} className="mb-0" />
+                  <div className="p-6">
+                    <div className="text-center space-y-4">
+                      <EditableContent 
+                        contentKey="hero-title"
+                        defaultValue="Plataforma Integral Mexivanza"
+                        className="text-3xl font-bold text-foreground block"
+                      />
+                      <EditableContent 
+                        contentKey="hero-description"
+                        defaultValue="Servicios profesionales de viaje, legal, desarrollo web y bienes raíces. Conectando México con soluciones de primera clase."
+                        className="text-muted-foreground text-lg leading-relaxed block"
+                        multiline
+                      />
+                      <div className="flex justify-center gap-4 pt-4">
+                        <WhatsAppButton
+                          message={t("whatsapp.general_inquiry", "¡Hola! Estoy interesado en los servicios de Mexivanza.")}
+                          className="bg-[#25D366] hover:bg-[#25D366]/90 text-white px-6 py-3"
+                        >
                           <MessageSquare className="mr-2 h-4 w-4" />
-                          Comentar
+                          Contactar WhatsApp
+                        </WhatsAppButton>
+                        <Button variant="outline" className="px-6 py-3">
+                          Ver Servicios
                         </Button>
-                        <Button variant="ghost" size="sm">
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
+                      <div className="flex items-center space-x-6">
+                        <Button size="sm" variant="ghost" className="hover:bg-accent">
+                          <Heart className="mr-2 h-4 w-4" />
+                          124
+                        </Button>
+                        <Button size="sm" variant="ghost" className="hover:bg-accent">
+                          <MessageSquare className="mr-2 h-4 w-4" />
+                          28
+                        </Button>
+                        <Button size="sm" variant="ghost" className="hover:bg-accent">
                           <Share className="mr-2 h-4 w-4" />
                           Compartir
                         </Button>
                       </div>
+                      <Badge className="bg-primary text-primary-foreground px-3 py-1">
+                        Destacado
+                      </Badge>
                     </div>
                   </div>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        </main>
 
-        {/* Right Sidebar - Contextual Modules */}
-        <RightSidebar />
+              {/* Posts Feed */}
+              {posts.map((post) => (
+                <Card key={post.id} className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200">
+                  <CardContent className="p-6">
+                    <div className="flex items-start space-x-4">
+                      <Avatar className="w-12 h-12">
+                        <AvatarImage src={post.profiles?.avatar_url} />
+                        <AvatarFallback className="bg-primary/10 text-primary font-semibold">
+                          {post.profiles?.name?.charAt(0) || 'U'}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-3 mb-3">
+                          <span className="font-semibold text-foreground text-base">
+                            {post.profiles?.name || 'Usuario'}
+                          </span>
+                          {post.category && (
+                            <Badge variant="secondary" className="text-xs px-2 py-1">
+                              {post.category}
+                            </Badge>
+                          )}
+                          <span className="text-sm text-muted-foreground flex items-center">
+                            <Clock className="inline h-3 w-3 mr-1" />
+                            {new Date(post.created_at).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <h3 className="font-semibold mb-3 text-foreground text-lg">{post.title}</h3>
+                        <p className="text-muted-foreground mb-4 leading-relaxed">{post.content}</p>
+                        
+                        <div className="flex items-center space-x-6 pt-4 border-t border-border">
+                          <Button variant="ghost" size="sm" className="hover:bg-accent hover:text-primary">
+                            <Heart className="mr-2 h-4 w-4" />
+                            Me gusta
+                          </Button>
+                          <Button variant="ghost" size="sm" className="hover:bg-accent hover:text-primary">
+                            <MessageSquare className="mr-2 h-4 w-4" />
+                            Comentar
+                          </Button>
+                          <Button variant="ghost" size="sm" className="hover:bg-accent hover:text-primary">
+                            <Share className="mr-2 h-4 w-4" />
+                            Compartir
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </main>
+
+          {/* Right Sidebar - Fixed Contextual Modules */}
+          <div className="w-80 fixed right-0 top-16 h-[calc(100vh-4rem)] bg-card border-l border-border shadow-sm overflow-y-auto">
+            <RightSidebar />
+          </div>
+        </div>
       </div>
 
       {/* SEO Meta Tags */}
