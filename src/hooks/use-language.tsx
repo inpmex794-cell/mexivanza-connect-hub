@@ -350,10 +350,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     let value: any = translations[language];
     
     console.log(`Translation lookup: key="${key}", language="${language}", fallback="${fallback}"`);
+    console.log('Available translations:', Object.keys(translations));
+    console.log('translations.en exists:', !!translations.en);
+    console.log('translations.es exists:', !!translations.es);
+    console.log('Current language data exists:', !!value);
+    console.log('First few keys in current language:', value ? Object.keys(value).slice(0, 5) : 'NONE');
     
     for (const k of keys) {
+      const prevValue = value;
       value = value?.[k];
-      console.log(`  Looking up "${k}":`, value);
+      console.log(`  Looking up "${k}" in:`, prevValue, `→ result:`, value);
     }
     
     const result = value || fallback || key;

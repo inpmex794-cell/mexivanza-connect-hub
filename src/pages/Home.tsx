@@ -288,7 +288,7 @@ export const Home: React.FC = () => {
               {/* Services Section */}
               <div className="mt-6">
                 <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
-                  {t("services.premium", "Servicios Premium")}
+                  {language === 'en' ? 'Premium Services' : 'Servicios Premium'} | {t("services.premium", "Servicios Premium")}
                 </h3>
                 <div className="space-y-1">
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
