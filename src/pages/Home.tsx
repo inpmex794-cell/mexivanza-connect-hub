@@ -59,7 +59,7 @@ import heroImage from "@/assets/hero-mexico.jpg";
 
 export const Home: React.FC = () => {
   const { t, language } = useLanguage(); // Use direct language hook
-  const { user, isAdmin, signOut } = useAuth();
+  const { user, userRole, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
   
   // Debug: Log when language changes
@@ -78,12 +78,14 @@ export const Home: React.FC = () => {
     "Business", "Web Development", "Events", "Ads"
   ];
 
-  // Auto-redirect admin users to dashboard
+  // Role-based redirection
   useEffect(() => {
     if (user?.email === 'mexivanza@mexivanza.com' || isAdmin) {
       navigate('/admin-dashboard');
+    } else if (user && userRole === 'verified') {
+      navigate('/verified-dashboard');
     }
-  }, [user, isAdmin, navigate]);
+  }, [user, userRole, isAdmin, navigate]);
 
   // Sample gallery images for hero section
   const heroGallery = [

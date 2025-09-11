@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 
 export const AdminDashboard: React.FC = () => {
-  const { user, signOut } = useAuth();
+  const { user, userRole, isAdmin } = useAuth();
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   const [stats, setStats] = useState({
@@ -40,13 +40,18 @@ export const AdminDashboard: React.FC = () => {
 
   useEffect(() => {
     // Redirect if not admin
-    if (user?.email !== 'mexivanza@mexivanza.com') {
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+    
+    if (user.email !== 'mexivanza@mexivanza.com' && userRole !== 'admin') {
       navigate('/');
       return;
     }
     
     fetchDashboardData();
-  }, [user, navigate]);
+  }, [user, userRole, navigate]);
 
   const fetchDashboardData = async () => {
     try {

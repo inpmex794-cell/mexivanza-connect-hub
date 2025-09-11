@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 
 export const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
-  const { user, isAdmin, signOut } = useAuth();
+  const { user, userRole, isAdmin, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -58,14 +58,34 @@ export const Header: React.FC = () => {
           />
           {user ? (
             <div className="flex items-center space-x-3">
-              <Badge variant={isAdmin ? "default" : "secondary"} className="px-3 py-1">
-                {isAdmin ? t("dashboard.admin", "Admin") : t("dashboard.user", "User")}
+              <Badge 
+                variant={isAdmin ? "default" : userRole === 'verified' ? "secondary" : "outline"} 
+                className={cn(
+                  "px-3 py-1",
+                  isAdmin && "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+                  userRole === 'verified' && "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                )}
+              >
+                {isAdmin 
+                  ? t("dashboard.admin", "Admin") 
+                  : userRole === 'verified' 
+                    ? t("dashboard.verified", "Verified") 
+                    : t("dashboard.user", "User")
+                }
               </Badge>
               {isAdmin && (
                 <Button asChild size="sm" variant="facebook">
                   <Link to="/admin-dashboard">
                     <Shield className="mr-2 h-4 w-4" />
                     {t("nav.admin", "Admin Panel")}
+                  </Link>
+                </Button>
+              )}
+              {userRole === 'verified' && !isAdmin && (
+                <Button asChild size="sm" variant="outline">
+                  <Link to="/verified-dashboard">
+                    <Shield className="mr-2 h-4 w-4" />
+                    {t("nav.verified", "Verified Panel")}
                   </Link>
                 </Button>
               )}
@@ -149,8 +169,19 @@ export const Header: React.FC = () => {
                       {user.email?.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
-                  <Badge variant={isAdmin ? "default" : "secondary"}>
-                    {isAdmin ? t("dashboard.admin", "Admin") : t("dashboard.user", "User")}
+                  <Badge 
+                    variant={isAdmin ? "default" : userRole === 'verified' ? "secondary" : "outline"}
+                    className={cn(
+                      isAdmin && "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+                      userRole === 'verified' && "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                    )}
+                  >
+                    {isAdmin 
+                      ? t("dashboard.admin", "Admin") 
+                      : userRole === 'verified' 
+                        ? t("dashboard.verified", "Verified") 
+                        : t("dashboard.user", "User")
+                    }
                   </Badge>
                 </div>
                 {isAdmin && (
@@ -164,6 +195,19 @@ export const Header: React.FC = () => {
                   >
                     <Shield className="mr-2 h-4 w-4" />
                     {t("nav.admin", "Admin Panel")}
+                  </Button>
+                )}
+                {userRole === 'verified' && !isAdmin && (
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      navigate("/verified-dashboard");
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Shield className="mr-2 h-4 w-4" />
+                    {t("nav.verified", "Verified Panel")}
                   </Button>
                 )}
                 <Button 

@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [userRole, setUserRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const isAdmin = userRole === 'admin';
+  const isAdmin = user?.email === 'mexivanza@mexivanza.com' || userRole === 'admin';
 
   const fetchUserRole = async (userId: string) => {
     const { data } = await supabase
