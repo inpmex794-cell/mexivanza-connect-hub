@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from "@/hooks/use-auth";
+import { useLanguage } from "@/hooks/use-language";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Upload, Video, Play } from "lucide-react";
@@ -15,6 +16,7 @@ interface VideoUploadProps {
 
 export const VideoUploadModule: React.FC<VideoUploadProps> = ({ onUploadSuccess }) => {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [uploading, setUploading] = useState(false);
   const [videoData, setVideoData] = useState({
     title: "",
@@ -86,7 +88,7 @@ export const VideoUploadModule: React.FC<VideoUploadProps> = ({ onUploadSuccess 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Input
-              placeholder="Título del video"
+              placeholder={t("form.title", "Título del video")}
               value={videoData.title}
               onChange={(e) => setVideoData({ ...videoData, title: e.target.value })}
               required
@@ -95,7 +97,7 @@ export const VideoUploadModule: React.FC<VideoUploadProps> = ({ onUploadSuccess 
           
           <div>
             <Textarea
-              placeholder="Descripción del video"
+              placeholder={t("form.description", "Descripción del video")}
               value={videoData.description}
               onChange={(e) => setVideoData({ ...videoData, description: e.target.value })}
               rows={3}
@@ -105,7 +107,7 @@ export const VideoUploadModule: React.FC<VideoUploadProps> = ({ onUploadSuccess 
           <div>
             <Select value={videoData.category} onValueChange={(value) => setVideoData({ ...videoData, category: value })}>
               <SelectTrigger>
-                <SelectValue placeholder="Selecciona una categoría" />
+                <SelectValue placeholder={t("form.select_category", "Selecciona una categoría")} />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category) => (

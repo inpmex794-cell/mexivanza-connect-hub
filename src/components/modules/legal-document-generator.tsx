@@ -21,7 +21,7 @@ interface LegalTemplate {
 
 export const LegalDocumentGeneratorModule: React.FC = () => {
   const { user } = useAuth();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const [templates, setTemplates] = useState<LegalTemplate[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<LegalTemplate | null>(null);
   const [formData, setFormData] = useState<{[key: string]: string}>({});
@@ -86,7 +86,7 @@ export const LegalDocumentGeneratorModule: React.FC = () => {
     }
 
     if (!selectedTemplate) {
-      toast.error("Selecciona un template");
+      toast.error(t("form.select_option", "Selecciona un template"));
       return;
     }
 
@@ -204,10 +204,10 @@ _____________________
         <CardContent>
           <div className="space-y-4">
             <div>
-              <Label>Selecciona un Template</Label>
+              <Label>{t("form.select", "Selecciona")} un Template</Label>
               <Select onValueChange={handleTemplateSelect}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Elige el tipo de documento" />
+                  <SelectValue placeholder={t("form.select_option", "Elige el tipo de documento")} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="service-contract">Contrato de Servicios</SelectItem>
@@ -223,7 +223,7 @@ _____________________
                 {selectedTemplate.template_name === "Contrato de Servicios" && (
                   <>
                     <div>
-                      <Label htmlFor="client_name">Nombre del Cliente</Label>
+                      <Label htmlFor="client_name">{t("form.name", "Nombre")} del Cliente</Label>
                       <Input
                         id="client_name"
                         value={formData.client_name || ""}
@@ -231,7 +231,7 @@ _____________________
                       />
                     </div>
                     <div>
-                      <Label htmlFor="provider_name">Nombre del Proveedor</Label>
+                      <Label htmlFor="provider_name">{t("form.name", "Nombre")} del Proveedor</Label>
                       <Input
                         id="provider_name"
                         value={formData.provider_name || ""}
@@ -286,7 +286,7 @@ _____________________
                 {selectedTemplate.template_name === "Poder Notarial" && (
                   <>
                     <div>
-                      <Label htmlFor="grantor_name">Nombre del Otorgante</Label>
+                      <Label htmlFor="grantor_name">{t("form.name", "Nombre")} del Otorgante</Label>
                       <Input
                         id="grantor_name"
                         value={formData.grantor_name || ""}
@@ -294,7 +294,7 @@ _____________________
                       />
                     </div>
                     <div>
-                      <Label htmlFor="attorney_name">Nombre del Apoderado</Label>
+                      <Label htmlFor="attorney_name">{t("form.name", "Nombre")} del Apoderado</Label>
                       <Input
                         id="attorney_name"
                         value={formData.attorney_name || ""}

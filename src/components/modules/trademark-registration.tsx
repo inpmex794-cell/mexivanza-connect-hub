@@ -56,7 +56,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
     }
 
     if (formData.selected_classes.length === 0) {
-      toast.error("Selecciona al menos una clase de marca");
+      toast.error(t("form.select_option", "Selecciona al menos una clase de marca"));
       return;
     }
 
@@ -146,7 +146,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
           <form onSubmit={(e) => { e.preventDefault(); setStep(2); }} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="trademark_name">Nombre de la Marca</Label>
+                <Label htmlFor="trademark_name">{t("form.name", "Nombre")} de la Marca</Label>
                 <Input
                   id="trademark_name"
                   value={formData.trademark_name}
@@ -155,7 +155,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="applicant_name">Nombre del Solicitante</Label>
+                <Label htmlFor="applicant_name">{t("form.name", "Nombre")} del Solicitante</Label>
                 <Input
                   id="applicant_name"
                   value={formData.applicant_name}
@@ -164,7 +164,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="applicant_email">Email</Label>
+                <Label htmlFor="applicant_email">{t("form.email", "Email")}</Label>
                 <Input
                   id="applicant_email"
                   type="email"
@@ -174,7 +174,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="applicant_phone">Teléfono</Label>
+                <Label htmlFor="applicant_phone">{t("form.phone", "Teléfono")}</Label>
                 <Input
                   id="applicant_phone"
                   value={formData.applicant_phone}
@@ -225,7 +225,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
         {step === 2 && (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold mb-2">Selecciona las Clases de Marca</h3>
+              <h3 className="text-lg font-semibold mb-2">{t("form.select", "Selecciona")} las Clases de Marca</h3>
               <p className="text-muted-foreground text-sm mb-4">
                 Elige las categorías que mejor describan tus productos o servicios.
               </p>
