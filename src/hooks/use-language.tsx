@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 type Language = "es" | "en";
 
@@ -349,11 +349,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const keys = key.split('.');
     let value: any = translations[language];
     
+    console.log(`Translation lookup: key="${key}", language="${language}", fallback="${fallback}"`);
+    
     for (const k of keys) {
       value = value?.[k];
+      console.log(`  Looking up "${k}":`, value);
     }
     
-    return value || fallback || key;
+    const result = value || fallback || key;
+    console.log(`  Final result:`, result);
+    return result;
   };
 
   // Update document metadata when language changes
@@ -411,7 +416,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
+    <LanguageContext.Provider value={{ 
+      language, 
+      setLanguage: handleSetLanguage, 
+      t 
+    }}>
       {children}
     </LanguageContext.Provider>
   );

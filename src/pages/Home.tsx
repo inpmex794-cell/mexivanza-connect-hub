@@ -65,7 +65,8 @@ export const Home: React.FC = () => {
   // Debug: Log when language changes
   useEffect(() => {
     console.log('Home component language changed to:', language);
-  }, [language]);
+    console.log('Sample translation test:', t("services.premium"));
+  }, [language, t]);
   const [posts, setPosts] = useState<any[]>([]);
   const [newPost, setNewPost] = useState({ title: "", content: "", category: "News" });
   const [showPostForm, setShowPostForm] = useState(false);
@@ -287,8 +288,7 @@ export const Home: React.FC = () => {
               {/* Services Section */}
               <div className="mt-6">
                 <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
-                  {language === 'en' ? 'Premium Services' : 'Servicios Premium'}
-                  {/* Debug: {t("services.premium", "Servicios Premium")} */}
+                  {t("services.premium", "Servicios Premium")}
                 </h3>
                 <div className="space-y-1">
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
