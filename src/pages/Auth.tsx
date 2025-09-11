@@ -186,10 +186,13 @@ export const Auth: React.FC = () => {
                   <p className="text-xs opacity-75">Full administrative access to all platform features</p>
                 </div>
                 <Button 
-                  variant="secondary" 
+                  type="button"
+                  variant="outline" 
                   size="sm" 
-                  className="mt-2 w-full text-xs"
-                  onClick={() => {
+                  className="mt-2 w-full text-xs bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border-red-300 text-red-700 dark:text-red-300"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     setEmail('mexivanza@mexivanza.com');
                     setPassword('TestAdmin2025!');
                     setAuthType('register');
