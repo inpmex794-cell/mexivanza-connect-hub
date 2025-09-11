@@ -10,6 +10,24 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // Initialize language from localStorage or default to Spanish
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('mexivanza-language');
+      return (stored as Language) || 'es';
+    }
+    return 'es';
+  });
+
+  // Persist language selection across sessions
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('mexivanza-language', lang);
+    }
+  };
+
 // Basic translations - can be expanded
 const translations = {
   es: {
