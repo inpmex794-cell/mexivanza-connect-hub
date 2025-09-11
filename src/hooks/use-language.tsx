@@ -388,7 +388,14 @@ const translations = {
     // Posts
     "posts.recent_posts": "Posts Recientes",
     "posts.posts": "posts",
-    "posts.no_posts": "No hay posts disponibles"
+    "posts.no_posts": "No hay posts disponibles",
+    // Search translations
+    "search.placeholder": "Buscar servicios, regiones...",
+    "search.mobile_placeholder": "Buscar...",
+    // Travel search
+    "travel.search_placeholder": "Buscar destinos, proveedores, servicios...",
+    // Real estate search  
+    "realestate.search": "Buscar propiedades..."
   },
   en: {
     // Site metadata
@@ -766,7 +773,14 @@ const translations = {
     // Posts
     "posts.recent_posts": "Recent Posts",
     "posts.posts": "posts", 
-    "posts.no_posts": "No posts available"
+    "posts.no_posts": "No posts available",
+    // Search translations
+    "search.placeholder": "Search services, regions...",
+    "search.mobile_placeholder": "Search...",
+    // Travel search
+    "travel.search_placeholder": "Search destinations, providers, services...",
+    // Real estate search
+    "realestate.search": "Search properties..."
   },
 };
 

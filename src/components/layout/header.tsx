@@ -146,7 +146,7 @@ export const Header: React.FC = () => {
           <div className="relative">
             <input
               type="text"
-              placeholder={t("search.placeholder", "Search...")}
+              placeholder={t("search.mobile_placeholder", "Buscar...")}
               className="w-full px-4 py-2 pl-10 bg-muted rounded-full border-0 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
             />
             <div className="absolute inset-y-0 left-0 flex items-center pl-3">
