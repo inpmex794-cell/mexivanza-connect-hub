@@ -271,7 +271,7 @@ export const Home: React.FC = () => {
               <nav className="space-y-2">
                 <Button variant="ghost" className="w-full justify-start bg-primary/10 text-primary font-medium rounded-lg">
                   <HomeIcon className="mr-3 h-5 w-5" />
-                  Inicio
+                  {t("nav.home", "Inicio")}
                 </Button>
                 
                 {user && (
@@ -279,12 +279,12 @@ export const Home: React.FC = () => {
                     <Button asChild variant="ghost" className="w-full justify-start hover:bg-accent rounded-lg">
                       <Link to="/dashboard">
                         <User className="mr-3 h-5 w-5" />
-                        Mi Dashboard
+                        {t("nav.dashboard", "Mi Dashboard")}
                       </Link>
                     </Button>
                     <Button variant="ghost" className="w-full justify-start hover:bg-accent rounded-lg">
                       <Settings className="mr-3 h-5 w-5" />
-                      Configuración
+                      {t("nav.settings", "Configuración")}
                     </Button>
                   </>
                 )}
@@ -313,7 +313,7 @@ export const Home: React.FC = () => {
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
                     <Building className="mr-3 h-4 w-4 text-primary" />
                     <div className="text-left">
-                      <div className="font-medium">{t("real_estate.inmobiliaria", "Real Estate")}</div>
+                      <div className="font-medium">{t("real_estate.title", "Bienes Raíces")}</div>
                       <div className="text-xs text-muted-foreground">+500 {t("services.realestate_desc", "properties")}</div>
                     </div>
                   </Button>
@@ -329,7 +329,7 @@ export const Home: React.FC = () => {
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
                     <Monitor className="mr-3 h-4 w-4 text-primary" />
                     <div className="text-left">
-                      <div className="font-medium">{t("services.webdev", "Desarrollo Web")}</div>
+                      <div className="font-medium">{t("web_dev.title", "Desarrollo Web")}</div>
                       <div className="text-xs text-muted-foreground">{t("services.webdev_desc", "Soluciones digitales")}</div>
                     </div>
                   </Button>
@@ -352,18 +352,18 @@ export const Home: React.FC = () => {
                       className="w-full justify-start h-12 text-muted-foreground hover:text-foreground hover:bg-accent border-dashed text-wrap"
                     >
                       <Plus className="mr-3 h-5 w-5 flex-shrink-0" />
-                      <span className="text-sm sm:text-base truncate">¿Qué quieres compartir hoy?</span>
+                      <span className="text-sm sm:text-base truncate">{t("form.post_placeholder", "¿Qué quieres compartir hoy?")}</span>
                     </Button>
                   ) : (
                     <div className="space-y-4">
                       <Input
-                        placeholder="Título del post..."
+                        placeholder={t("form.post_title", "Título del post...")}
                         value={newPost.title}
                         onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
                         className="text-base font-medium"
                       />
                       <Textarea
-                        placeholder="Comparte tu experiencia..."
+                        placeholder={t("form.post_content", "Comparte tu experiencia...")}
                         value={newPost.content}
                         onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
                         rows={4}
@@ -387,10 +387,10 @@ export const Home: React.FC = () => {
                           variant="ghost" 
                           size="sm"
                         >
-                          Cancelar
+                          {t("button.cancel", "Cancelar")}
                         </Button>
                         <Button onClick={handleCreatePost} size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground px-6">
-                          Publicar
+                          {t("button.create", "Publicar")}
                         </Button>
                       </div>
                     </div>

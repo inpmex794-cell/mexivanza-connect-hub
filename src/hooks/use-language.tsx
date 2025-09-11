@@ -116,22 +116,14 @@ const translations = {
     "button.featured": "Destacado",
     "button.specialists": "Especialistas",
     "real_estate.specialists": "Especialistas en Bienes Raíces",
-    "real_estate.inmobiliaria": "Inmobiliaria",
-    "auth.password": "Contraseña",
-    "auth.forgot_password": "¿Olvidaste tu contraseña?",
-    "auth.no_account": "¿No tienes cuenta?",
-    "auth.have_account": "¿Ya tienes cuenta?",
-    "footer.contact": "Contacto",
-    "whatsapp.general_inquiry": "¡Hola! Estoy interesado en los servicios de Mexivanza.",
-    "whatsapp.travel_inquiry": "¡Hola! Me gustaría información sobre paquetes de viaje.",
-    "whatsapp.legal_inquiry": "¡Hola! Necesito consultoría legal.",
-    "whatsapp.digital_inquiry": "¡Hola! Estoy interesado en servicios digitales.",
-    "stats.services": "Servicios",
-    "stats.regions": "Regiones", 
-    "stats.online": "En Línea",
-    "stats.users": "Usuarios Activos",
-    "stats.posts": "Posts Hoy",
-    "stats.views": "Vistas de Página",
+    "real_estate.inmobiliaria": "Bienes Raíces",
+    // Navigation and UI elements
+    // Form placeholders
+    "form.post_title": "Título del post...",
+    "form.post_content": "Comparte tu experiencia...",
+    "form.post_placeholder": "¿Qué quieres compartir hoy?",
+    // Web dev title
+    "web_dev.title": "Desarrollo Web",
     "activity.travel_inquiry": "Consulta de viaje",
     "activity.legal_consultation": "Consulta legal",
     "activity.digital_service": "Servicio digital",
@@ -378,13 +370,7 @@ const translations = {
     // Real estate specific  
     "real_estate.properties": "propiedades",
     "real_estate.verified": "Verificadas",
-    // Web dev specific
-    "web_dev.included": "incluido",
-    "web_dev.professional": "Profesional",
-    // Common buttons
-    "button.explore": "Explorar",
-    "button.contact": "Contactar", 
-    "button.request_quote": "Solicitar Cotización",
+    "real_estate.title": "Bienes Raíces",
     // Posts
     "posts.recent_posts": "Posts Recientes",
     "posts.posts": "posts",
@@ -500,23 +486,13 @@ const translations = {
     "button.specialists": "Specialists",
     "real_estate.specialists": "Real Estate Specialists",
     "real_estate.inmobiliaria": "Real Estate",
-    "auth.register": "Register",
-    "auth.email": "Email",
-    "auth.password": "Password",
-    "auth.forgot_password": "Forgot your password?",
-    "auth.no_account": "Don't have an account?",
-    "auth.have_account": "Already have an account?",
-    "footer.contact": "Contact",
-    "whatsapp.general_inquiry": "Hello! I'm interested in Mexivanza services.",
-    "whatsapp.travel_inquiry": "Hello! I'd like information about travel packages.",
-    "whatsapp.legal_inquiry": "Hello! I need legal consultation.",
-    "whatsapp.digital_inquiry": "Hello! I'm interested in digital services.",
-    "stats.services": "Services",
-    "stats.regions": "Regions", 
-    "stats.online": "Online Now",
-    "stats.users": "Active Users",
-    "stats.posts": "Posts Today",
-    "stats.views": "Page Views",
+    // Navigation and UI elements  
+    // Form placeholders
+    "form.post_title": "Post title...",
+    "form.post_content": "Share your experience...",
+    "form.post_placeholder": "What do you want to share today?",
+    // Web dev title
+    "web_dev.title": "Web Development",
     "activity.travel_inquiry": "Travel inquiry",
     "activity.legal_consultation": "Legal consultation",
     "activity.digital_service": "Digital service",
@@ -763,13 +739,7 @@ const translations = {
     // Real estate specific
     "real_estate.properties": "properties", 
     "real_estate.verified": "Verified",
-    // Web dev specific
-    "web_dev.included": "included",
-    "web_dev.professional": "Professional",
-    // Common buttons
-    "button.explore": "Explore",
-    "button.contact": "Contact",
-    "button.request_quote": "Request Quote",
+    "real_estate.title": "Real Estate",
     // Posts
     "posts.recent_posts": "Recent Posts",
     "posts.posts": "posts", 
