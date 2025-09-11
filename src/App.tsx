@@ -10,6 +10,13 @@ import { Home } from "./pages/Home";
 import { Auth } from "./pages/Auth";
 import { Dashboard } from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import { BusinessDirectory } from "./components/business/business-directory";
+import { WebsiteTemplates } from "./components/business/website-templates";
+import { PaymentSystem } from "./components/payments/payment-system";
+import { PostAd } from "./components/ads/post-ad";
+import { VideoStreaming } from "./components/media/video-streaming";
+import { PropertyListings } from "./components/real-estate/property-listings";
+import { WeatherWidget } from "./components/weather/weather-widget";
 
 const queryClient = new QueryClient();
 
@@ -27,13 +34,13 @@ const App = () => (
                 <Route path="/" element={<Home />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                {/* Service Routes */}
-                <Route path="/travel" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl">Travel Services - Coming Soon</h1></div>} />
-                <Route path="/legal" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl">Legal Services - Coming Soon</h1></div>} />
-                <Route path="/digital" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl">Digital Services - Coming Soon</h1></div>} />
-                {/* Regional Routes */}
-                <Route path="/regions/*" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl">Regional Pages - Coming Soon</h1></div>} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="/directory" element={<BusinessDirectory />} />
+                <Route path="/templates" element={<WebsiteTemplates />} />
+                <Route path="/payments" element={<PaymentSystem />} />
+                <Route path="/ads" element={<PostAd />} />
+                <Route path="/videos" element={<VideoStreaming />} />
+                <Route path="/real-estate" element={<PropertyListings />} />
+                <Route path="/weather" element={<WeatherWidget />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

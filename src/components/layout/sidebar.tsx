@@ -12,6 +12,13 @@ import {
   Users,
   Settings,
   User,
+  Building2,
+  CreditCard,
+  Video,
+  Cloud,
+  HomeIcon,
+  Gamepad2,
+  TrendingUp
 } from "lucide-react";
 
 export const Sidebar: React.FC = () => {
@@ -20,9 +27,12 @@ export const Sidebar: React.FC = () => {
 
   const navigationItems = [
     { key: "nav.home", href: "/", icon: Home },
-    { key: "nav.travel", href: "/travel", icon: Plane },
-    { key: "nav.legal", href: "/legal", icon: Scale },
-    { key: "nav.digital", href: "/digital", icon: Monitor },
+    { key: "nav.directory", href: "/directory", icon: Building2 },
+    { key: "nav.payments", href: "/payments", icon: CreditCard },
+    { key: "nav.ads", href: "/ads", icon: Monitor },
+    { key: "nav.videos", href: "/videos", icon: Video },
+    { key: "nav.realestate", href: "/real-estate", icon: HomeIcon },
+    { key: "nav.weather", href: "/weather", icon: Cloud },
   ];
 
   const regionItems = [
