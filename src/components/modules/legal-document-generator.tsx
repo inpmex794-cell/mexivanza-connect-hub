@@ -81,7 +81,7 @@ export const LegalDocumentGeneratorModule: React.FC = () => {
 
   const handleGenerate = async () => {
     if (!user) {
-      toast.error("Debes iniciar sesión para generar documentos");
+      toast.error(t("legal.login_required", "You must log in to generate documents"));
       return;
     }
 
@@ -104,11 +104,11 @@ export const LegalDocumentGeneratorModule: React.FC = () => {
 
       if (error) throw error;
 
-      toast.success("Documento generado exitosamente");
+      toast.success(t("legal.generate_success", "Document generated successfully"));
       generatePreview();
     } catch (error) {
       console.error('Error generating document:', error);
-      toast.error("Error al generar el documento");
+      toast.error(t("legal.generate_error", "Error generating document"));
     } finally {
       setGenerating(false);
     }

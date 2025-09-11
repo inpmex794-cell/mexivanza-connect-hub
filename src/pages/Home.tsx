@@ -308,8 +308,8 @@ export const Home: React.FC = () => {
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
                     <Building className="mr-3 h-4 w-4 text-primary" />
                     <div className="text-left">
-                      <div className="font-medium">Inmobiliaria</div>
-                      <div className="text-xs text-muted-foreground">+500 propiedades</div>
+                      <div className="font-medium">{t("real_estate.inmobiliaria", "Real Estate")}</div>
+                      <div className="text-xs text-muted-foreground">+500 {t("services.realestate_desc", "properties")}</div>
                     </div>
                   </Button>
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
@@ -408,7 +408,7 @@ export const Home: React.FC = () => {
                           className="bg-[#25D366] hover:bg-[#25D366]/90 text-white px-4 sm:px-6 py-3 text-sm sm:text-base"
                         >
                           <MessageSquare className="mr-2 h-4 w-4 flex-shrink-0" />
-                          <span className="truncate">Contactar WhatsApp</span>
+                          <span className="truncate">{t("button.contact_whatsapp", "Contact WhatsApp")}</span>
                         </WhatsAppButton>
                         <Button variant="outline" className="px-4 sm:px-6 py-3 text-sm sm:text-base">
                           <span className="truncate">{t("button.view_services", "Ver Servicios")}</span>
@@ -427,11 +427,11 @@ export const Home: React.FC = () => {
                         </Button>
                         <Button size="sm" variant="ghost" className="hover:bg-accent">
                           <Share className="mr-2 h-4 w-4" />
-                          Compartir
+                          {t("button.share", "Share")}
                         </Button>
                       </div>
                       <Badge className="bg-primary text-primary-foreground px-3 py-1">
-                        Destacado
+                        {t("button.featured", "Featured")}
                       </Badge>
                     </div>
                   </div>
@@ -749,12 +749,12 @@ export const Home: React.FC = () => {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Empresa</h3>
+              <h3 className="font-semibold text-foreground mb-3">{t("footer.companies", "Companies")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Acerca de</li>
-                <li>Contacto</li>
-                <li>Carreras</li>
-                <li>Blog</li>
+                <li>{t("footer.about", "About")}</li>
+                <li>{t("footer.contact", "Contact")}</li>
+                <li>{t("footer.careers", "Careers")}</li>
+                <li>{t("footer.blog", "Blog")}</li>
               </ul>
             </div>
             <div>

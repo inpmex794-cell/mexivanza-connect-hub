@@ -262,6 +262,13 @@ const translations = {
     "video.required_fields": "Título y URL del video son requeridos",
     "video.upload_success": "Video subido exitosamente",
     "video.upload_error": "Error al subir el video",
+    // Additional toast messages
+    "legal.login_required": "Debes iniciar sesión para generar documentos",
+    "legal.generate_success": "Documento generado exitosamente",
+    "legal.generate_error": "Error al generar el documento",
+    "trademark.login_required": "Debes iniciar sesión para registrar una marca",
+    "trademark.submit_success": "Solicitud de marca registrada exitosamente",
+    "trademark.submit_error": "Error al enviar la solicitud",
     // Footer companies section
     "footer.companies": "Empresas",
     "footer.about": "Acerca de",
@@ -569,6 +576,13 @@ const translations = {
     "video.required_fields": "Title and video URL are required",
     "video.upload_success": "Video uploaded successfully",
     "video.upload_error": "Error uploading video",
+    // Additional toast messages  
+    "legal.login_required": "You must log in to generate documents",
+    "legal.generate_success": "Document generated successfully",
+    "legal.generate_error": "Error generating document",
+    "trademark.login_required": "You must log in to register a trademark",
+    "trademark.submit_success": "Trademark application submitted successfully",
+    "trademark.submit_error": "Error submitting application",
     // Footer companies section
     "footer.companies": "Companies",
     "footer.about": "About",

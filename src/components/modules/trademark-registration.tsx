@@ -51,7 +51,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
     e.preventDefault();
     
     if (!user) {
-      toast.error("Debes iniciar sesión para registrar una marca");
+      toast.error(t("trademark.login_required", "You must log in to register a trademark"));
       return;
     }
 
@@ -82,11 +82,11 @@ export const TrademarkRegistrationModule: React.FC = () => {
 
       if (error) throw error;
 
-      toast.success("Solicitud de marca registrada exitosamente");
+      toast.success(t("trademark.submit_success", "Trademark application submitted successfully"));
       setStep(3);
     } catch (error) {
       console.error('Error submitting trademark application:', error);
-      toast.error("Error al enviar la solicitud");
+      toast.error(t("trademark.submit_error", "Error submitting application"));
     } finally {
       setSubmitting(false);
     }
