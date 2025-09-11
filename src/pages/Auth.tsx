@@ -91,19 +91,19 @@ export const Auth: React.FC = () => {
               {authType === "login" ? (
                 <>
                   <LogIn className="inline mr-2 h-5 w-5" />
-                  Iniciar Sesión
+                  <span className="break-words">Login / Iniciar Sesión</span>
                 </>
               ) : (
                 <>
                   <UserPlus className="inline mr-2 h-5 w-5" />
-                  Crear Cuenta
+                  <span className="break-words">Register / Crear Cuenta</span>
                 </>
               )}
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="break-words">
               {authType === "login" 
-                ? "Accede a tu cuenta de Mexivanza"
-                : "Únete a la plataforma Mexivanza"
+                ? "Access your Mexivanza account / Accede a tu cuenta de Mexivanza"
+                : "Join the Mexivanza platform / Únete a la plataforma Mexivanza"
               }
             </CardDescription>
           </CardHeader>

@@ -84,17 +84,21 @@ export const Header: React.FC = () => {
                 variant="ghost" 
                 size="sm"
                 onClick={() => handleAuthClick("login")}
+                className="whitespace-nowrap overflow-hidden text-ellipsis min-w-0 max-w-[120px] sm:max-w-none"
               >
-                <LogIn className="mr-2 h-4 w-4" />
-                {t("nav.login")}
+                <LogIn className="mr-1 h-4 w-4 flex-shrink-0" />
+                <span className="hidden sm:inline">{t("auth.login_full", "Login / Iniciar sesión")}</span>
+                <span className="sm:hidden">{t("nav.login", "Login")}</span>
               </Button>
               <Button 
                 variant="facebook" 
                 size="sm"
                 onClick={() => handleAuthClick("register")}
+                className="whitespace-nowrap overflow-hidden text-ellipsis min-w-0 max-w-[130px] sm:max-w-none"
               >
-                <UserPlus className="mr-2 h-4 w-4" />
-                {t("nav.register")}
+                <UserPlus className="mr-1 h-4 w-4 flex-shrink-0" />
+                <span className="hidden sm:inline">{t("auth.register_full", "Register / Registrarse")}</span>
+                <span className="sm:hidden">{t("nav.register", "Register")}</span>
               </Button>
             </>
           )}
@@ -184,8 +188,8 @@ export const Header: React.FC = () => {
                     setIsMenuOpen(false);
                   }}
                 >
-                  <LogIn className="mr-2 h-4 w-4" />
-                  {t("nav.login")}
+                  <LogIn className="mr-2 h-4 w-4 flex-shrink-0" />
+                  <span className="truncate">{t("auth.login_full", "Login / Iniciar sesión")}</span>
                 </Button>
                 <Button 
                   variant="facebook" 
@@ -195,8 +199,8 @@ export const Header: React.FC = () => {
                     setIsMenuOpen(false);
                   }}
                 >
-                  <UserPlus className="mr-2 h-4 w-4" />
-                  {t("nav.register")}
+                  <UserPlus className="mr-2 h-4 w-4 flex-shrink-0" />
+                  <span className="truncate">{t("auth.register_full", "Register / Registrarse")}</span>
                 </Button>
               </>
             )}
