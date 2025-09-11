@@ -222,7 +222,7 @@ export const Auth: React.FC = () => {
               </div>
               
               <p className="text-xs text-muted-foreground text-center mt-2">
-                💡 Create your own account or use mexivanza@mexivanza.com for full demo access
+                💡 <strong>First time?</strong> Click "Quick Setup Admin Account" then "Create Account" to register the admin user
               </p>
             </div>
           </CardContent>
