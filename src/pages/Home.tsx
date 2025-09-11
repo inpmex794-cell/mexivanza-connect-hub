@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/hooks/use-language";
+import { useReactiveContent } from "@/hooks/use-reactive-content";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -57,7 +58,7 @@ import { toast } from "sonner";
 import heroImage from "@/assets/hero-mexico.jpg";
 
 export const Home: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t, language } = useReactiveContent(); // Use reactive content hook
   const { user, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
   const [posts, setPosts] = useState<any[]>([]);
@@ -100,10 +101,18 @@ export const Home: React.FC = () => {
     }
   ];
 
-  // Fetch posts
+  // Fetch posts and listen for language changes
   useEffect(() => {
     fetchPosts();
-  }, []);
+    
+    // Listen for language change events
+    const handleLanguageChange = () => {
+      fetchPosts(); // Refetch posts to get them in the correct language context
+    };
+    
+    window.addEventListener('languageChanged', handleLanguageChange);
+    return () => window.removeEventListener('languageChanged', handleLanguageChange);
+  }, [language]); // Add language as dependency
 
   const fetchPosts = async () => {
     try {
@@ -221,7 +230,7 @@ export const Home: React.FC = () => {
 
       if (error) throw error;
 
-      toast.success("Post creado exitosamente");
+      toast.success(t("post.created_success", "Post creado exitosamente"));
       setNewPost({ title: "", content: "", category: "News" });
       setShowPostForm(false);
       fetchPosts();
@@ -233,7 +242,7 @@ export const Home: React.FC = () => {
 
   const handleLogout = async () => {
     await signOut();
-    toast.success("Sesión cerrada exitosamente");
+    toast.success(t("auth.logout_success", "Sesión cerrada exitosamente"));
     navigate('/');
   };
 

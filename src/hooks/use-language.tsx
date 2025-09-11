@@ -13,6 +13,10 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 // Basic translations - can be expanded
 const translations = {
   es: {
+    // Site metadata
+    "site.title": "Mexivanza - Servicios Integrales para México",
+    "site.description": "Viajes, servicios legales y soluciones digitales en todo México",
+    // Navigation
     "nav.home": "Inicio",
     "nav.travel": "Viajes",
     "nav.legal": "Legal",
@@ -29,6 +33,9 @@ const translations = {
     "auth.login": "Iniciar Sesión",
     "auth.register": "Registrarse",
     "auth.email": "Correo Electrónico",
+    "auth.logout_success": "Sesión cerrada exitosamente",
+    "post.created_success": "Post creado exitosamente",
+    "content.updated": "Contenido actualizado",
     "auth.password": "Contraseña",
     "auth.forgot_password": "¿Olvidaste tu contraseña?",
     "auth.no_account": "¿No tienes cuenta?",
@@ -144,6 +151,10 @@ const translations = {
     "verified.manage_account": "Gestionar tu cuenta"
   },
   en: {
+    // Site metadata
+    "site.title": "Mexivanza - Comprehensive Services for Mexico",
+    "site.description": "Travel, legal services, and digital solutions throughout Mexico",
+    // Navigation
     "nav.home": "Home",
     "nav.travel": "Travel",
     "nav.legal": "Legal",
@@ -158,6 +169,9 @@ const translations = {
     "hero.cta": "Get Started",
     "hero.description": "Connecting Mexico with world-class solutions",
     "auth.login": "Login",
+    "auth.logout_success": "Logout successful",
+    "post.created_success": "Post created successfully", 
+    "content.updated": "Content updated",
     "auth.register": "Register",
     "auth.email": "Email",
     "auth.password": "Password",
@@ -286,11 +300,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, []);
 
-  const handleSetLanguage = (lang: Language) => {
-    setLanguage(lang);
-    localStorage.setItem("mexivanza-language", lang);
-  };
-
   const t = (key: string, fallback?: string): string => {
     const keys = key.split('.');
     let value: any = translations[language];
@@ -300,6 +309,55 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
     
     return value || fallback || key;
+  };
+
+  // Update document metadata when language changes
+  useEffect(() => {
+    const updateMetadata = () => {
+      // Update document title
+      document.title = t("site.title", "Mexivanza - Servicios Integrales para México");
+      
+      // Update meta description
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute('content', t("site.description", "Viajes, servicios legales y soluciones digitales en todo México"));
+      } else {
+        const meta = document.createElement('meta');
+        meta.name = 'description';
+        meta.content = t("site.description", "Viajes, servicios legales y soluciones digitales en todo México");
+        document.head.appendChild(meta);
+      }
+
+      // Update lang attribute
+      document.documentElement.lang = language;
+      
+      // Update Open Graph tags
+      const updateOrCreateMeta = (property: string, content: string) => {
+        let meta = document.querySelector(`meta[property="${property}"]`);
+        if (meta) {
+          meta.setAttribute('content', content);
+        } else {
+          meta = document.createElement('meta');
+          meta.setAttribute('property', property);
+          meta.setAttribute('content', content);
+          document.head.appendChild(meta);
+        }
+      };
+
+      updateOrCreateMeta('og:title', t("site.title", "Mexivanza - Servicios Integrales para México"));
+      updateOrCreateMeta('og:description', t("site.description", "Viajes, servicios legales y soluciones digitales en todo México"));
+      updateOrCreateMeta('og:locale', language === 'es' ? 'es_MX' : 'en_US');
+    };
+
+    updateMetadata();
+  }, [language, t]);
+
+  const handleSetLanguage = (lang: Language) => {
+    setLanguage(lang);
+    localStorage.setItem("mexivanza-language", lang);
+    
+    // Trigger a custom event for components that need to react to language changes
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
   };
 
   return (
