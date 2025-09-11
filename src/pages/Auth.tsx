@@ -178,11 +178,25 @@ export const Auth: React.FC = () => {
               <div className="p-4 bg-gradient-to-r from-red-50 to-red-100 dark:from-red-950 dark:to-red-900 rounded-lg border border-red-200 dark:border-red-800">
                 <div className="flex items-center gap-2 mb-2">
                   <Shield className="h-4 w-4 text-red-600" />
-                  <span className="text-sm font-semibold text-red-800 dark:text-red-200">Admin Access</span>
+                  <span className="text-sm font-semibold text-red-800 dark:text-red-200">Admin Demo Account</span>
                 </div>
-                <p className="text-xs text-red-700 dark:text-red-300">
-                  <strong>mexivanza@mexivanza.com</strong> - Full administrative access to all platform features
-                </p>
+                <div className="text-xs text-red-700 dark:text-red-300 space-y-1">
+                  <p><strong>Email:</strong> mexivanza@mexivanza.com</p>
+                  <p><strong>Password:</strong> TestAdmin2025!</p>
+                  <p className="text-xs opacity-75">Full administrative access to all platform features</p>
+                </div>
+                <Button 
+                  variant="secondary" 
+                  size="sm" 
+                  className="mt-2 w-full text-xs"
+                  onClick={() => {
+                    setEmail('mexivanza@mexivanza.com');
+                    setPassword('TestAdmin2025!');
+                    setAuthType('register');
+                  }}
+                >
+                  Quick Setup Admin Account
+                </Button>
               </div>
               
               <div className="grid grid-cols-1 gap-3">
