@@ -258,6 +258,11 @@ const translations = {
     "video.upload_button": "Subir Video",
     "video.uploading": "Subiendo...",
     "video.video_url": "URL del video (YouTube, Vimeo, etc.)",
+    // Weather translations
+    "weather.today": "Hoy",
+    "weather.tomorrow": "Mañana", 
+    "weather.day_after": "Pasado mañana",
+    "weather.uv_alert": "Índice UV alto. Use protector solar.",
     "video.login_required": "Debes iniciar sesión para subir videos",
     "video.required_fields": "Título y URL del video son requeridos",
     "video.upload_success": "Video subido exitosamente",
@@ -572,6 +577,11 @@ const translations = {
     "video.upload_button": "Upload Video",
     "video.uploading": "Uploading...",
     "video.video_url": "Video URL (YouTube, Vimeo, etc.)",
+    // Weather translations  
+    "weather.today": "Today",
+    "weather.tomorrow": "Tomorrow",
+    "weather.day_after": "Day after",
+    "weather.uv_alert": "High UV index. Use sunscreen.",
     "video.login_required": "You must log in to upload videos",
     "video.required_fields": "Title and video URL are required",
     "video.upload_success": "Video uploaded successfully",

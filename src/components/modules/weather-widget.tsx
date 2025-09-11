@@ -59,16 +59,14 @@ export const WeatherWidget: React.FC = () => {
         visibility: 10,
         uvIndex: 6,
         forecast: [
-          { day: language === 'es' ? 'Hoy' : 'Today', high: 25, low: 18, condition: 'sunny' },
-          { day: language === 'es' ? 'Mañana' : 'Tomorrow', high: 23, low: 16, condition: 'cloudy' },
-          { day: language === 'es' ? 'Pasado mañana' : 'Day after', high: 26, low: 19, condition: 'partly-cloudy' }
+          { day: t("weather.today", "Today"), high: 25, low: 18, condition: 'sunny' },
+          { day: t("weather.tomorrow", "Tomorrow"), high: 23, low: 16, condition: 'cloudy' },
+          { day: t("weather.day_after", "Day after"), high: 26, low: 19, condition: 'partly-cloudy' }
         ],
         alerts: [
           {
             type: 'uv',
-            description: language === 'es' 
-              ? 'Índice UV alto. Use protector solar.'
-              : 'High UV index. Use sunscreen.'
+            description: t("weather.uv_alert", "High UV index. Use sunscreen.")
           }
         ]
       });
