@@ -2,60 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Mexivanza Design System - Facebook-inspired clean interface */
+/* Mexivanza Design System - Modern social platform */
 
 @layer base {
   :root {
-    /* Facebook-inspired clean palette */
+    /* Modern neutral palette with depth */
     --background: 0 0% 98%;
-    --foreground: 210 10% 15%;
+    --foreground: 220 13% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 10% 15%;
+    --card-foreground: 220 13% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 10% 15%;
+    --popover-foreground: 220 13% 13%;
 
-    /* Facebook blue primary */
-    --primary: 220 100% 50%;
+    /* Modern blue primary with variants */
+    --primary: 220 91% 55%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 220 100% 45%;
+    --primary-hover: 220 91% 50%;
+    --primary-light: 220 91% 95%;
 
-    /* Clean light secondary */
-    --secondary: 210 10% 96%;
-    --secondary-foreground: 210 10% 15%;
+    /* Sophisticated secondary */
+    --secondary: 220 13% 95%;
+    --secondary-foreground: 220 13% 13%;
 
-    /* Subtle muted tones */
-    --muted: 210 5% 94%;
-    --muted-foreground: 210 5% 45%;
+    /* Modern muted tones */
+    --muted: 220 13% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    /* Complementary accent */
-    --accent: 210 10% 96%;
-    --accent-foreground: 210 10% 15%;
+    /* Elegant accent */
+    --accent: 220 13% 95%;
+    --accent-foreground: 220 13% 13%;
 
-    /* Error red */
+    /* Status colors */
     --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
-
-    /* Success green */
-    --success: 120 60% 50%;
+    --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
 
-    /* Borders and inputs */
-    --border: 210 15% 85%;
-    --input: 210 15% 92%;
-    --ring: 220 100% 50%;
+    /* Modern borders and inputs */
+    --border: 220 13% 91%;
+    --input: 220 13% 95%;
+    --ring: 220 91% 55%;
 
-    /* Clean shadows */
-    --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-strong: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    /* Modern shadows with depth */
+    --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0 4px 12px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+    --shadow-strong: 0 12px 24px 0 rgba(0, 0, 0, 0.12), 0 4px 8px 0 rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 24px rgba(59, 130, 246, 0.15);
 
-    /* Smooth transitions */
-    --transition-smooth: all 0.2s ease-in-out;
-    --transition-fast: all 0.1s ease-in-out;
+    /* Modern gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(220, 91%, 55%) 0%, hsl(220, 91%, 65%) 100%);
+    --gradient-subtle: linear-gradient(135deg, hsl(220, 13%, 98%) 0%, hsl(220, 13%, 96%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(220, 13%, 99%) 100%);
 
-    --radius: 0.375rem;
+    /* Smooth modern transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 210 10% 15%;
@@ -68,47 +76,59 @@
   }
 
   .dark {
-    /* Dark theme Facebook-inspired */
-    --background: 220 15% 8%;
-    --foreground: 0 0% 95%;
+    /* Modern dark theme */
+    --background: 222 84% 5%;
+    --foreground: 210 40% 98%;
 
-    --card: 220 15% 12%;
-    --card-foreground: 0 0% 95%;
+    --card: 222 84% 8%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 220 15% 12%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 222 84% 8%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 220 100% 60%;
+    --primary: 220 91% 60%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 220 100% 55%;
+    --primary-hover: 220 91% 55%;
+    --primary-light: 220 91% 15%;
 
-    --secondary: 220 10% 18%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 220 10% 15%;
-    --muted-foreground: 220 5% 65%;
+    --muted: 217 33% 13%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 220 10% 18%;
-    --accent-foreground: 0 0% 95%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --success: 120 60% 50%;
+    --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
 
-    --border: 220 10% 22%;
-    --input: 220 10% 18%;
-    --ring: 220 100% 60%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
 
-    --sidebar-background: 220 15% 10%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 220 100% 60%;
+    --border: 217 33% 20%;
+    --input: 217 33% 17%;
+    --ring: 220 91% 60%;
+
+    --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --shadow-medium: 0 4px 12px 0 rgba(0, 0, 0, 0.3), 0 2px 4px 0 rgba(0, 0, 0, 0.15);
+    --shadow-strong: 0 12px 24px 0 rgba(0, 0, 0, 0.4), 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+    --gradient-primary: linear-gradient(135deg, hsl(220, 91%, 60%) 0%, hsl(220, 91%, 70%) 100%);
+    --gradient-subtle: linear-gradient(135deg, hsl(222, 84%, 6%) 0%, hsl(222, 84%, 8%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(222, 84%, 8%) 0%, hsl(222, 84%, 10%) 100%);
+
+    --sidebar-background: 222 84% 6%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 220 91% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 10% 15%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 220 10% 22%;
-    --sidebar-ring: 220 100% 60%;
+    --sidebar-accent: 217 33% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 20%;
+    --sidebar-ring: 220 91% 60%;
   }
 }
 
@@ -118,6 +138,20 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer components {
+  .modern-card {
+    @apply bg-gradient-to-br from-card to-card/90 backdrop-blur-sm border border-border/50 shadow-medium rounded-xl transition-all duration-300 hover:shadow-strong hover:border-border;
+  }
+  
+  .modern-button {
+    @apply bg-gradient-to-r from-primary to-primary-hover text-primary-foreground font-medium px-6 py-2.5 rounded-lg shadow-soft transition-all duration-200 hover:shadow-glow hover:scale-[1.02] active:scale-[0.98];
+  }
+  
+  .glass-effect {
+    @apply bg-card/80 backdrop-blur-md border border-border/30;
   }
 }

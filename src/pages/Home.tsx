@@ -115,20 +115,23 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-subtle">
       {/* Header */}
-      <header className="bg-card border-b border-border sticky top-0 z-50 shadow-soft">
-        <div className="max-w-6xl mx-auto px-4 py-3">
+      <header className="glass-effect sticky top-0 z-50 shadow-medium border-b border-border/30">
+        <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">M</span>
+            <div className="flex items-center space-x-4">
+              <div className="w-12 h-12 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-glow">
+                <span className="text-primary-foreground font-bold text-xl">M</span>
               </div>
-              <h1 className="text-xl font-bold text-foreground">Mexivanza</h1>
+              <div>
+                <h1 className="text-2xl font-bold text-foreground">Mexivanza</h1>
+                <p className="text-xs text-muted-foreground">AI Master Platform</p>
+              </div>
             </div>
             
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm">
+            <div className="flex items-center space-x-6">
+              <Button variant="ghost" size="sm" className="hover:bg-accent/50 transition-all duration-200">
                 <Languages className="h-4 w-4 mr-2" />
                 ES/EN
               </Button>
@@ -139,10 +142,10 @@ export const Home: React.FC = () => {
                     {isAdmin ? "Admin" : "Usuario"}
                   </Badge>
                   {isAdmin && (
-                    <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
+                    <Button asChild size="sm" className="modern-button">
                       <Link to="/admin-dashboard">
                         <Shield className="mr-2 h-4 w-4" />
-                        Admin
+                        Admin Dashboard
                       </Link>
                     </Button>
                   )}
@@ -155,10 +158,10 @@ export const Home: React.FC = () => {
                       Entrar
                     </Link>
                   </Button>
-                  <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
+                  <Button asChild size="sm" className="modern-button">
                     <Link to="/auth">
                       <UserPlus className="mr-2 h-4 w-4" />
-                      Registrar
+                      Únete
                     </Link>
                   </Button>
                 </div>
@@ -168,112 +171,126 @@ export const Home: React.FC = () => {
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto flex">
+      <div className="max-w-7xl mx-auto flex gap-6 px-6">
         {/* Left Sidebar - Navigation */}
-        <aside className="w-64 min-h-screen bg-card border-r border-border p-4">
+        <aside className="w-72 min-h-screen bg-card/50 backdrop-blur-sm border-r border-border/30 p-6 rounded-tr-2xl">
           <nav className="space-y-2">
-            <Button variant="ghost" className="w-full justify-start bg-accent text-primary">
+            <Button variant="ghost" className="w-full justify-start bg-primary-light text-primary font-medium rounded-xl py-3 h-auto">
               <HomeIcon className="mr-3 h-5 w-5" />
-              Inicio
+              <span className="text-base">Inicio</span>
             </Button>
             
             {user && (
-              <>
-                <Button asChild variant="ghost" className="w-full justify-start">
+              <div className="space-y-2">
+                <Button asChild variant="ghost" className="w-full justify-start hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
                   <Link to="/dashboard">
                     <User className="mr-3 h-5 w-5" />
-                    Dashboard
+                    <span className="text-base">Mi Perfil</span>
                   </Link>
                 </Button>
-                <Button variant="ghost" className="w-full justify-start">
+                <Button variant="ghost" className="w-full justify-start hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
                   <Settings className="mr-3 h-5 w-5" />
-                  Configuración
+                  <span className="text-base">Configuración</span>
                 </Button>
-                <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
+                <Button variant="ghost" className="w-full justify-start text-destructive hover:bg-destructive/10 rounded-xl py-3 h-auto transition-all duration-200" onClick={handleLogout}>
                   <LogOut className="mr-3 h-5 w-5" />
-                  Cerrar Sesión
+                  <span className="text-base">Cerrar Sesión</span>
                 </Button>
-              </>
+              </div>
             )}
           </nav>
 
           {/* Services Section */}
           <div className="mt-8">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-              Servicios
+            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+              Servicios Premium
             </h3>
-            <div className="space-y-2">
-              <Button variant="ghost" className="w-full justify-start text-sm">
-                <Plane className="mr-3 h-4 w-4" />
-                Viajes
+            <div className="space-y-3">
+              <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
+                <Plane className="mr-3 h-5 w-5 text-primary" />
+                <div className="text-left">
+                  <div className="font-medium">Paquetes de Viaje</div>
+                  <div className="text-xs text-muted-foreground">Experiencias únicas</div>
+                </div>
               </Button>
-              <Button variant="ghost" className="w-full justify-start text-sm">
-                <Scale className="mr-3 h-4 w-4" />
-                Legal
+              <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
+                <Scale className="mr-3 h-5 w-5 text-success" />
+                <div className="text-left">
+                  <div className="font-medium">Servicios Legales</div>
+                  <div className="text-xs text-muted-foreground">Asesoría profesional</div>
+                </div>
               </Button>
-              <Button variant="ghost" className="w-full justify-start text-sm">
-                <Building className="mr-3 h-4 w-4" />
-                Inmobiliaria
+              <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
+                <Building className="mr-3 h-5 w-5 text-primary" />
+                <div className="text-left">
+                  <div className="font-medium">Bienes Raíces</div>
+                  <div className="text-xs text-muted-foreground">Propiedades exclusivas</div>
+                </div>
               </Button>
-              <Button variant="ghost" className="w-full justify-start text-sm">
-                <Monitor className="mr-3 h-4 w-4" />
-                Desarrollo Web
+              <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
+                <Monitor className="mr-3 h-5 w-5 text-primary" />
+                <div className="text-left">
+                  <div className="font-medium">Desarrollo Web</div>
+                  <div className="text-xs text-muted-foreground">Soluciones digitales</div>
+                </div>
               </Button>
             </div>
           </div>
         </aside>
 
         {/* Center Feed */}
-        <main className="flex-1 min-h-screen bg-muted p-6">
-          <div className="max-w-2xl mx-auto space-y-6">
+        <main className="flex-1 min-h-screen p-6 max-w-2xl">
+          <div className="space-y-8 animate-fade-in">
             {/* Create Post Card */}
             {user && (
-              <Card className="shadow-soft border-border">
-                <CardContent className="p-4">
+              <Card className="modern-card">
+                <CardContent className="p-6">
                   {!showPostForm ? (
                     <Button 
                       onClick={() => setShowPostForm(true)}
                       variant="outline" 
-                      className="w-full justify-start"
+                      className="w-full justify-start h-14 text-muted-foreground hover:text-foreground hover:bg-accent/50 border-border/50 rounded-xl transition-all duration-200"
                     >
-                      <Plus className="mr-2 h-4 w-4" />
-                      ¿Qué tienes en mente?
+                      <Plus className="mr-3 h-5 w-5" />
+                      <span className="text-base">¿Qué quieres compartir hoy?</span>
                     </Button>
                   ) : (
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                       <Input
-                        placeholder="Título del post..."
+                        placeholder="Escribe un título atractivo..."
                         value={newPost.title}
                         onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                        className="text-lg font-medium border-0 border-b border-border rounded-none focus:ring-0 focus:border-primary px-0 py-3"
                       />
                       <Textarea
-                        placeholder="Escribe algo..."
+                        placeholder="Comparte tu historia..."
                         value={newPost.content}
                         onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-                        rows={3}
+                        rows={4}
+                        className="resize-none border-border/50 rounded-xl focus:border-primary"
                       />
                       <Select value={newPost.category} onValueChange={(value) => setNewPost({ ...newPost, category: value })}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Categoría" />
+                        <SelectTrigger className="rounded-xl border-border/50">
+                          <SelectValue placeholder="Selecciona una categoría" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="rounded-xl border-border/50 bg-card backdrop-blur-sm">
                           {categories.map((category) => (
-                            <SelectItem key={category} value={category}>
+                            <SelectItem key={category} value={category} className="rounded-lg">
                               {category}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-                      <div className="flex space-x-2">
-                        <Button onClick={handleCreatePost} size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
-                          Publicar
-                        </Button>
+                      <div className="flex justify-between items-center pt-4">
                         <Button 
                           onClick={() => setShowPostForm(false)} 
-                          variant="outline" 
-                          size="sm"
+                          variant="ghost" 
+                          className="text-muted-foreground hover:text-foreground"
                         >
                           Cancelar
+                        </Button>
+                        <Button onClick={handleCreatePost} className="modern-button">
+                          <span className="font-medium">Publicar</span>
                         </Button>
                       </div>
                     </div>
