@@ -10,8 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Gallery } from "@/components/ui/gallery";
-import { RightSidebar } from "@/components/layout/right-sidebar";
-import { Header } from "@/components/layout/header";
+import { MainLayout } from "@/components/layout/main-layout";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { AdminButton, EditButton } from "@/components/ui/admin-button";
 import { VideoStreamingModule } from "@/components/modules/video-streaming";
@@ -258,538 +257,287 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Use the proper Header component with language toggle */}
-      <Header />
-
-      {/* Main Layout - Three Column Structure */}
-      <div className="pt-16 min-h-screen bg-muted/30">
-        <div className="max-w-7xl mx-auto flex">
-          {/* Left Sidebar - Fixed Navigation */}
-          <aside className="w-64 bg-card border-r border-border fixed left-0 top-16 h-[calc(100vh-4rem)] overflow-y-auto shadow-sm">
-            <div className="p-4">
-              <nav className="space-y-2">
-                <Button variant="ghost" className="w-full justify-start bg-primary/10 text-primary font-medium rounded-lg">
-                  <HomeIcon className="mr-3 h-5 w-5" />
-                  Inicio
+    <MainLayout>
+      {/* Create Post Card */}
+      {user && (
+        <Card className="shadow-sm border-border bg-card hover:shadow-md transition-shadow duration-200 overflow-hidden">
+        <CardContent className="p-4 sm:p-6">
+          {!showPostForm ? (
+            <Button 
+              onClick={() => setShowPostForm(true)}
+              variant="outline" 
+              className="w-full justify-start h-12 text-muted-foreground hover:text-foreground hover:bg-accent border-dashed text-wrap"
+            >
+              <Plus className="mr-3 h-5 w-5 flex-shrink-0" />
+              <span className="text-sm sm:text-base truncate">¿Qué quieres compartir hoy?</span>
+            </Button>
+          ) : (
+            <div className="space-y-4">
+              <Input
+                placeholder="Título del post..."
+                value={newPost.title}
+                onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                className="text-base font-medium"
+              />
+              <Textarea
+                placeholder="Comparte tu experiencia..."
+                value={newPost.content}
+                onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+                rows={4}
+                className="resize-none"
+              />
+              <Select value={newPost.category} onValueChange={(value) => setNewPost({ ...newPost, category: value })}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder={t("form.select_category", "Selecciona una categoría")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <div className="flex justify-between items-center pt-2">
+                <Button 
+                  onClick={() => setShowPostForm(false)} 
+                  variant="ghost" 
+                  size="sm"
+                >
+                  Cancelar
                 </Button>
-                
-                {user && (
-                  <>
-                    <Button asChild variant="ghost" className="w-full justify-start hover:bg-accent rounded-lg">
-                      <Link to="/dashboard">
-                        <User className="mr-3 h-5 w-5" />
-                        Mi Dashboard
-                      </Link>
-                    </Button>
-                    <Button variant="ghost" className="w-full justify-start hover:bg-accent rounded-lg">
-                      <Settings className="mr-3 h-5 w-5" />
-                      Configuración
-                    </Button>
-                  </>
-                )}
-              </nav>
-
-              {/* Services Section */}
-              <div className="mt-6">
-                <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
-                  {language === 'en' ? 'Premium Services' : 'Servicios Premium'} | {t("services.premium", "Servicios Premium")}
-                </h3>
-                <div className="space-y-1">
-                  <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
-                    <Plane className="mr-3 h-4 w-4 text-primary" />
-                    <div className="text-left">
-                      <div className="font-medium">{t("services.travel", "Viajes")}</div>
-                      <div className="text-xs text-muted-foreground">{t("services.travel_desc", "Paquetes premium")}</div>
-                    </div>
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
-                    <Scale className="mr-3 h-4 w-4 text-success" />
-                    <div className="text-left">
-                      <div className="font-medium">{t("services.legal", "Legal")}</div>
-                      <div className="text-xs text-muted-foreground">{t("services.legal_desc", "Consulta gratuita")}</div>
-                    </div>
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
-                    <Building className="mr-3 h-4 w-4 text-primary" />
-                    <div className="text-left">
-                      <div className="font-medium">{t("real_estate.inmobiliaria", "Real Estate")}</div>
-                      <div className="text-xs text-muted-foreground">+500 {t("services.realestate_desc", "properties")}</div>
-                    </div>
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3" asChild>
-                    <Link to="/business-directory">
-                      <Users className="mr-3 h-4 w-4 text-success" />
-                      <div className="text-left">
-                        <div className="font-medium">{t("directory.title", "Directorio")}</div>
-                        <div className="text-xs text-muted-foreground">{t("directory.verified_businesses", "Negocios verificados")}</div>
-                      </div>
-                    </Link>
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
-                    <Monitor className="mr-3 h-4 w-4 text-primary" />
-                    <div className="text-left">
-                      <div className="font-medium">{t("services.webdev", "Desarrollo Web")}</div>
-                      <div className="text-xs text-muted-foreground">{t("services.webdev_desc", "Soluciones digitales")}</div>
-                    </div>
-                  </Button>
-                </div>
+                <Button onClick={handleCreatePost} size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground px-6">
+                  Publicar
+                </Button>
               </div>
             </div>
-          </aside>
+          )}
+        </CardContent>
+      </Card>
+      )}
 
-          {/* Center Feed - Main Content */}
-          <main className="flex-1 min-h-screen bg-background ml-64 mr-80 overflow-hidden">
-            <div className="max-w-2xl mx-auto p-4 sm:p-6 space-y-6 container-safe">
-              {/* Create Post Card */}
-              {user && (
-                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-shadow duration-200 overflow-hidden">
-                <CardContent className="p-4 sm:p-6">
-                  {!showPostForm ? (
-                    <Button 
-                      onClick={() => setShowPostForm(true)}
-                      variant="outline" 
-                      className="w-full justify-start h-12 text-muted-foreground hover:text-foreground hover:bg-accent border-dashed text-wrap"
-                    >
-                      <Plus className="mr-3 h-5 w-5 flex-shrink-0" />
-                      <span className="text-sm sm:text-base truncate">¿Qué quieres compartir hoy?</span>
-                    </Button>
-                  ) : (
-                    <div className="space-y-4">
-                      <Input
-                        placeholder="Título del post..."
-                        value={newPost.title}
-                        onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-                        className="text-base font-medium"
-                      />
-                      <Textarea
-                        placeholder="Comparte tu experiencia..."
-                        value={newPost.content}
-                        onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-                        rows={4}
-                        className="resize-none"
-                      />
-                      <Select value={newPost.category} onValueChange={(value) => setNewPost({ ...newPost, category: value })}>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder={t("form.select_category", "Selecciona una categoría")} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {categories.map((category) => (
-                            <SelectItem key={category} value={category}>
-                              {category}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <div className="flex justify-between items-center pt-2">
-                        <Button 
-                          onClick={() => setShowPostForm(false)} 
-                          variant="ghost" 
-                          size="sm"
-                        >
-                          Cancelar
-                        </Button>
-                        <Button onClick={handleCreatePost} size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground px-6">
-                          Publicar
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-              )}
-
-              {/* Hero Gallery Section */}
-              <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 overflow-hidden">
-                <CardContent className="p-0">
-                  <Gallery images={heroGallery} cols={3} className="mb-0" />
-                  <div className="p-4 sm:p-6">
-                    <div className="text-center space-y-4">
-                      <EditableContent 
-                        contentKey="hero-title"
-                        defaultValue={t("hero.title_default", "Plataforma Integral Mexivanza")}
-                        className="text-2xl sm:text-3xl font-bold text-foreground block overflow-wrap break-word"
-                      />
-                      <EditableContent 
-                        contentKey="hero-description"
-                        defaultValue={t("hero.description_default", "Servicios profesionales de viaje, legal, desarrollo web y bienes raíces. Conectando México con soluciones de primera clase.")}
-                        className="text-muted-foreground text-base sm:text-lg leading-relaxed block overflow-wrap break-word"
-                        multiline
-                      />
-                      <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-                        <WhatsAppButton
-                          message={t("whatsapp.general_inquiry", "¡Hola! Estoy interesado en los servicios de Mexivanza.")}
-                          className="bg-[#25D366] hover:bg-[#25D366]/90 text-white px-4 sm:px-6 py-3 text-sm sm:text-base"
-                        >
-                          <MessageSquare className="mr-2 h-4 w-4 flex-shrink-0" />
-                          <span className="truncate">{t("button.contact_whatsapp", "Contact WhatsApp")}</span>
-                        </WhatsAppButton>
-                        <Button variant="outline" className="px-4 sm:px-6 py-3 text-sm sm:text-base">
-                          <span className="truncate">{t("button.view_services", "Ver Servicios")}</span>
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
-                      <div className="flex items-center space-x-6">
-                        <Button size="sm" variant="ghost" className="hover:bg-accent">
-                          <Heart className="mr-2 h-4 w-4" />
-                          124
-                        </Button>
-                        <Button size="sm" variant="ghost" className="hover:bg-accent">
-                          <MessageSquare className="mr-2 h-4 w-4" />
-                          28
-                        </Button>
-                        <Button size="sm" variant="ghost" className="hover:bg-accent">
-                          <Share className="mr-2 h-4 w-4" />
-                          {t("button.share", "Share")}
-                        </Button>
-                      </div>
-                      <Badge className="bg-primary text-primary-foreground px-3 py-1">
-                        {t("button.featured", "Featured")}
-                      </Badge>
-                    </div>
-                  </div>
-                </CardContent>
-               </Card>
-
-              {/* Module Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group overflow-hidden">
-                  <CardContent className="p-4 sm:p-6">
-                    <div className="flex items-center gap-3 sm:gap-4 mb-4">
-                      <div className="p-2 sm:p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors flex-shrink-0">
-                        <Video className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="font-semibold text-foreground text-sm sm:text-base truncate">Video Streaming</h3>
-                        <p className="text-xs sm:text-sm text-muted-foreground truncate">Upload and share videos</p>
-                      </div>
-                    </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="w-full"
-                      onClick={() => document.getElementById('video-streaming')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      Open Video Hub
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                        <Gamepad2 className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground">Gaming Hub</h3>
-                        <p className="text-sm text-muted-foreground">Discover amazing games</p>
-                      </div>
-                    </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="w-full"
-                      onClick={() => document.getElementById('gaming-hub')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      Explore Games
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                        <BarChart3 className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground">Stock Market</h3>
-                        <p className="text-sm text-muted-foreground">Financial market data</p>
-                      </div>
-                    </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="w-full"
-                      onClick={() => document.getElementById('financial-dashboard')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      {t("button.view_market", "View Market")}
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                        <Shield className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground">{t("modules.verified_agents", "Verified Agents")}</h3>
-                        <p className="text-sm text-muted-foreground">Connect with professionals</p>
-                      </div>
-                    </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="w-full whitespace-nowrap overflow-hidden text-ellipsis"
-                      onClick={() => document.getElementById('verified-agents')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      <span className="truncate">{t("button.find_agents", "Find Agents")}</span>
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                        <Scale className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground">{t("modules.trademark_registration", "Trademark Registration")}</h3>
-                        <p className="text-sm text-muted-foreground">Register your brand</p>
-                      </div>
-                    </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="w-full whitespace-nowrap overflow-hidden text-ellipsis"
-                      onClick={() => document.getElementById('trademark-registration')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      <span className="truncate">{t("button.register_trademark", "Register Trademark")}</span>
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                        <FileText className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground">{t("legal.documents", "Legal Documents")}</h3>
-                        <p className="text-sm text-muted-foreground">{t("legal.documents_desc", "Generate legal docs")}</p>
-                      </div>
-                    </div>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="w-full"
-                      onClick={() => document.getElementById('legal-documents')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      {t("button.generate_documents", "Generate Documents")}
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Module Components */}
-              <div id="video-upload" className="mb-8">
-                <VideoUploadModule />
-              </div>
-              
-              <div id="video-streaming" className="mb-8">
-                <VideoStreamingModule />
-              </div>
-              
-              <div id="gaming-hub" className="mb-8">
-                <GamingHubModule />
-              </div>
-              
-              <div id="financial-dashboard" className="mb-8">
-                <FinancialDashboardModule />
-              </div>
-              
-              <div id="verified-agents" className="mb-8">
-                <VerifiedAgentsModule />
-              </div>
-
-              <div id="trademark-registration" className="mb-8">
-                <TrademarkRegistrationModule />
-              </div>
-
-              <div id="legal-documents" className="mb-8">
-                <LegalDocumentGeneratorModule />
-              </div>
-
-              {/* Posts Feed */}
-              {posts.map((post) => (
-                <Card key={post.id} className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200">
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <Avatar className="w-12 h-12">
-                        <AvatarImage src={post.profiles?.avatar_url} />
-                        <AvatarFallback className="bg-primary/10 text-primary font-semibold">
-                          {post.profiles?.name?.charAt(0) || 'U'}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <span className="font-semibold text-foreground text-base">
-                            {post.profiles?.name || 'Usuario'}
-                          </span>
-                          {post.category && (
-                            <Badge variant="secondary" className="text-xs px-2 py-1">
-                              {post.category}
-                            </Badge>
-                          )}
-                          <span className="text-sm text-muted-foreground flex items-center">
-                            <Clock className="inline h-3 w-3 mr-1" />
-                            {new Date(post.created_at).toLocaleDateString()}
-                          </span>
-                        </div>
-                        <h3 className="font-semibold mb-3 text-foreground text-lg">{post.title}</h3>
-                        <p className="text-muted-foreground mb-4 leading-relaxed">{post.content}</p>
-                        
-                        <div className="flex items-center space-x-6 pt-4 border-t border-border">
-                          <Button variant="ghost" size="sm" className="hover:bg-accent hover:text-primary">
-                            <Heart className="mr-2 h-4 w-4" />
-                            Me gusta
-                          </Button>
-                          <Button variant="ghost" size="sm" className="hover:bg-accent hover:text-primary">
-                            <MessageSquare className="mr-2 h-4 w-4" />
-                            Comentar
-                          </Button>
-                          <Button variant="ghost" size="sm" className="hover:bg-accent hover:text-primary">
-                            <Share className="mr-2 h-4 w-4" />
-                            Compartir
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </main>
-
-          {/* Right Sidebar - Fixed Contextual Modules */}
-          <div className="w-80 fixed right-0 top-16 h-[calc(100vh-4rem)] bg-card border-l border-border shadow-sm overflow-y-auto">
-            <RightSidebar />
-          </div>
-        </div>
-      </div>
-
-      {/* SEO Meta Tags */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "Mexivanza",
-          "description": t("company.description", "Plataforma integral de servicios profesionales en México"),
-          "url": "https://mexivanza.com",
-          "logo": "https://mexivanza.com/logo.png",
-          "sameAs": [
-            "https://wa.me/525555555555"
-          ],
-          "serviceArea": {
-            "@type": "Country",
-            "name": "Mexico"
-          },
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": t("services.catalog", "Servicios Mexivanza"),
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Paquetes de Viaje",
-                  "description": "Experiencias de viaje personalizadas en México"
-                }
-              },
-              {
-                "@type": "Offer", 
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": t("services.legal_consultation", "Servicios Legales"),
-                  "description": t("services.legal_consultation_desc", "Consultoría legal profesional")
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service", 
-                  "name": t("services.webdev_solutions", "Desarrollo Web"),
-                  "description": t("services.webdev_solutions_desc", "Soluciones digitales empresariales")
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Bienes Raíces", 
-                  "description": "Propiedades premium en México"
-                }
-              }
-            ]
-          }
-        })}
-      </script>
-
-      {/* Footer */}
-      <footer className="bg-card border-t border-border mt-12">
-        <div className="max-w-6xl mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold">M</span>
-                </div>
-                <EditableContent 
-                  contentKey="footer-brand"
-                  defaultValue="Mexivanza"
-                  className="font-bold text-foreground"
-                />
-              </div>
+      {/* Hero Gallery Section */}
+      <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 overflow-hidden">
+        <CardContent className="p-0">
+          <Gallery images={heroGallery} cols={3} className="mb-0" />
+          <div className="p-4 sm:p-6">
+            <div className="text-center space-y-4">
               <EditableContent 
-                contentKey="footer-description"
-                defaultValue={t("footer.description", "Plataforma integral de servicios para México")}
-                className="text-sm text-muted-foreground"
+                contentKey="hero-title"
+                defaultValue={t("hero.title_default", "Plataforma Integral Mexivanza")}
+                className="text-2xl sm:text-3xl font-bold text-foreground block overflow-wrap break-word"
+              />
+              <EditableContent 
+                contentKey="hero-description"
+                defaultValue={t("hero.description_default", "Servicios profesionales de viaje, legal, desarrollo web y bienes raíces. Conectando México con soluciones de primera clase.")}
+                className="text-muted-foreground text-base sm:text-lg leading-relaxed block overflow-wrap break-word"
                 multiline
               />
-            </div>
-            <div>
-              <h3 className="font-semibold text-foreground mb-3">{t("nav.services", "Servicios")}</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>{t("services.travel", "Viajes")}</li>
-                <li>{t("services.legal", "Legal")}</li>
-                <li>{t("services.realestate", "Bienes Raíces")}</li>
-                <li>{t("services.webdev", "Desarrollo Web")}</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-foreground mb-3">{t("footer.companies", "Companies")}</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>{t("footer.about", "About")}</li>
-                <li>{t("footer.contact", "Contact")}</li>
-                <li>{t("footer.careers", "Careers")}</li>
-                <li>{t("footer.blog", "Blog")}</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-foreground mb-3">{t("services.legal", "Legal")}</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Privacidad</li>
-                <li>Términos</li>
-                <li>Cookies</li>
-                <li>Soporte</li>
-              </ul>
+              <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+                <WhatsAppButton
+                  message={t("whatsapp.general_inquiry", "¡Hola! Estoy interesado en los servicios de Mexivanza.")}
+                  className="bg-[#25D366] hover:bg-[#25D366]/90 text-white px-4 sm:px-6 py-3 text-sm sm:text-base"
+                >
+                  <MessageSquare className="mr-2 h-4 w-4" />
+                  WhatsApp
+                </WhatsAppButton>
+                <Button asChild variant="outline" size="lg" className="px-4 sm:px-6 py-3 text-sm sm:text-base">
+                  <Link to="/travel/categories">
+                    <Plane className="mr-2 h-4 w-4" />
+                    {t("travel.explore_packages", "Explorar Paquetes")}
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="border-t border-border mt-8 pt-6 text-center text-sm text-muted-foreground">
-            <EditableContent 
-              contentKey="footer-copyright"
-              defaultValue="© 2024 Mexivanza. Todos los derechos reservados."
-              className=""
-            />
-          </div>
+        </CardContent>
+      </Card>
+
+      {/* Featured Services Overview */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 group">
+          <CardHeader className="pb-3">
+            <div className="flex items-center space-x-3">
+              <div className="bg-primary/10 p-2 rounded-lg">
+                <Plane className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <CardTitle className="text-lg font-semibold">{t("services.travel", "Servicios de Viaje")}</CardTitle>
+                <CardDescription className="text-sm">{t("services.travel_desc", "Paquetes y experiencias premium")}</CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <div className="flex flex-wrap gap-2 mb-4">
+              <Badge variant="secondary" className="text-xs">
+                <Plane className="mr-1 h-3 w-3" />
+                {t("travel.flights", "Vuelos")}
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                <Building className="mr-1 h-3 w-3" />
+                {t("travel.hotels", "Hoteles")}
+              </Badge>
+              <Badge variant="outline" className="text-xs">500+ {t("travel.packages", "paquetes")}</Badge>
+            </div>
+            <Button asChild variant="outline" size="sm" className="w-full">
+              <Link to="/travel/categories">
+                {t("button.explore", "Explorar")}
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 group">
+          <CardHeader className="pb-3">
+            <div className="flex items-center space-x-3">
+              <div className="bg-success/10 p-2 rounded-lg">
+                <Scale className="h-6 w-6 text-success" />
+              </div>
+              <div>
+                <CardTitle className="text-lg font-semibold">{t("services.legal", "Servicios Legales")}</CardTitle>
+                <CardDescription className="text-sm">{t("services.legal_desc", "Consultoría legal profesional")}</CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <div className="flex flex-wrap gap-2 mb-4">
+              <Badge variant="secondary" className="text-xs">
+                <FileText className="mr-1 h-3 w-3" />
+                {t("legal.documents", "Documentos")}
+              </Badge>
+              <Badge variant="outline" className="text-xs">
+                <Scale className="mr-1 h-3 w-3" />
+                {t("legal.consultation", "Consultoría")}
+              </Badge>
+              <Badge variant="outline" className="text-xs">{t("legal.free_consultation", "Consulta gratuita")}</Badge>
+            </div>
+            <Button variant="outline" size="sm" className="w-full">
+              {t("button.contact", "Contactar")}
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 group">
+          <CardHeader className="pb-3">
+            <div className="flex items-center space-x-3">
+              <div className="bg-primary/10 p-2 rounded-lg">
+                <Building className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <CardTitle className="text-lg font-semibold">{t("services.real_estate", "Bienes Raíces")}</CardTitle>
+                <CardDescription className="text-sm">{t("services.real_estate_desc", "Propiedades verificadas")}</CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <div className="flex flex-wrap gap-2 mb-4">
+              <Badge variant="secondary" className="text-xs">1000+ {t("real_estate.properties", "propiedades")}</Badge>
+              <Badge variant="outline" className="text-xs">
+                <Shield className="mr-1 h-3 w-3" />
+                {t("real_estate.verified", "Verificadas")}
+              </Badge>
+            </div>
+            <Button variant="outline" size="sm" className="w-full">
+              {t("button.explore", "Explorar")}
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 group">
+          <CardHeader className="pb-3">
+            <div className="flex items-center space-x-3">
+              <div className="bg-primary/10 p-2 rounded-lg">
+                <Monitor className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <CardTitle className="text-lg font-semibold">{t("services.web_development", "Desarrollo Web")}</CardTitle>
+                <CardDescription className="text-sm">{t("services.web_development_desc", "Sitios web profesionales")}</CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <div className="flex flex-wrap gap-2 mb-4">
+              <Badge variant="secondary" className="text-xs">
+                <Monitor className="mr-1 h-3 w-3" />
+                AI {t("web_dev.included", "incluido")}
+              </Badge>
+              <Badge variant="outline" className="text-xs">{t("web_dev.professional", "Profesional")}</Badge>
+            </div>
+            <Button variant="outline" size="sm" className="w-full">
+              {t("button.request_quote", "Solicitar Cotización")}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Service Modules */}
+      <div className="space-y-6">
+        <VideoStreamingModule />
+        <GamingHubModule />
+        <FinancialDashboardModule />
+        <VerifiedAgentsModule />
+        <VideoUploadModule />
+        <TrademarkRegistrationModule />
+        <LegalDocumentGeneratorModule />
+      </div>
+
+      {/* Posts Feed */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">{t("posts.recent_posts", "Posts Recientes")}</h2>
+          <Badge variant="outline">{posts.length} {t("posts.posts", "posts")}</Badge>
         </div>
-      </footer>
-    </div>
+        
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <Card key={post.id} className="shadow-sm border-border bg-card hover:shadow-md transition-shadow duration-200">
+              <CardHeader className="pb-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center space-x-3">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={post.profiles?.avatar_url} />
+                      <AvatarFallback>{post.profiles?.name?.[0] || 'U'}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <span className="font-medium text-sm">{post.profiles?.name || 'Usuario'}</span>
+                        <Badge variant="outline" className="text-xs">{post.category}</Badge>
+                      </div>
+                      <p className="text-xs text-muted-foreground">{new Date(post.created_at).toLocaleDateString()}</p>
+                    </div>
+                  </div>
+                </div>
+                <CardTitle className="text-lg font-semibold">{post.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <p className="text-muted-foreground mb-4 line-clamp-3">{post.content}</p>
+                <div className="flex items-center justify-between">
+                  <div className="flex space-x-4">
+                    <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground hover:text-primary">
+                      <Heart className="h-4 w-4 mr-1" />
+                      <span className="text-xs">Me gusta</span>
+                    </Button>
+                    <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground hover:text-primary">
+                      <MessageSquare className="h-4 w-4 mr-1" />
+                      <span className="text-xs">Comentar</span>
+                    </Button>
+                    <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground hover:text-primary">
+                      <Share className="h-4 w-4 mr-1" />
+                      <span className="text-xs">Compartir</span>
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          <Card className="shadow-sm border-border bg-card">
+            <CardContent className="p-8 text-center">
+              <p className="text-muted-foreground">{t("posts.no_posts", "No hay posts disponibles")}</p>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    </MainLayout>
   );
 };
