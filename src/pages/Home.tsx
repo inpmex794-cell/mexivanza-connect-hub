@@ -17,6 +17,9 @@ import { VideoStreamingModule } from "@/components/modules/video-streaming";
 import { GamingHubModule } from "@/components/modules/gaming-hub";
 import { FinancialDashboardModule } from "@/components/modules/financial-dashboard";
 import { VerifiedAgentsModule } from "@/components/modules/verified-agents-demo";
+import { VideoUploadModule } from "@/components/modules/video-upload";
+import { TrademarkRegistrationModule } from "@/components/modules/trademark-registration";
+import { LegalDocumentGeneratorModule } from "@/components/modules/legal-document-generator";
 import { 
   Home as HomeIcon,
   User,
@@ -45,7 +48,8 @@ import {
   X,
   Video,
   Gamepad2,
-  BarChart3
+  BarChart3,
+  FileText
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -69,7 +73,7 @@ export const Home: React.FC = () => {
 
   // Auto-redirect admin users to dashboard
   useEffect(() => {
-    if (user?.email === 'mexivanza@mexivanza.com' && isAdmin) {
+    if (user?.email === 'mexivanza@mexivanza.com' || isAdmin) {
       navigate('/admin-dashboard');
     }
   }, [user, isAdmin, navigate]);
@@ -420,7 +424,7 @@ export const Home: React.FC = () => {
                </Card>
 
               {/* Module Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
@@ -432,7 +436,12 @@ export const Home: React.FC = () => {
                         <p className="text-sm text-muted-foreground">Upload and share videos</p>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" className="w-full">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full"
+                      onClick={() => document.getElementById('video-streaming')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
                       Open Video Hub
                     </Button>
                   </CardContent>
@@ -449,7 +458,12 @@ export const Home: React.FC = () => {
                         <p className="text-sm text-muted-foreground">Discover amazing games</p>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" className="w-full">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full"
+                      onClick={() => document.getElementById('gaming-hub')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
                       Explore Games
                     </Button>
                   </CardContent>
@@ -466,7 +480,12 @@ export const Home: React.FC = () => {
                         <p className="text-sm text-muted-foreground">Financial market data</p>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" className="w-full">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full"
+                      onClick={() => document.getElementById('financial-dashboard')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
                       View Market
                     </Button>
                   </CardContent>
@@ -483,25 +502,89 @@ export const Home: React.FC = () => {
                         <p className="text-sm text-muted-foreground">Connect with professionals</p>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" className="w-full">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full"
+                      onClick={() => document.getElementById('verified-agents')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
                       Find Agents
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                        <Scale className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground">Trademark Registration</h3>
+                        <p className="text-sm text-muted-foreground">Register your brand</p>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full"
+                      onClick={() => document.getElementById('trademark-registration')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
+                      Register Trademark
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                        <FileText className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground">Legal Documents</h3>
+                        <p className="text-sm text-muted-foreground">Generate legal docs</p>
+                      </div>
+                    </div>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full"
+                      onClick={() => document.getElementById('legal-documents')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
+                      Generate Documents
                     </Button>
                   </CardContent>
                 </Card>
               </div>
 
               {/* Module Components */}
-              <div id="video-streaming">
+              <div id="video-upload" className="mb-8">
+                <VideoUploadModule />
+              </div>
+              
+              <div id="video-streaming" className="mb-8">
                 <VideoStreamingModule />
               </div>
-              <div id="gaming-hub">
+              
+              <div id="gaming-hub" className="mb-8">
                 <GamingHubModule />
               </div>
-              <div id="financial-dashboard">
+              
+              <div id="financial-dashboard" className="mb-8">
                 <FinancialDashboardModule />
               </div>
-              <div id="verified-agents">
+              
+              <div id="verified-agents" className="mb-8">
                 <VerifiedAgentsModule />
+              </div>
+
+              <div id="trademark-registration" className="mb-8">
+                <TrademarkRegistrationModule />
+              </div>
+
+              <div id="legal-documents" className="mb-8">
+                <LegalDocumentGeneratorModule />
               </div>
 
               {/* Posts Feed */}
