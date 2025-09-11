@@ -6,6 +6,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AdminAnalytics } from "@/components/dashboard/admin-analytics";
 import { UserManagement } from "@/components/dashboard/user-management";
 import { ContentModeration } from "@/components/dashboard/content-moderation";
+import { BusinessApproval } from "@/components/admin/business-approval";
+import { PaymentSettings } from "@/components/admin/payment-settings";
+import { VideoModeration } from "@/components/admin/video-moderation";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Navigate } from "react-router-dom";
@@ -65,7 +68,7 @@ export const AdminDashboard: React.FC = () => {
       {/* Main Dashboard Content */}
       <div className="max-w-7xl mx-auto p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="analytics" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               {t("admin.analytics", "Analytics")}
@@ -77,6 +80,10 @@ export const AdminDashboard: React.FC = () => {
             <TabsTrigger value="moderation" className="flex items-center gap-2">
               <UserCheck className="h-4 w-4" />
               {t("admin.moderation", "Moderation")}
+            </TabsTrigger>
+            <TabsTrigger value="business" className="flex items-center gap-2">
+              <Shield className="h-4 w-4" />
+              {t("admin.business", "Business")}
             </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="h-4 w-4" />
@@ -96,47 +103,74 @@ export const AdminDashboard: React.FC = () => {
             <ContentModeration />
           </TabsContent>
 
+          <TabsContent value="business">
+            <BusinessApproval />
+          </TabsContent>
+
           <TabsContent value="settings">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Settings className="h-5 w-5" />
-                  {t("admin.platform_settings", "Platform Settings")}
-                </CardTitle>
-                <CardDescription>
-                  {t("admin.configure_platform", "Configure platform-wide settings and preferences")}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <Card className="border-dashed">
-                    <CardContent className="pt-6 text-center">
-                      <Shield className="h-8 w-8 text-blue-500 mx-auto mb-4" />
-                      <h3 className="font-medium mb-2">{t("admin.security_settings", "Security Settings")}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        {t("admin.security_desc", "Manage authentication and security policies")}
-                      </p>
-                      <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm">
-                        {t("button.configure", "Configure")}
-                      </button>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card className="border-dashed">
-                    <CardContent className="pt-6 text-center">
-                      <BarChart3 className="h-8 w-8 text-green-500 mx-auto mb-4" />
-                      <h3 className="font-medium mb-2">{t("admin.payment_settings", "Payment Settings")}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        {t("admin.payment_desc", "Configure payment gateways and billing")}
-                      </p>
-                      <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm">
-                        {t("button.manage", "Manage")}
-                      </button>
-                    </CardContent>
-                  </Card>
-                </div>
-              </CardContent>
-            </Card>
+            <Tabs defaultValue="payment" className="space-y-4">
+              <TabsList>
+                <TabsTrigger value="payment" className="flex items-center gap-2">
+                  <BarChart3 className="h-4 w-4" />
+                  {t("admin.payment_settings", "Payment")}
+                </TabsTrigger>
+                <TabsTrigger value="video" className="flex items-center gap-2">
+                  <Shield className="h-4 w-4" />
+                  {t("admin.video_moderation", "Video")}
+                </TabsTrigger>
+                <TabsTrigger value="security" className="flex items-center gap-2">
+                  <Settings className="h-4 w-4" />
+                  {t("admin.security_settings", "Security")}
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="payment">
+                <PaymentSettings />
+              </TabsContent>
+
+              <TabsContent value="video">
+                <VideoModeration />
+              </TabsContent>
+
+              <TabsContent value="security">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Shield className="h-5 w-5" />
+                      {t("admin.security_settings", "Security Settings")}
+                    </CardTitle>
+                    <CardDescription>
+                      {t("admin.security_desc", "Manage platform security and access controls")}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <Card className="border-dashed">
+                        <CardContent className="pt-6 text-center">
+                          <Shield className="h-8 w-8 text-blue-500 mx-auto mb-4" />
+                          <h3 className="font-medium mb-2">{t("admin.rls_policies", "RLS Policies")}</h3>
+                          <p className="text-sm text-muted-foreground mb-4">
+                            {t("admin.rls_desc", "Row-level security policies active")}
+                          </p>
+                          <div className="text-green-600 text-sm">✓ {t("status.active", "Active")}</div>
+                        </CardContent>
+                      </Card>
+                      
+                      <Card className="border-dashed">
+                        <CardContent className="pt-6 text-center">
+                          <Settings className="h-8 w-8 text-green-500 mx-auto mb-4" />
+                          <h3 className="font-medium mb-2">{t("admin.auth_settings", "Authentication")}</h3>
+                          <p className="text-sm text-muted-foreground mb-4">
+                            {t("admin.auth_desc", "User authentication and session management")}
+                          </p>
+                          <div className="text-green-600 text-sm">✓ {t("status.configured", "Configured")}</div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
           </TabsContent>
         </Tabs>
       </div>
