@@ -2,18 +2,27 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLanguage } from "@/hooks/use-language";
-import { Menu, X } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
+import { Menu, X, LogOut, LogIn, UserPlus, Shield } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
+  const { user, isAdmin, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleAuthClick = (type: "login" | "register") => {
     navigate(`/auth?type=${type}`);
+  };
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/');
   };
 
   return (
@@ -47,20 +56,48 @@ export const Header: React.FC = () => {
             language={language}
             onLanguageChange={setLanguage}
           />
-          <Button 
-            variant="ghost" 
-            size="sm"
-            onClick={() => handleAuthClick("login")}
-          >
-            {t("nav.login")}
-          </Button>
-          <Button 
-            variant="facebook" 
-            size="sm"
-            onClick={() => handleAuthClick("register")}
-          >
-            {t("nav.register")}
-          </Button>
+          {user ? (
+            <div className="flex items-center space-x-3">
+              <Badge variant={isAdmin ? "default" : "secondary"} className="px-3 py-1">
+                {isAdmin ? t("dashboard.admin", "Admin") : t("dashboard.user", "User")}
+              </Badge>
+              {isAdmin && (
+                <Button asChild size="sm" variant="facebook">
+                  <Link to="/admin-dashboard">
+                    <Shield className="mr-2 h-4 w-4" />
+                    {t("nav.admin", "Admin Panel")}
+                  </Link>
+                </Button>
+              )}
+              <Avatar className="h-8 w-8">
+                <AvatarFallback className="text-xs">
+                  {user.email?.charAt(0).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <Button variant="ghost" size="sm" onClick={handleLogout}>
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
+          ) : (
+            <>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => handleAuthClick("login")}
+              >
+                <LogIn className="mr-2 h-4 w-4" />
+                {t("nav.login")}
+              </Button>
+              <Button 
+                variant="facebook" 
+                size="sm"
+                onClick={() => handleAuthClick("register")}
+              >
+                <UserPlus className="mr-2 h-4 w-4" />
+                {t("nav.register")}
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -100,26 +137,69 @@ export const Header: React.FC = () => {
               onLanguageChange={setLanguage}
               className="self-start"
             />
-            <Button 
-              variant="ghost" 
-              className="w-full justify-start"
-              onClick={() => {
-                handleAuthClick("login");
-                setIsMenuOpen(false);
-              }}
-            >
-              {t("nav.login")}
-            </Button>
-            <Button 
-              variant="facebook" 
-              className="w-full"
-              onClick={() => {
-                handleAuthClick("register");
-                setIsMenuOpen(false);
-              }}
-            >
-              {t("nav.register")}
-            </Button>
+            {user ? (
+              <>
+                <div className="flex items-center space-x-2 py-2">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="text-xs">
+                      {user.email?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <Badge variant={isAdmin ? "default" : "secondary"}>
+                    {isAdmin ? t("dashboard.admin", "Admin") : t("dashboard.user", "User")}
+                  </Badge>
+                </div>
+                {isAdmin && (
+                  <Button 
+                    variant="facebook" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      navigate("/admin-dashboard");
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <Shield className="mr-2 h-4 w-4" />
+                    {t("nav.admin", "Admin Panel")}
+                  </Button>
+                )}
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start text-destructive"
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  {t("dashboard.logout", "Logout")}
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button 
+                  variant="ghost" 
+                  className="w-full justify-start"
+                  onClick={() => {
+                    handleAuthClick("login");
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <LogIn className="mr-2 h-4 w-4" />
+                  {t("nav.login")}
+                </Button>
+                <Button 
+                  variant="facebook" 
+                  className="w-full"
+                  onClick={() => {
+                    handleAuthClick("register");
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  {t("nav.register")}
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>

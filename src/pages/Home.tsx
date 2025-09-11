@@ -10,7 +10,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Gallery } from "@/components/ui/gallery";
 import { RightSidebar } from "@/components/layout/right-sidebar";
+import { Header } from "@/components/layout/header";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
+import { AdminButton, EditButton } from "@/components/ui/admin-button";
 import { 
   Home as HomeIcon,
   User,
@@ -226,63 +228,8 @@ export const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Sticky Header */}
-      <header className="bg-card border-b border-border fixed top-0 left-0 right-0 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-sm">
-                <span className="text-primary-foreground font-bold text-lg">M</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">Mexivanza</h1>
-                <p className="text-xs text-muted-foreground">AI Master Platform</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="hover:bg-accent">
-                <Languages className="h-4 w-4 mr-2" />
-                ES/EN
-              </Button>
-              
-              {user ? (
-                <div className="flex items-center space-x-3">
-                  <Badge variant={isAdmin ? "default" : "secondary"} className="px-3 py-1">
-                    {isAdmin ? "Administrador" : "Usuario"}
-                  </Badge>
-                  {isAdmin && (
-                    <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-sm">
-                      <Link to="/admin-dashboard">
-                        <Shield className="mr-2 h-4 w-4" />
-                        Panel Admin
-                      </Link>
-                    </Button>
-                  )}
-                  <Button variant="ghost" size="sm" onClick={handleLogout} className="text-destructive hover:text-destructive">
-                    <LogOut className="h-4 w-4" />
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex items-center space-x-2">
-                  <Button asChild variant="outline" size="sm">
-                    <Link to="/auth">
-                      <LogIn className="mr-2 h-4 w-4" />
-                      Entrar
-                    </Link>
-                  </Button>
-                  <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-sm">
-                    <Link to="/auth">
-                      <UserPlus className="mr-2 h-4 w-4" />
-                      Registrar
-                    </Link>
-                  </Button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Use the proper Header component with language toggle */}
+      <Header />
 
       {/* Main Layout - Three Column Structure */}
       <div className="pt-16 min-h-screen bg-muted/30">
