@@ -782,6 +782,78 @@ export type Database = {
           },
         ]
       }
+      travel_bookings_categories: {
+        Row: {
+          availability: number | null
+          booking_window: Json | null
+          category: string
+          category_data: Json
+          created_at: string | null
+          created_by: string | null
+          description: Json | null
+          featured: boolean | null
+          gallery: Json | null
+          id: string
+          is_demo: boolean | null
+          is_published: boolean | null
+          location: string | null
+          price_amount: number | null
+          price_currency: string | null
+          provider_name: string | null
+          reviews: Json | null
+          scenario_tags: string[] | null
+          title: Json
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          availability?: number | null
+          booking_window?: Json | null
+          category: string
+          category_data?: Json
+          created_at?: string | null
+          created_by?: string | null
+          description?: Json | null
+          featured?: boolean | null
+          gallery?: Json | null
+          id?: string
+          is_demo?: boolean | null
+          is_published?: boolean | null
+          location?: string | null
+          price_amount?: number | null
+          price_currency?: string | null
+          provider_name?: string | null
+          reviews?: Json | null
+          scenario_tags?: string[] | null
+          title: Json
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          availability?: number | null
+          booking_window?: Json | null
+          category?: string
+          category_data?: Json
+          created_at?: string | null
+          created_by?: string | null
+          description?: Json | null
+          featured?: boolean | null
+          gallery?: Json | null
+          id?: string
+          is_demo?: boolean | null
+          is_published?: boolean | null
+          location?: string | null
+          price_amount?: number | null
+          price_currency?: string | null
+          provider_name?: string | null
+          reviews?: Json | null
+          scenario_tags?: string[] | null
+          title?: Json
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       travel_packages: {
         Row: {
           availability: number | null
@@ -919,6 +991,65 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      user_travel_bookings: {
+        Row: {
+          booking_data: Json
+          booking_dates: Json | null
+          booking_status: string | null
+          category: string
+          contact_info: Json
+          created_at: string | null
+          id: string
+          listing_id: string | null
+          payment_status: string | null
+          special_requests: string | null
+          stripe_session_id: string | null
+          total_amount: number | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          booking_data: Json
+          booking_dates?: Json | null
+          booking_status?: string | null
+          category: string
+          contact_info: Json
+          created_at?: string | null
+          id?: string
+          listing_id?: string | null
+          payment_status?: string | null
+          special_requests?: string | null
+          stripe_session_id?: string | null
+          total_amount?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          booking_data?: Json
+          booking_dates?: Json | null
+          booking_status?: string | null
+          category?: string
+          contact_info?: Json
+          created_at?: string | null
+          id?: string
+          listing_id?: string | null
+          payment_status?: string | null
+          special_requests?: string | null
+          stripe_session_id?: string | null
+          total_amount?: number | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_travel_bookings_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "travel_bookings_categories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       users: {
         Row: {
