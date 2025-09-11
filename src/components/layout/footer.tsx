@@ -38,9 +38,9 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="border-t bg-muted/30 mt-auto">
-      <div className="container mx-auto px-4 py-8 md:py-12 max-w-7xl">
+      <div className="container mx-auto px-6 py-12 md:py-16 max-w-7xl">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
           {/* Brand Section */}
           <div className="space-y-4 lg:space-y-6">
             <div className="flex items-center space-x-3">
@@ -80,10 +80,10 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Footer Bottom Section */}
-        <div className="border-t border-border mt-8 md:mt-12 pt-6 md:pt-8">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-8">
+        <div className="border-t border-border mt-12 md:mt-16 pt-8 md:pt-10">
+          <div className="flex flex-col lg:flex-row justify-between items-center lg:items-center gap-8 lg:gap-12">
             {/* Copyright */}
-            <div className="order-2 lg:order-1">
+            <div className="order-2 lg:order-1 text-center lg:text-left">
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {t("footer.copyright", "© 2024 Mexivanza. All rights reserved.")}
               </p>
@@ -91,7 +91,7 @@ export const Footer: React.FC = () => {
             
             {/* Legal Links */}
             <nav className="order-1 lg:order-2 w-full lg:w-auto">
-              <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-x-6 gap-y-3 text-sm">
+              <div className="flex flex-wrap justify-center lg:justify-end gap-x-8 gap-y-4 text-sm">
                 <Link 
                   to="/companies" 
                   className="text-muted-foreground hover:text-primary transition-colors hover:underline focus:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm overflow-wrap-anywhere word-break-break-word"
