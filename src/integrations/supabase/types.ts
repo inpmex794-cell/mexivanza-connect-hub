@@ -264,6 +264,7 @@ export type Database = {
           game_type: string | null
           id: string
           image_url: string | null
+          is_demo: boolean | null
           likes: number | null
           platform: string | null
           rating: number | null
@@ -279,6 +280,7 @@ export type Database = {
           game_type?: string | null
           id?: string
           image_url?: string | null
+          is_demo?: boolean | null
           likes?: number | null
           platform?: string | null
           rating?: number | null
@@ -294,6 +296,7 @@ export type Database = {
           game_type?: string | null
           id?: string
           image_url?: string | null
+          is_demo?: boolean | null
           likes?: number | null
           platform?: string | null
           rating?: number | null
@@ -616,6 +619,7 @@ export type Database = {
           features: Json | null
           id: string
           images: Json | null
+          is_demo: boolean | null
           location: string
           price: number
           property_type: string
@@ -637,6 +641,7 @@ export type Database = {
           features?: Json | null
           id?: string
           images?: Json | null
+          is_demo?: boolean | null
           location: string
           price: number
           property_type: string
@@ -658,6 +663,7 @@ export type Database = {
           features?: Json | null
           id?: string
           images?: Json | null
+          is_demo?: boolean | null
           location?: string
           price?: number
           property_type?: string
@@ -715,6 +721,7 @@ export type Database = {
           description: Json
           gallery: Json | null
           id: string
+          is_demo: boolean | null
           is_published: boolean | null
           itinerary: Json | null
           pricing_tiers: Json | null
@@ -727,6 +734,7 @@ export type Database = {
           description: Json
           gallery?: Json | null
           id?: string
+          is_demo?: boolean | null
           is_published?: boolean | null
           itinerary?: Json | null
           pricing_tiers?: Json | null
@@ -739,6 +747,7 @@ export type Database = {
           description?: Json
           gallery?: Json | null
           id?: string
+          is_demo?: boolean | null
           is_published?: boolean | null
           itinerary?: Json | null
           pricing_tiers?: Json | null
@@ -758,6 +767,7 @@ export type Database = {
           id: string
           images: Json | null
           is_ad: boolean | null
+          is_demo: boolean | null
           language: string | null
           scenario_tags: string[] | null
           title: string
@@ -775,6 +785,7 @@ export type Database = {
           id?: string
           images?: Json | null
           is_ad?: boolean | null
+          is_demo?: boolean | null
           language?: string | null
           scenario_tags?: string[] | null
           title: string
@@ -792,6 +803,7 @@ export type Database = {
           id?: string
           images?: Json | null
           is_ad?: boolean | null
+          is_demo?: boolean | null
           language?: string | null
           scenario_tags?: string[] | null
           title?: string
@@ -858,6 +870,57 @@ export type Database = {
         }
         Relationships: []
       }
+      verified_agents: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          is_active: boolean | null
+          is_demo: boolean | null
+          license_number: string | null
+          name: string
+          phone: string | null
+          region: string
+          updated_at: string | null
+          user_id: string | null
+          verification_status: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_demo?: boolean | null
+          license_number?: string | null
+          name: string
+          phone?: string | null
+          region: string
+          updated_at?: string | null
+          user_id?: string | null
+          verification_status?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_demo?: boolean | null
+          license_number?: string | null
+          name?: string
+          phone?: string | null
+          region?: string
+          updated_at?: string | null
+          user_id?: string | null
+          verification_status?: string | null
+        }
+        Relationships: []
+      }
       video_content: {
         Row: {
           business_id: number | null
@@ -866,6 +929,7 @@ export type Database = {
           description: string | null
           duration: number | null
           id: string
+          is_demo: boolean | null
           is_live: boolean | null
           thumbnail_url: string | null
           title: string
@@ -881,6 +945,7 @@ export type Database = {
           description?: string | null
           duration?: number | null
           id?: string
+          is_demo?: boolean | null
           is_live?: boolean | null
           thumbnail_url?: string | null
           title: string
@@ -896,6 +961,7 @@ export type Database = {
           description?: string | null
           duration?: number | null
           id?: string
+          is_demo?: boolean | null
           is_live?: boolean | null
           thumbnail_url?: string | null
           title?: string
@@ -903,6 +969,42 @@ export type Database = {
           user_id?: string | null
           video_url?: string
           view_count?: number | null
+        }
+        Relationships: []
+      }
+      weather_data: {
+        Row: {
+          alerts: Json | null
+          coordinates: unknown | null
+          created_at: string | null
+          current_weather: Json
+          forecast: Json | null
+          id: string
+          language: string | null
+          last_updated: string | null
+          location: string
+        }
+        Insert: {
+          alerts?: Json | null
+          coordinates?: unknown | null
+          created_at?: string | null
+          current_weather: Json
+          forecast?: Json | null
+          id?: string
+          language?: string | null
+          last_updated?: string | null
+          location: string
+        }
+        Update: {
+          alerts?: Json | null
+          coordinates?: unknown | null
+          created_at?: string | null
+          current_weather?: Json
+          forecast?: Json | null
+          id?: string
+          language?: string | null
+          last_updated?: string | null
+          location?: string
         }
         Relationships: []
       }

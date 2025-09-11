@@ -1,5 +1,6 @@
 import React from "react";
 import { useLanguage } from "@/hooks/use-language";
+import { useAuth } from "@/hooks/use-auth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import {
 
 export const RightSidebar: React.FC = () => {
   const { t } = useLanguage();
+  const { user, isAdmin } = useAuth();
 
   const quickStats = [
     { label: t("stats.services", "Services"), value: "3", icon: TrendingUp },
