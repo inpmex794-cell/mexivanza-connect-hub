@@ -714,43 +714,129 @@ export type Database = {
         }
         Relationships: []
       }
+      travel_bookings: {
+        Row: {
+          booking_status: string | null
+          created_at: string | null
+          id: string
+          is_demo: boolean | null
+          number_of_travelers: number | null
+          package_id: string | null
+          payment_status: string | null
+          special_requests: string | null
+          stripe_session_id: string | null
+          total_amount: number | null
+          travel_end_date: string
+          travel_start_date: string
+          traveler_email: string
+          traveler_name: string
+          traveler_whatsapp: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          booking_status?: string | null
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          number_of_travelers?: number | null
+          package_id?: string | null
+          payment_status?: string | null
+          special_requests?: string | null
+          stripe_session_id?: string | null
+          total_amount?: number | null
+          travel_end_date: string
+          travel_start_date: string
+          traveler_email: string
+          traveler_name: string
+          traveler_whatsapp?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          booking_status?: string | null
+          created_at?: string | null
+          id?: string
+          is_demo?: boolean | null
+          number_of_travelers?: number | null
+          package_id?: string | null
+          payment_status?: string | null
+          special_requests?: string | null
+          stripe_session_id?: string | null
+          total_amount?: number | null
+          travel_end_date?: string
+          travel_start_date?: string
+          traveler_email?: string
+          traveler_name?: string
+          traveler_whatsapp?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "travel_bookings_package_id_fkey"
+            columns: ["package_id"]
+            isOneToOne: false
+            referencedRelation: "travel_packages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       travel_packages: {
         Row: {
+          availability: number | null
+          city: string | null
           created_at: string
           created_by: string | null
           description: Json
+          duration: number | null
+          featured: boolean | null
           gallery: Json | null
           id: string
           is_demo: boolean | null
           is_published: boolean | null
           itinerary: Json | null
           pricing_tiers: Json | null
+          region: string | null
+          scenario_tags: string[] | null
           title: Json
           updated_at: string
         }
         Insert: {
+          availability?: number | null
+          city?: string | null
           created_at?: string
           created_by?: string | null
           description: Json
+          duration?: number | null
+          featured?: boolean | null
           gallery?: Json | null
           id?: string
           is_demo?: boolean | null
           is_published?: boolean | null
           itinerary?: Json | null
           pricing_tiers?: Json | null
+          region?: string | null
+          scenario_tags?: string[] | null
           title: Json
           updated_at?: string
         }
         Update: {
+          availability?: number | null
+          city?: string | null
           created_at?: string
           created_by?: string | null
           description?: Json
+          duration?: number | null
+          featured?: boolean | null
           gallery?: Json | null
           id?: string
           is_demo?: boolean | null
           is_published?: boolean | null
           itinerary?: Json | null
           pricing_tiers?: Json | null
+          region?: string | null
+          scenario_tags?: string[] | null
           title?: Json
           updated_at?: string
         }
