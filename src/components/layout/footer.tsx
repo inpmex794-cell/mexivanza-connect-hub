@@ -78,14 +78,29 @@ export const Footer: React.FC = () => {
 
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            {t("footer.copyright", "© 2024 Mexivanza. Todos los derechos reservados.")}
+            {t("footer.copyright", "© 2024 Mexivanza. All rights reserved.")}
           </p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <Link to="/companies" className="text-muted-foreground hover:text-primary text-sm">
+              {t("footer.companies", "Companies")}
+            </Link>
+            <Link to="/about" className="text-muted-foreground hover:text-primary text-sm">
+              {t("footer.about", "About")}
+            </Link>
+            <Link to="/contact" className="text-muted-foreground hover:text-primary text-sm">
+              {t("footer.contact", "Contact")}
+            </Link>
+            <Link to="/careers" className="text-muted-foreground hover:text-primary text-sm">
+              {t("footer.careers", "Careers")}
+            </Link>
+            <Link to="/blog" className="text-muted-foreground hover:text-primary text-sm">
+              {t("footer.blog", "Blog")}
+            </Link>
             <Link to="/privacy" className="text-muted-foreground hover:text-primary text-sm">
-              {t("footer.privacy", "Política de Privacidad")}
+              {t("footer.privacy", "Privacy Policy")}
             </Link>
             <Link to="/terms" className="text-muted-foreground hover:text-primary text-sm">
-              {t("footer.terms", "Términos de Servicio")}
+              {t("footer.terms", "Terms of Service")}
             </Link>
           </div>
         </div>

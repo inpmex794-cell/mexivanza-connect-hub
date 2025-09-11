@@ -198,22 +198,22 @@ _____________________
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Gavel className="h-5 w-5" />
-            Generador de Documentos Legales
+            {t("legal.documents", "Legal Document Generator")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div>
-              <Label>{t("form.select", "Selecciona")} un Template</Label>
+              <Label>{t("legal.select_template", "Select a Template")}</Label>
               <Select onValueChange={handleTemplateSelect}>
                 <SelectTrigger>
-                  <SelectValue placeholder={t("form.select_option", "Elige el tipo de documento")} />
+                  <SelectValue placeholder={t("legal.select_template_placeholder", "Choose document type")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="service-contract">Contrato de Servicios</SelectItem>
-                  <SelectItem value="power-attorney">Poder Notarial</SelectItem>
-                  <SelectItem value="nda">Acuerdo de Confidencialidad</SelectItem>
-                  <SelectItem value="employment">Contrato Laboral</SelectItem>
+                  <SelectItem value="service-contract">{t("legal.service_contract", "Service Contract")}</SelectItem>
+                  <SelectItem value="power-attorney">{t("legal.power_attorney", "Power of Attorney")}</SelectItem>
+                  <SelectItem value="nda">{t("legal.nda", "Confidentiality Agreement")}</SelectItem>
+                  <SelectItem value="employment">{t("legal.employment", "Employment Contract")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -223,7 +223,7 @@ _____________________
                 {selectedTemplate.template_name === "Contrato de Servicios" && (
                   <>
                     <div>
-                      <Label htmlFor="client_name">{t("form.name", "Nombre")} del Cliente</Label>
+                      <Label htmlFor="client_name">{t("legal.client_name", "Client Name")}</Label>
                       <Input
                         id="client_name"
                         value={formData.client_name || ""}
@@ -231,7 +231,7 @@ _____________________
                       />
                     </div>
                     <div>
-                      <Label htmlFor="provider_name">{t("form.name", "Nombre")} del Proveedor</Label>
+                      <Label htmlFor="provider_name">{t("legal.provider_name", "Provider Name")}</Label>
                       <Input
                         id="provider_name"
                         value={formData.provider_name || ""}
@@ -239,7 +239,7 @@ _____________________
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <Label htmlFor="service_description">Descripción del Servicio</Label>
+                      <Label htmlFor="service_description">{t("legal.service_description", "Service Description")}</Label>
                       <Textarea
                         id="service_description"
                         value={formData.service_description || ""}
@@ -247,7 +247,7 @@ _____________________
                       />
                     </div>
                     <div>
-                      <Label htmlFor="amount">Monto</Label>
+                      <Label htmlFor="amount">{t("legal.amount", "Amount")}</Label>
                       <Input
                         id="amount"
                         value={formData.amount || ""}
@@ -255,7 +255,7 @@ _____________________
                       />
                     </div>
                     <div>
-                      <Label htmlFor="currency">Moneda</Label>
+                      <Label htmlFor="currency">{t("legal.currency", "Currency")}</Label>
                       <Input
                         id="currency"
                         value={formData.currency || "MXN"}
@@ -263,7 +263,7 @@ _____________________
                       />
                     </div>
                     <div>
-                      <Label htmlFor="start_date">Fecha de Inicio</Label>
+                      <Label htmlFor="start_date">{t("legal.start_date", "Start Date")}</Label>
                       <Input
                         id="start_date"
                         type="date"
@@ -272,7 +272,7 @@ _____________________
                       />
                     </div>
                     <div>
-                      <Label htmlFor="end_date">Fecha de Término</Label>
+                      <Label htmlFor="end_date">{t("legal.end_date", "End Date")}</Label>
                       <Input
                         id="end_date"
                         type="date"
@@ -286,7 +286,7 @@ _____________________
                 {selectedTemplate.template_name === "Poder Notarial" && (
                   <>
                     <div>
-                      <Label htmlFor="grantor_name">{t("form.name", "Nombre")} del Otorgante</Label>
+                      <Label htmlFor="grantor_name">{t("legal.grantor_name", "Grantor Name")}</Label>
                       <Input
                         id="grantor_name"
                         value={formData.grantor_name || ""}
@@ -294,7 +294,7 @@ _____________________
                       />
                     </div>
                     <div>
-                      <Label htmlFor="attorney_name">{t("form.name", "Nombre")} del Apoderado</Label>
+                      <Label htmlFor="attorney_name">{t("legal.attorney_name", "Attorney Name")}</Label>
                       <Input
                         id="attorney_name"
                         value={formData.attorney_name || ""}
@@ -302,7 +302,7 @@ _____________________
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <Label htmlFor="powers_granted">Facultades Otorgadas</Label>
+                      <Label htmlFor="powers_granted">{t("legal.powers_granted", "Powers Granted")}</Label>
                       <Textarea
                         id="powers_granted"
                         value={formData.powers_granted || ""}
@@ -317,10 +317,10 @@ _____________________
             <div className="flex gap-4">
               <Button onClick={generatePreview} disabled={!selectedTemplate}>
                 <Eye className="mr-2 h-4 w-4" />
-                Vista Previa
+                {t("legal.preview", "Preview")}
               </Button>
               <Button onClick={handleGenerate} disabled={generating || !selectedTemplate}>
-                {generating ? "Generando..." : "Generar Documento"}
+                {generating ? t("legal.generating", "Generating...") : t("legal.generate", "Generate Document")}
                 <FileText className="ml-2 h-4 w-4" />
               </Button>
             </div>
@@ -332,10 +332,10 @@ _____________________
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
-              Vista Previa del Documento
+              {t("legal.preview_title", "Document Preview")}
               <Button size="sm">
                 <Download className="h-4 w-4 mr-2" />
-                Descargar PDF
+                {t("legal.download_pdf", "Download PDF")}
               </Button>
             </CardTitle>
           </CardHeader>

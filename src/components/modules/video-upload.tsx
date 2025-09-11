@@ -33,12 +33,12 @@ export const VideoUploadModule: React.FC<VideoUploadProps> = ({ onUploadSuccess 
     e.preventDefault();
     
     if (!user) {
-      toast.error("Debes iniciar sesión para subir videos");
+      toast.error(t("video.login_required", "You must log in to upload videos"));
       return;
     }
 
     if (!videoData.title || !videoData.video_url) {
-      toast.error("Título y URL del video son requeridos");
+      toast.error(t("video.required_fields", "Title and video URL are required"));
       return;
     }
 
@@ -58,12 +58,12 @@ export const VideoUploadModule: React.FC<VideoUploadProps> = ({ onUploadSuccess 
 
       if (error) throw error;
 
-      toast.success("Video subido exitosamente");
+      toast.success(t("video.upload_success", "Video uploaded successfully"));
       setVideoData({ title: "", description: "", category: "", video_url: "" });
       onUploadSuccess?.();
     } catch (error) {
       console.error('Error uploading video:', error);
-      toast.error("Error al subir el video");
+      toast.error(t("video.upload_error", "Error uploading video"));
     } finally {
       setUploading(false);
     }
@@ -78,17 +78,17 @@ export const VideoUploadModule: React.FC<VideoUploadProps> = ({ onUploadSuccess 
 
   return (
     <Card className="w-full max-w-2xl mx-auto">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Upload className="h-5 w-5" />
-          Subir Video
-        </CardTitle>
-      </CardHeader>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Upload className="h-5 w-5" />
+            {t("video.upload_title", "Upload Video")}
+          </CardTitle>
+        </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Input
-              placeholder={t("form.title", "Título del video")}
+              placeholder={t("video.video_title", "Video Title")}
               value={videoData.title}
               onChange={(e) => setVideoData({ ...videoData, title: e.target.value })}
               required
@@ -97,7 +97,7 @@ export const VideoUploadModule: React.FC<VideoUploadProps> = ({ onUploadSuccess 
           
           <div>
             <Textarea
-              placeholder={t("form.description", "Descripción del video")}
+              placeholder={t("video.video_description", "Video Description")}
               value={videoData.description}
               onChange={(e) => setVideoData({ ...videoData, description: e.target.value })}
               rows={3}
@@ -107,21 +107,22 @@ export const VideoUploadModule: React.FC<VideoUploadProps> = ({ onUploadSuccess 
           <div>
             <Select value={videoData.category} onValueChange={(value) => setVideoData({ ...videoData, category: value })}>
               <SelectTrigger>
-                <SelectValue placeholder={t("form.select_category", "Selecciona una categoría")} />
+                <SelectValue placeholder={t("video.select_category", "Select a Category")} />
               </SelectTrigger>
               <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category} value={category}>
-                    {category}
-                  </SelectItem>
-                ))}
+                <SelectItem value="Travel">{t("video.travel", "Travel")}</SelectItem>
+                <SelectItem value="Legal">{t("nav.legal", "Legal")}</SelectItem>
+                <SelectItem value="Business">{t("video.business", "Business")}</SelectItem>
+                <SelectItem value="Technology">{t("nav.digital", "Digital")}</SelectItem>
+                <SelectItem value="Entertainment">{t("video.entertainment", "Entertainment")}</SelectItem>
+                <SelectItem value="Education">{t("video.education", "Education")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           
           <div>
             <Input
-              placeholder="URL del video (YouTube, Vimeo, etc.)"
+              placeholder={t("video.video_url", "Video URL (YouTube, Vimeo, etc.)")}
               value={videoData.video_url}
               onChange={(e) => setVideoData({ ...videoData, video_url: e.target.value })}
               required
@@ -144,7 +145,7 @@ export const VideoUploadModule: React.FC<VideoUploadProps> = ({ onUploadSuccess 
             disabled={uploading || !user}
             className="w-full"
           >
-            {uploading ? "Subiendo..." : "Subir Video"}
+            {uploading ? t("video.uploading", "Uploading...") : t("video.upload_button", "Upload Video")}
             <Video className="ml-2 h-4 w-4" />
           </Button>
         </form>

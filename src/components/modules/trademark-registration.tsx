@@ -97,10 +97,9 @@ export const TrademarkRegistrationModule: React.FC = () => {
       <Card className="w-full max-w-2xl mx-auto">
         <CardContent className="p-8 text-center">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-          <h3 className="text-2xl font-bold mb-2">¡Solicitud Enviada!</h3>
+          <h3 className="text-2xl font-bold mb-2">{t("trademark.success.title", "Application Submitted!")}</h3>
           <p className="text-muted-foreground mb-6">
-            Tu solicitud de registro de marca ha sido enviada exitosamente. 
-            Recibirás una confirmación por email y un especialista se pondrá en contacto contigo.
+            {t("trademark.success.message", "Your trademark registration application has been submitted successfully. You will receive an email confirmation and a specialist will contact you.")}
           </p>
           <Button onClick={() => {
             setStep(1);
@@ -115,7 +114,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
               selected_classes: []
             });
           }}>
-            Nueva Solicitud
+            {t("trademark.success.new_application", "New Application")}
           </Button>
         </CardContent>
       </Card>
@@ -127,17 +126,17 @@ export const TrademarkRegistrationModule: React.FC = () => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Scale className="h-5 w-5" />
-          Registro de Marca Comercial
+          {t("modules.trademark_registration", "Trademark Registration")}
         </CardTitle>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <span className={`px-2 py-1 rounded ${step >= 1 ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-            1. Información
+            1. {t("trademark.step.information", "Information")}
           </span>
           <span className={`px-2 py-1 rounded ${step >= 2 ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-            2. Clases
+            2. {t("trademark.step.classes", "Classes")}
           </span>
           <span className={`px-2 py-1 rounded ${step >= 3 ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-            3. Confirmar
+            3. {t("trademark.step.confirm", "Confirm")}
           </span>
         </div>
       </CardHeader>
@@ -146,7 +145,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
           <form onSubmit={(e) => { e.preventDefault(); setStep(2); }} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="trademark_name">{t("form.name", "Nombre")} de la Marca</Label>
+                <Label htmlFor="trademark_name">{t("trademark.form.trademark_name", "Trademark Name")}</Label>
                 <Input
                   id="trademark_name"
                   value={formData.trademark_name}
@@ -155,7 +154,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="applicant_name">{t("form.name", "Nombre")} del Solicitante</Label>
+                <Label htmlFor="applicant_name">{t("trademark.form.applicant_name", "Applicant Name")}</Label>
                 <Input
                   id="applicant_name"
                   value={formData.applicant_name}
@@ -174,7 +173,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="applicant_phone">{t("form.phone", "Teléfono")}</Label>
+                <Label htmlFor="applicant_phone">{t("form.phone", "Phone")}</Label>
                 <Input
                   id="applicant_phone"
                   value={formData.applicant_phone}
@@ -185,7 +184,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
             </div>
             
             <div>
-              <Label htmlFor="applicant_address">Dirección Completa</Label>
+              <Label htmlFor="applicant_address">{t("trademark.form.full_address", "Full Address")}</Label>
               <Textarea
                 id="applicant_address"
                 value={formData.applicant_address}
@@ -195,29 +194,29 @@ export const TrademarkRegistrationModule: React.FC = () => {
             </div>
             
             <div>
-              <Label htmlFor="description">Descripción de la Marca</Label>
+              <Label htmlFor="description">{t("trademark.form.trademark_description", "Trademark Description")}</Label>
               <Textarea
                 id="description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                placeholder="Describe tu marca, productos o servicios..."
+                placeholder={t("trademark.form.trademark_placeholder", "Describe your trademark, products or services...")}
                 required
               />
             </div>
             
             <div>
-              <Label htmlFor="usage_scenario">Escenario de Uso</Label>
+              <Label htmlFor="usage_scenario">{t("trademark.form.usage_scenario", "Usage Scenario")}</Label>
               <Textarea
                 id="usage_scenario"
                 value={formData.usage_scenario}
                 onChange={(e) => setFormData({ ...formData, usage_scenario: e.target.value })}
-                placeholder="¿Cómo planeas usar esta marca?"
+                placeholder={t("trademark.form.usage_placeholder", "How do you plan to use this trademark?")}
                 required
               />
             </div>
             
             <Button type="submit" className="w-full">
-              Continuar a Clases
+              {t("trademark.form.continue_classes", "Continue to Classes")}
             </Button>
           </form>
         )}
@@ -225,9 +224,9 @@ export const TrademarkRegistrationModule: React.FC = () => {
         {step === 2 && (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold mb-2">{t("form.select", "Selecciona")} las Clases de Marca</h3>
+              <h3 className="text-lg font-semibold mb-2">{t("trademark.form.select_classes", "Select Trademark Classes")}</h3>
               <p className="text-muted-foreground text-sm mb-4">
-                Elige las categorías que mejor describan tus productos o servicios.
+                {t("trademark.form.select_classes_desc", "Choose the categories that best describe your products or services.")}
               </p>
             </div>
             
@@ -241,7 +240,7 @@ export const TrademarkRegistrationModule: React.FC = () => {
                   />
                   <div className="flex-1">
                     <Label htmlFor={tmClass.id} className="font-medium">
-                      Clase {tmClass.id}: {tmClass.name}
+                      {t("trademark.form.class", "Class")} {tmClass.id}: {tmClass.name}
                     </Label>
                     <p className="text-sm text-muted-foreground">{tmClass.description}</p>
                   </div>
@@ -251,14 +250,14 @@ export const TrademarkRegistrationModule: React.FC = () => {
             
             <div className="flex gap-4">
               <Button variant="outline" onClick={() => setStep(1)}>
-                Volver
+                {t("trademark.form.back", "Back")}
               </Button>
               <Button 
                 onClick={handleSubmit} 
                 disabled={formData.selected_classes.length === 0 || submitting}
                 className="flex-1"
               >
-                {submitting ? "Enviando..." : "Enviar Solicitud"}
+                {submitting ? t("trademark.form.submitting", "Submitting...") : t("trademark.form.submit", "Submit Application")}
                 <FileText className="ml-2 h-4 w-4" />
               </Button>
             </div>
