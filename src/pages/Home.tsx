@@ -13,6 +13,10 @@ import { RightSidebar } from "@/components/layout/right-sidebar";
 import { Header } from "@/components/layout/header";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { AdminButton, EditButton } from "@/components/ui/admin-button";
+import { VideoStreamingModule } from "@/components/modules/video-streaming";
+import { GamingHubModule } from "@/components/modules/gaming-hub";
+import { FinancialDashboardModule } from "@/components/modules/financial-dashboard";
+import { VerifiedAgentsModule } from "@/components/modules/verified-agents-demo";
 import { 
   Home as HomeIcon,
   User,
@@ -38,7 +42,10 @@ import {
   Languages,
   Edit3,
   Save,
-  X
+  X,
+  Video,
+  Gamepad2,
+  BarChart3
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -410,7 +417,92 @@ export const Home: React.FC = () => {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
+               </Card>
+
+              {/* Module Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                        <Video className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground">Video Streaming</h3>
+                        <p className="text-sm text-muted-foreground">Upload and share videos</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full">
+                      Open Video Hub
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                        <Gamepad2 className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground">Gaming Hub</h3>
+                        <p className="text-sm text-muted-foreground">Discover amazing games</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full">
+                      Explore Games
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                        <BarChart3 className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground">Stock Market</h3>
+                        <p className="text-sm text-muted-foreground">Financial market data</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full">
+                      View Market
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                        <Shield className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground">Verified Agents</h3>
+                        <p className="text-sm text-muted-foreground">Connect with professionals</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="w-full">
+                      Find Agents
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Module Components */}
+              <div id="video-streaming">
+                <VideoStreamingModule />
+              </div>
+              <div id="gaming-hub">
+                <GamingHubModule />
+              </div>
+              <div id="financial-dashboard">
+                <FinancialDashboardModule />
+              </div>
+              <div id="verified-agents">
+                <VerifiedAgentsModule />
+              </div>
 
               {/* Posts Feed */}
               {posts.map((post) => (

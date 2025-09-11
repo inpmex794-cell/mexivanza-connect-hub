@@ -112,7 +112,10 @@ export const RightSidebar: React.FC = () => {
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="space-y-3">
-            <div className="flex items-start gap-3 p-3 rounded-lg border hover:bg-accent/50 transition-colors cursor-pointer">
+            <div 
+              className="flex items-start gap-3 p-3 rounded-lg border hover:bg-accent/50 transition-colors cursor-pointer"
+              onClick={() => document.getElementById('gaming-hub')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <Gamepad2 className="h-5 w-5 text-primary mt-0.5" />
               <div className="flex-1">
                 <h4 className="text-sm font-medium text-foreground">
@@ -124,7 +127,10 @@ export const RightSidebar: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-3 rounded-lg border hover:bg-accent/50 transition-colors cursor-pointer">
+            <div 
+              className="flex items-start gap-3 p-3 rounded-lg border hover:bg-accent/50 transition-colors cursor-pointer"
+              onClick={() => document.getElementById('verified-agents')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <Shield className="h-5 w-5 text-primary mt-0.5" />
               <div className="flex-1">
                 <h4 className="text-sm font-medium text-foreground">
@@ -136,7 +142,10 @@ export const RightSidebar: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-3 rounded-lg border hover:bg-accent/50 transition-colors cursor-pointer">
+            <div 
+              className="flex items-start gap-3 p-3 rounded-lg border hover:bg-accent/50 transition-colors cursor-pointer"
+              onClick={() => document.getElementById('financial-dashboard')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <BarChart3 className="h-5 w-5 text-primary mt-0.5" />
               <div className="flex-1">
                 <h4 className="text-sm font-medium text-foreground">
