@@ -196,9 +196,10 @@ export const Auth: React.FC = () => {
                     setEmail('mexivanza@mexivanza.com');
                     setPassword('TestAdmin2025!');
                     setAuthType('register');
+                    toast.success('Admin credentials filled! Now click "Create Account" below.');
                   }}
                 >
-                  Quick Setup Admin Account
+                  🔧 Fill Admin Credentials & Switch to Register
                 </Button>
               </div>
               
