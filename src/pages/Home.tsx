@@ -115,23 +115,20 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="glass-effect sticky top-0 z-50 shadow-medium border-b border-border/30">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <header className="bg-card border-b border-border sticky top-0 z-50 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-primary rounded-2xl flex items-center justify-center shadow-glow">
-                <span className="text-primary-foreground font-bold text-xl">M</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-lg">M</span>
               </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">Mexivanza</h1>
-                <p className="text-xs text-muted-foreground">AI Master Platform</p>
-              </div>
+              <h1 className="text-xl font-bold text-foreground">Mexivanza</h1>
             </div>
             
-            <div className="flex items-center space-x-6">
-              <Button variant="ghost" size="sm" className="hover:bg-accent/50 transition-all duration-200">
+            <div className="flex items-center space-x-4">
+              <Button variant="ghost" size="sm">
                 <Languages className="h-4 w-4 mr-2" />
                 ES/EN
               </Button>
@@ -142,10 +139,10 @@ export const Home: React.FC = () => {
                     {isAdmin ? "Admin" : "Usuario"}
                   </Badge>
                   {isAdmin && (
-                    <Button asChild size="sm" className="modern-button">
+                    <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
                       <Link to="/admin-dashboard">
                         <Shield className="mr-2 h-4 w-4" />
-                        Admin Dashboard
+                        Admin
                       </Link>
                     </Button>
                   )}
@@ -158,10 +155,10 @@ export const Home: React.FC = () => {
                       Entrar
                     </Link>
                   </Button>
-                  <Button asChild size="sm" className="modern-button">
+                  <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
                     <Link to="/auth">
                       <UserPlus className="mr-2 h-4 w-4" />
-                      Únete
+                      Registrar
                     </Link>
                   </Button>
                 </div>
@@ -171,126 +168,112 @@ export const Home: React.FC = () => {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto flex gap-6 px-6">
+      <div className="max-w-6xl mx-auto flex">
         {/* Left Sidebar - Navigation */}
-        <aside className="w-72 min-h-screen bg-card/50 backdrop-blur-sm border-r border-border/30 p-6 rounded-tr-2xl">
+        <aside className="w-64 min-h-screen bg-card border-r border-border p-4">
           <nav className="space-y-2">
-            <Button variant="ghost" className="w-full justify-start bg-primary-light text-primary font-medium rounded-xl py-3 h-auto">
+            <Button variant="ghost" className="w-full justify-start bg-accent text-primary">
               <HomeIcon className="mr-3 h-5 w-5" />
-              <span className="text-base">Inicio</span>
+              Inicio
             </Button>
             
             {user && (
-              <div className="space-y-2">
-                <Button asChild variant="ghost" className="w-full justify-start hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
+              <>
+                <Button asChild variant="ghost" className="w-full justify-start">
                   <Link to="/dashboard">
                     <User className="mr-3 h-5 w-5" />
-                    <span className="text-base">Mi Perfil</span>
+                    Dashboard
                   </Link>
                 </Button>
-                <Button variant="ghost" className="w-full justify-start hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
+                <Button variant="ghost" className="w-full justify-start">
                   <Settings className="mr-3 h-5 w-5" />
-                  <span className="text-base">Configuración</span>
+                  Configuración
                 </Button>
-                <Button variant="ghost" className="w-full justify-start text-destructive hover:bg-destructive/10 rounded-xl py-3 h-auto transition-all duration-200" onClick={handleLogout}>
+                <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
                   <LogOut className="mr-3 h-5 w-5" />
-                  <span className="text-base">Cerrar Sesión</span>
+                  Cerrar Sesión
                 </Button>
-              </div>
+              </>
             )}
           </nav>
 
           {/* Services Section */}
           <div className="mt-8">
-            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
-              Servicios Premium
+            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+              Servicios
             </h3>
-            <div className="space-y-3">
-              <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
-                <Plane className="mr-3 h-5 w-5 text-primary" />
-                <div className="text-left">
-                  <div className="font-medium">Paquetes de Viaje</div>
-                  <div className="text-xs text-muted-foreground">Experiencias únicas</div>
-                </div>
+            <div className="space-y-2">
+              <Button variant="ghost" className="w-full justify-start text-sm">
+                <Plane className="mr-3 h-4 w-4" />
+                Viajes
               </Button>
-              <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
-                <Scale className="mr-3 h-5 w-5 text-success" />
-                <div className="text-left">
-                  <div className="font-medium">Servicios Legales</div>
-                  <div className="text-xs text-muted-foreground">Asesoría profesional</div>
-                </div>
+              <Button variant="ghost" className="w-full justify-start text-sm">
+                <Scale className="mr-3 h-4 w-4" />
+                Legal
               </Button>
-              <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
-                <Building className="mr-3 h-5 w-5 text-primary" />
-                <div className="text-left">
-                  <div className="font-medium">Bienes Raíces</div>
-                  <div className="text-xs text-muted-foreground">Propiedades exclusivas</div>
-                </div>
+              <Button variant="ghost" className="w-full justify-start text-sm">
+                <Building className="mr-3 h-4 w-4" />
+                Inmobiliaria
               </Button>
-              <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent/50 rounded-xl py-3 h-auto transition-all duration-200">
-                <Monitor className="mr-3 h-5 w-5 text-primary" />
-                <div className="text-left">
-                  <div className="font-medium">Desarrollo Web</div>
-                  <div className="text-xs text-muted-foreground">Soluciones digitales</div>
-                </div>
+              <Button variant="ghost" className="w-full justify-start text-sm">
+                <Monitor className="mr-3 h-4 w-4" />
+                Desarrollo Web
               </Button>
             </div>
           </div>
         </aside>
 
         {/* Center Feed */}
-        <main className="flex-1 min-h-screen p-6 max-w-2xl">
-          <div className="space-y-8 animate-fade-in">
+        <main className="flex-1 min-h-screen bg-muted p-6">
+          <div className="max-w-2xl mx-auto space-y-6">
             {/* Create Post Card */}
             {user && (
-              <Card className="modern-card">
-                <CardContent className="p-6">
+              <Card className="shadow-sm border-border">
+                <CardContent className="p-4">
                   {!showPostForm ? (
                     <Button 
                       onClick={() => setShowPostForm(true)}
                       variant="outline" 
-                      className="w-full justify-start h-14 text-muted-foreground hover:text-foreground hover:bg-accent/50 border-border/50 rounded-xl transition-all duration-200"
+                      className="w-full justify-start"
                     >
-                      <Plus className="mr-3 h-5 w-5" />
-                      <span className="text-base">¿Qué quieres compartir hoy?</span>
+                      <Plus className="mr-2 h-4 w-4" />
+                      ¿Qué tienes en mente?
                     </Button>
                   ) : (
-                    <div className="space-y-6">
+                    <div className="space-y-4">
                       <Input
-                        placeholder="Escribe un título atractivo..."
+                        placeholder="Título del post..."
                         value={newPost.title}
                         onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-                        className="text-lg font-medium border-0 border-b border-border rounded-none focus:ring-0 focus:border-primary px-0 py-3"
                       />
                       <Textarea
-                        placeholder="Comparte tu historia..."
+                        placeholder="Escribe algo..."
                         value={newPost.content}
                         onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-                        rows={4}
-                        className="resize-none border-border/50 rounded-xl focus:border-primary"
+                        rows={3}
                       />
                       <Select value={newPost.category} onValueChange={(value) => setNewPost({ ...newPost, category: value })}>
-                        <SelectTrigger className="rounded-xl border-border/50">
-                          <SelectValue placeholder="Selecciona una categoría" />
+                        <SelectTrigger>
+                          <SelectValue placeholder="Categoría" />
                         </SelectTrigger>
-                        <SelectContent className="rounded-xl border-border/50 bg-card backdrop-blur-sm">
+                        <SelectContent>
                           {categories.map((category) => (
-                            <SelectItem key={category} value={category} className="rounded-lg">
+                            <SelectItem key={category} value={category}>
                               {category}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-                      <div className="flex justify-between items-center pt-4">
+                      <div className="flex space-x-2">
+                        <Button onClick={handleCreatePost} size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
+                          Publicar
+                        </Button>
                         <Button 
                           onClick={() => setShowPostForm(false)} 
-                          variant="ghost" 
-                          className="text-muted-foreground hover:text-foreground"
+                          variant="outline" 
+                          size="sm"
                         >
                           Cancelar
-                        </Button>
-                        <Button onClick={handleCreatePost} className="modern-button">
-                          <span className="font-medium">Publicar</span>
                         </Button>
                       </div>
                     </div>
@@ -300,7 +283,7 @@ export const Home: React.FC = () => {
             )}
 
             {/* Hero Post */}
-            <Card className="shadow-soft border-border">
+            <Card className="shadow-sm border-border">
               <CardContent className="p-0">
                 <div className="relative">
                   <img
@@ -344,7 +327,7 @@ export const Home: React.FC = () => {
 
             {/* Posts Feed */}
             {posts.map((post) => (
-              <Card key={post.id} className="shadow-soft border-border">
+              <Card key={post.id} className="shadow-sm border-border">
                 <CardContent className="p-4">
                   <div className="flex items-start space-x-3">
                     <Avatar className="w-10 h-10">
@@ -396,7 +379,7 @@ export const Home: React.FC = () => {
         {/* Right Sidebar - Contextual Modules */}
         <aside className="w-80 min-h-screen bg-card border-l border-border p-4">
           {/* Weather Widget */}
-          <Card className="mb-6 shadow-soft border-border">
+          <Card className="mb-6 shadow-sm border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-semibold flex items-center">
                 <Sun className="mr-2 h-4 w-4 text-yellow-500" />
@@ -415,7 +398,7 @@ export const Home: React.FC = () => {
           </Card>
 
           {/* Featured Services */}
-          <Card className="mb-6 shadow-soft border-border">
+          <Card className="mb-6 shadow-sm border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-semibold">Servicios Destacados</CardTitle>
             </CardHeader>
@@ -445,7 +428,7 @@ export const Home: React.FC = () => {
           </Card>
 
           {/* Online Users */}
-          <Card className="shadow-soft border-border">
+          <Card className="shadow-sm border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-semibold flex items-center">
                 <Users className="mr-2 h-4 w-4 text-green-500" />
