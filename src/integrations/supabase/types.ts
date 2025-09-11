@@ -188,6 +188,36 @@ export type Database = {
         }
         Relationships: []
       }
+      encrypted_messages: {
+        Row: {
+          created_at: string
+          encrypted_content: string
+          id: string
+          is_read: boolean | null
+          message_type: string | null
+          recipient_id: string | null
+          sender_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          encrypted_content: string
+          id?: string
+          is_read?: boolean | null
+          message_type?: string | null
+          recipient_id?: string | null
+          sender_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          encrypted_content?: string
+          id?: string
+          is_read?: boolean | null
+          message_type?: string | null
+          recipient_id?: string | null
+          sender_id?: string | null
+        }
+        Relationships: []
+      }
       financial_data: {
         Row: {
           change_amount: number | null
@@ -272,6 +302,116 @@ export type Database = {
           updated_at?: string | null
           user_id?: string | null
           video_url?: string | null
+        }
+        Relationships: []
+      }
+      generated_documents: {
+        Row: {
+          created_at: string
+          document_data: Json | null
+          id: string
+          language: string | null
+          lawyer_review_requested: boolean | null
+          pdf_url: string | null
+          template_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          document_data?: Json | null
+          id?: string
+          language?: string | null
+          lawyer_review_requested?: boolean | null
+          pdf_url?: string | null
+          template_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          document_data?: Json | null
+          id?: string
+          language?: string | null
+          lawyer_review_requested?: boolean | null
+          pdf_url?: string | null
+          template_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "generated_documents_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "legal_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      legal_services: {
+        Row: {
+          compliance_tags: string[] | null
+          created_at: string
+          created_by: string | null
+          description: Json
+          id: string
+          is_published: boolean | null
+          metadata: Json | null
+          service_type: string
+          title: Json
+        }
+        Insert: {
+          compliance_tags?: string[] | null
+          created_at?: string
+          created_by?: string | null
+          description: Json
+          id?: string
+          is_published?: boolean | null
+          metadata?: Json | null
+          service_type: string
+          title: Json
+        }
+        Update: {
+          compliance_tags?: string[] | null
+          created_at?: string
+          created_by?: string | null
+          description?: Json
+          id?: string
+          is_published?: boolean | null
+          metadata?: Json | null
+          service_type?: string
+          title?: Json
+        }
+        Relationships: []
+      }
+      legal_templates: {
+        Row: {
+          content: Json
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean | null
+          template_name: string
+          template_type: string
+          variables: Json | null
+        }
+        Insert: {
+          content: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          template_name: string
+          template_type: string
+          variables?: Json | null
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          template_name?: string
+          template_type?: string
+          variables?: Json | null
         }
         Relationships: []
       }
@@ -371,6 +511,63 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          age: number | null
+          avatar_url: string | null
+          bio: Json | null
+          business_type: string | null
+          created_at: string
+          gender: string | null
+          header_url: string | null
+          id: string
+          language_preference: string | null
+          location: string | null
+          name: string
+          profile_type: string
+          region: string | null
+          updated_at: string
+          verification_documents: Json | null
+          verification_status: string | null
+        }
+        Insert: {
+          age?: number | null
+          avatar_url?: string | null
+          bio?: Json | null
+          business_type?: string | null
+          created_at?: string
+          gender?: string | null
+          header_url?: string | null
+          id: string
+          language_preference?: string | null
+          location?: string | null
+          name: string
+          profile_type?: string
+          region?: string | null
+          updated_at?: string
+          verification_documents?: Json | null
+          verification_status?: string | null
+        }
+        Update: {
+          age?: number | null
+          avatar_url?: string | null
+          bio?: Json | null
+          business_type?: string | null
+          created_at?: string
+          gender?: string | null
+          header_url?: string | null
+          id?: string
+          language_preference?: string | null
+          location?: string | null
+          name?: string
+          profile_type?: string
+          region?: string | null
+          updated_at?: string
+          verification_documents?: Json | null
+          verification_status?: string | null
+        }
+        Relationships: []
+      }
       real_estate: {
         Row: {
           bathrooms: number | null
@@ -434,6 +631,156 @@ export type Database = {
           title?: string
           updated_at?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      trademark_applications: {
+        Row: {
+          applicant_info: Json
+          created_at: string
+          description: string | null
+          id: string
+          logo_url: string | null
+          payment_status: string | null
+          status: string | null
+          trademark_class: string[] | null
+          usage_scenario: string | null
+          user_id: string | null
+        }
+        Insert: {
+          applicant_info: Json
+          created_at?: string
+          description?: string | null
+          id?: string
+          logo_url?: string | null
+          payment_status?: string | null
+          status?: string | null
+          trademark_class?: string[] | null
+          usage_scenario?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          applicant_info?: Json
+          created_at?: string
+          description?: string | null
+          id?: string
+          logo_url?: string | null
+          payment_status?: string | null
+          status?: string | null
+          trademark_class?: string[] | null
+          usage_scenario?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      travel_packages: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: Json
+          gallery: Json | null
+          id: string
+          is_published: boolean | null
+          itinerary: Json | null
+          pricing_tiers: Json | null
+          title: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description: Json
+          gallery?: Json | null
+          id?: string
+          is_published?: boolean | null
+          itinerary?: Json | null
+          pricing_tiers?: Json | null
+          title: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: Json
+          gallery?: Json | null
+          id?: string
+          is_published?: boolean | null
+          itinerary?: Json | null
+          pricing_tiers?: Json | null
+          title?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_posts: {
+        Row: {
+          ad_status: string | null
+          content: string | null
+          created_at: string
+          expires_at: string | null
+          geo_location: unknown | null
+          id: string
+          images: Json | null
+          is_ad: boolean | null
+          language: string | null
+          scenario_tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string | null
+          video_url: string | null
+        }
+        Insert: {
+          ad_status?: string | null
+          content?: string | null
+          created_at?: string
+          expires_at?: string | null
+          geo_location?: unknown | null
+          id?: string
+          images?: Json | null
+          is_ad?: boolean | null
+          language?: string | null
+          scenario_tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id?: string | null
+          video_url?: string | null
+        }
+        Update: {
+          ad_status?: string | null
+          content?: string | null
+          created_at?: string
+          expires_at?: string | null
+          geo_location?: unknown | null
+          id?: string
+          images?: Json | null
+          is_ad?: boolean | null
+          language?: string | null
+          scenario_tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string | null
+          video_url?: string | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
         }
         Relationships: []
       }
@@ -521,6 +868,42 @@ export type Database = {
         }
         Relationships: []
       }
+      web_dev_services: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          delivery_time: string | null
+          description: Json | null
+          features: Json | null
+          id: string
+          is_active: boolean | null
+          pricing: Json | null
+          service_name: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          delivery_time?: string | null
+          description?: Json | null
+          features?: Json | null
+          id?: string
+          is_active?: boolean | null
+          pricing?: Json | null
+          service_name: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          delivery_time?: string | null
+          description?: Json | null
+          features?: Json | null
+          id?: string
+          is_active?: boolean | null
+          pricing?: Json | null
+          service_name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -549,9 +932,20 @@ export type Database = {
           tier: string
         }[]
       }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin: {
+        Args: { _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "verified" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -678,6 +1072,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "verified", "user"],
+    },
   },
 } as const

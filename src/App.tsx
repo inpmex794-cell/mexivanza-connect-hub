@@ -1,24 +1,78 @@
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LanguageProvider } from "@/hooks/use-language";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { AuthProvider, useAuth } from "./hooks/use-auth";
 import { Home } from "./pages/Home";
 import { Auth } from "./pages/Auth";
 import { Dashboard } from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
-import { BusinessDirectory } from "./components/business/business-directory";
-import { WebsiteTemplates } from "./components/business/website-templates";
-import { PaymentSystem } from "./components/payments/payment-system";
-import { PostAd } from "./components/ads/post-ad";
-import { VideoStreaming } from "./components/media/video-streaming";
-import { PropertyListings } from "./components/real-estate/property-listings";
-import { WeatherWidget } from "./components/weather/weather-widget";
+import { AdminDashboard } from "./components/admin/admin-dashboard";
 
 const queryClient = new QueryClient();
+
+// Protected Route Component for Admin
+const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user, isAdmin, loading } = useAuth();
+  
+  if (loading) {
+    return <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4 text-muted-foreground">Verificando acceso...</p>
+      </div>
+    </div>;
+  }
+  
+  if (!user || !isAdmin) {
+    return <Navigate to="/auth" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
+// Protected Route Component for Regular Users
+const UserRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { user, loading } = useAuth();
+  
+  if (loading) {
+    return <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+        <p className="mt-4 text-muted-foreground">Cargando...</p>
+      </div>
+    </div>;
+  }
+  
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
+function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="/dashboard" element={
+        <UserRoute>
+          <Dashboard />
+        </UserRoute>
+      } />
+      <Route path="/admin-dashboard" element={
+        <AdminRoute>
+          <AdminDashboard />
+        </AdminRoute>
+      } />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -27,24 +81,9 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="min-h-screen bg-background">
-            <Header />
-            <main>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/directory" element={<BusinessDirectory />} />
-                <Route path="/templates" element={<WebsiteTemplates />} />
-                <Route path="/payments" element={<PaymentSystem />} />
-                <Route path="/ads" element={<PostAd />} />
-                <Route path="/videos" element={<VideoStreaming />} />
-                <Route path="/real-estate" element={<PropertyListings />} />
-                <Route path="/weather" element={<WeatherWidget />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-          </div>
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>
     </LanguageProvider>

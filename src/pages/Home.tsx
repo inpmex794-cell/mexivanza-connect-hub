@@ -1,278 +1,314 @@
 import React from "react";
 import { useLanguage } from "@/hooks/use-language";
+import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { WhatsAppButton } from "@/components/ui/whatsapp-button";
-import { Gallery } from "@/components/ui/gallery";
 import { Badge } from "@/components/ui/badge";
-import { Sidebar } from "@/components/layout/sidebar";
-import { RightSidebar } from "@/components/layout/right-sidebar";
 import { 
   Plane, 
   Scale, 
   Monitor, 
   MapPin, 
-  Star, 
   Users, 
   Clock,
   Globe,
   Shield,
   Award,
-  TrendingUp,
   Heart,
-  MessageSquare
+  MessageSquare,
+  UserPlus,
+  LogIn
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-mexico.jpg";
 
 export const Home: React.FC = () => {
   const { t } = useLanguage();
+  const { user, isAdmin } = useAuth();
 
   const services = [
     {
       icon: Plane,
-      title: t("services.travel.title", "Travel Services"),
-      description: t("services.travel.description", "Comprehensive travel planning and booking services across Mexico"),
-      features: [
-        t("services.travel.feature1", "Custom itineraries"),
-        t("services.travel.feature2", "Local experiences"),
-        t("services.travel.feature3", "24/7 support")
-      ],
-      whatsappMessage: t("whatsapp.travel", "Travel Inquiry"),
+      title: "Paquetes de Viaje",
+      description: "Experiencias de viaje curadas por expertos a través de México",
+      features: ["Itinerarios personalizados", "Experiencias locales", "Soporte 24/7"],
       href: "/travel"
     },
     {
       icon: Scale,
-      title: t("services.legal.title", "Legal Services"),
-      description: t("services.legal.description", "Professional legal assistance and consultation services"),
-      features: [
-        t("services.legal.feature1", "Contract review"),
-        t("services.legal.feature2", "Business formation"),
-        t("services.legal.feature3", "Immigration support")
-      ],
-      whatsappMessage: t("whatsapp.legal", "Legal Consultation"),
+      title: "Servicios Legales",
+      description: "Asistencia legal profesional y servicios de consultoría",
+      features: ["Revisión de contratos", "Formación de empresas", "Apoyo migratorio"],
       href: "/legal"
     },
     {
       icon: Monitor,
-      title: t("services.digital.title", "Digital Solutions"),
-      description: t("services.digital.description", "Modern technology solutions for businesses and individuals"),
-      features: [
-        t("services.digital.feature1", "Web development"),
-        t("services.digital.feature2", "Digital marketing"),
-        t("services.digital.feature3", "Tech consulting")
-      ],
-      whatsappMessage: t("whatsapp.digital", "Digital Consultation"),
-      href: "/digital"
-    }
-  ];
-
-  const feedPosts = [
-    {
-      id: 1,
-      type: "service_update",
-      title: t("feed.travel_update", "New Travel Packages Available"),
-      content: t("feed.travel_content", "Discover amazing new destinations across Mexico with our curated travel experiences."),
-      image: heroImage,
-      time: "2h ago",
-      likes: 24,
-      comments: 8,
-      category: "Travel"
+      title: "Desarrollo Web",
+      description: "Soluciones tecnológicas modernas para empresas e individuos",
+      features: ["Desarrollo web", "Marketing digital", "Consultoría tech"],
+      href: "/webdev"
     },
     {
-      id: 2,
-      type: "legal_tip",
-      title: t("feed.legal_tip", "Legal Tip: Business Registration"),
-      content: t("feed.legal_content", "Essential steps for registering your business in Mexico. Our legal experts guide you through the process."),
-      time: "4h ago",
-      likes: 18,
-      comments: 5,
-      category: "Legal"
-    },
-    {
-      id: 3,
-      type: "digital_showcase",
-      title: t("feed.digital_showcase", "Digital Transformation Success Story"),
-      content: t("feed.digital_content", "How we helped a local business increase their online presence by 300% with our digital solutions."),
-      time: "1d ago",
-      likes: 42,
-      comments: 12,
-      category: "Digital"
+      icon: MapPin,
+      title: "Bienes Raíces",
+      description: "Propiedades verificadas en las mejores ubicaciones de México",
+      features: ["Listados verificados", "Asesoría especializada", "Financiamiento"],
+      href: "/realestate"
     }
   ];
 
   const stats = [
-    { icon: Users, value: "10,000+", label: t("stats.clients", "Happy Clients") },
-    { icon: MapPin, value: "32", label: t("stats.states", "States Covered") },
-    { icon: Clock, value: "24/7", label: t("stats.support", "Support Available") },
-    { icon: Award, value: "5+", label: t("stats.experience", "Years Experience") }
+    { icon: Users, value: "10,000+", label: "Usuarios Activos" },
+    { icon: MapPin, value: "32", label: "Estados Cubiertos" },
+    { icon: Clock, value: "24/7", label: "Soporte Disponible" },
+    { icon: Award, value: "5+", label: "Años de Experiencia" }
+  ];
+
+  const featuredPosts = [
+    {
+      id: 1,
+      title: "Nuevos Paquetes de Viaje Disponibles",
+      content: "Descubre increíbles nuevos destinos en México con nuestras experiencias de viaje curadas.",
+      image: heroImage,
+      time: "Hace 2h",
+      likes: 24,
+      comments: 8,
+      category: "Viajes"
+    },
+    {
+      id: 2,
+      title: "Tip Legal: Registro de Empresas",
+      content: "Pasos esenciales para registrar tu empresa en México. Nuestros expertos legales te guían.",
+      time: "Hace 4h",
+      likes: 18,
+      comments: 5,
+      category: "Legal"
+    }
   ];
 
   return (
-    <div className="flex min-h-screen bg-background pt-16">
-      {/* Left Sidebar */}
-      <Sidebar />
-
-      {/* Main Content Feed */}
-      <main className="flex-1 ml-64 mr-80">
-        <div className="max-w-2xl mx-auto p-6 space-y-6">
-          {/* Hero Post */}
-          <Card className="shadow-soft">
-            <CardContent className="p-0">
-              <div className="relative">
-                <img
-                  src={heroImage}
-                  alt={t("hero.image.alt", "Mexivanza services across Mexico")}
-                  className="w-full h-64 object-cover rounded-t-lg"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-t-lg" />
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <Badge variant="secondary" className="mb-2">
-                    <Globe className="mr-1 h-3 w-3" />
-                    {t("hero.badge", "Featured")}
+    <div className="min-h-screen bg-background">
+      {/* Navigation Header */}
+      <header className="bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 border-b sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-white font-bold">M</span>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold">Mexivanza</h1>
+                <p className="text-xs text-muted-foreground">Plataforma Integral de Servicios</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              {user ? (
+                <div className="flex items-center space-x-2">
+                  <Badge variant={isAdmin ? "default" : "secondary"}>
+                    {isAdmin ? "Admin" : "Usuario"}
                   </Badge>
-                  <h1 className="text-2xl font-bold mb-2">
-                    {t("hero.title", "Comprehensive Services for Mexico")}
-                  </h1>
-                  <p className="text-white/90">
-                    {t("hero.subtitle", "Travel, legal services and digital solutions across Mexico")}
-                  </p>
-                </div>
-              </div>
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-4">
-                    <Button size="sm" variant="facebook">
-                      {t("hero.cta", "Get Started")}
+                  {isAdmin && (
+                    <Button asChild size="sm">
+                      <Link to="/admin-dashboard">
+                        <Shield className="mr-2 h-4 w-4" />
+                        Dashboard Admin
+                      </Link>
                     </Button>
-                    <WhatsAppButton
-                      message={t("whatsapp.general", "Hello! I'm interested in Mexivanza services.")}
-                      variant="outline"
-                      size="sm"
-                    >
-                      {t("contact.whatsapp", "WhatsApp")}
-                    </WhatsAppButton>
-                  </div>
-                  <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                    <div className="flex items-center space-x-1">
-                      <Heart className="h-4 w-4" />
-                      <span>124</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <MessageSquare className="h-4 w-4" />
-                      <span>28</span>
-                    </div>
-                  </div>
+                  )}
+                  <Button asChild variant="outline" size="sm">
+                    <Link to="/dashboard">Dashboard</Link>
+                  </Button>
                 </div>
-                
-                {/* Quick Stats */}
-                <div className="grid grid-cols-4 gap-4 pt-4 border-t">
-                  {stats.map((stat, index) => (
-                    <div key={index} className="text-center">
-                      <div className="inline-flex items-center justify-center w-8 h-8 bg-primary/10 rounded-full mb-1">
-                        <stat.icon className="h-4 w-4 text-primary" />
-                      </div>
-                      <div className="text-lg font-semibold text-foreground">{stat.value}</div>
-                      <div className="text-xs text-muted-foreground">{stat.label}</div>
-                    </div>
-                  ))}
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <Button asChild variant="outline" size="sm">
+                    <Link to="/auth">
+                      <LogIn className="mr-2 h-4 w-4" />
+                      Iniciar Sesión
+                    </Link>
+                  </Button>
+                  <Button asChild size="sm">
+                    <Link to="/auth">
+                      <UserPlus className="mr-2 h-4 w-4" />
+                      Registrarse
+                    </Link>
+                  </Button>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Feed Posts */}
-          {feedPosts.map((post) => (
-            <Card key={post.id} className="shadow-soft">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold text-sm">M</span>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <span className="font-semibold">Mexivanza</span>
-                      <Badge variant="secondary" className="text-xs">
-                        {post.category}
-                      </Badge>
-                      <span className="text-sm text-muted-foreground">{post.time}</span>
-                    </div>
-                    <h3 className="font-semibold mb-2">{post.title}</h3>
-                    <p className="text-muted-foreground mb-4">{post.content}</p>
-                    
-                    {post.image && (
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-48 object-cover rounded-lg mb-4"
-                      />
-                    )}
-
-                    <div className="flex items-center justify-between pt-4 border-t">
-                      <div className="flex items-center space-x-4">
-                        <Button variant="ghost" size="sm" className="text-muted-foreground">
-                          <Heart className="mr-2 h-4 w-4" />
-                          {post.likes}
-                        </Button>
-                        <Button variant="ghost" size="sm" className="text-muted-foreground">
-                          <MessageSquare className="mr-2 h-4 w-4" />
-                          {post.comments}
-                        </Button>
-                      </div>
-                      <Button variant="ghost" size="sm">
-                        {t("action.learn_more", "Learn More")}
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-
-          {/* Services Grid */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">{t("services.title", "Our Services")}</h2>
-            <div className="grid gap-4">
-              {services.map((service, index) => (
-                <Card key={index} className="shadow-soft hover:shadow-medium transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                        <service.icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold mb-2">{service.title}</h3>
-                        <p className="text-muted-foreground mb-3">{service.description}</p>
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {service.features.map((feature, featureIndex) => (
-                            <Badge key={featureIndex} variant="secondary" className="text-xs">
-                              {feature}
-                            </Badge>
-                          ))}
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Button size="sm" variant="outline">
-                            {t("action.learn_more", "Learn More")}
-                          </Button>
-                          <WhatsAppButton
-                            message={service.whatsappMessage}
-                            size="sm"
-                            variant="ghost"
-                          >
-                            {t("contact.inquiry", "Inquiry")}
-                          </WhatsAppButton>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              )}
             </div>
           </div>
         </div>
-      </main>
+      </header>
 
-      {/* Right Sidebar */}
-      <RightSidebar />
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8 space-y-12">
+        {/* Hero Section */}
+        <section className="text-center space-y-6">
+          <div className="relative">
+            <img
+              src={heroImage}
+              alt="Mexivanza - Servicios integrales para México"
+              className="w-full h-96 object-cover rounded-xl shadow-elegant"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl" />
+            <div className="absolute bottom-8 left-8 right-8 text-white">
+              <Badge variant="secondary" className="mb-4">
+                <Globe className="mr-1 h-3 w-3" />
+                Plataforma Soberana
+              </Badge>
+              <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                Mexivanza AI Master Platform
+              </h1>
+              <p className="text-xl text-white/90 max-w-2xl mx-auto">
+                Servicios integrales de viaje, legal, desarrollo web y bienes raíces 
+                con control administrativo soberano y características sociales públicas
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {stats.map((stat, index) => (
+            <Card key={index} className="text-center">
+              <CardContent className="p-6">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4">
+                  <stat.icon className="h-6 w-6 text-primary" />
+                </div>
+                <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              </CardContent>
+            </Card>
+          ))}
+        </section>
+
+        {/* Services Grid */}
+        <section className="space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold mb-4">Módulos de Servicios Soberanos</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Servicios controlados por administradores con acceso cifrado y gestión basada en roles
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {services.map((service, index) => (
+              <Card key={index} className="hover:shadow-medium transition-all duration-300">
+                <CardContent className="p-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                      <service.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold mb-2">{service.title}</h3>
+                      <p className="text-muted-foreground mb-3">{service.description}</p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {service.features.map((feature, featureIndex) => (
+                          <Badge key={featureIndex} variant="secondary" className="text-xs">
+                            {feature}
+                          </Badge>
+                        ))}
+                      </div>
+                      <Button size="sm" asChild>
+                        <Link to={service.href}>Explorar Servicio</Link>
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Featured Content */}
+        <section className="space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold mb-4">Contenido Destacado</h2>
+            <p className="text-muted-foreground">
+              Últimas actualizaciones y contenido curado por nuestros administradores
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {featuredPosts.map((post) => (
+              <Card key={post.id} className="hover:shadow-medium transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                      <span className="text-white font-semibold text-sm">M</span>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <span className="font-semibold">Mexivanza</span>
+                        <Badge variant="secondary" className="text-xs">
+                          {post.category}
+                        </Badge>
+                        <span className="text-sm text-muted-foreground">{post.time}</span>
+                      </div>
+                      <h3 className="font-semibold mb-2">{post.title}</h3>
+                      <p className="text-muted-foreground mb-4">{post.content}</p>
+                      
+                      {post.image && (
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-full h-48 object-cover rounded-lg mb-4"
+                        />
+                      )}
+
+                      <div className="flex items-center justify-between pt-4 border-t">
+                        <div className="flex items-center space-x-4">
+                          <Button variant="ghost" size="sm" className="text-muted-foreground">
+                            <Heart className="mr-2 h-4 w-4" />
+                            {post.likes}
+                          </Button>
+                          <Button variant="ghost" size="sm" className="text-muted-foreground">
+                            <MessageSquare className="mr-2 h-4 w-4" />
+                            {post.comments}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="bg-primary/5 rounded-xl p-8 text-center">
+          <h2 className="text-3xl font-bold mb-4">Únete a la Plataforma Mexivanza</h2>
+          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            Accede a servicios integrales, conecta con profesionales verificados y 
+            forma parte de la comunidad empresarial más importante de México
+          </p>
+          <div className="flex items-center justify-center space-x-4">
+            {!user && (
+              <>
+                <Button size="lg" asChild>
+                  <Link to="/auth">
+                    <UserPlus className="mr-2 h-5 w-5" />
+                    Crear Cuenta Gratuita
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/auth">Iniciar Sesión</Link>
+                </Button>
+              </>
+            )}
+            {user && !isAdmin && (
+              <Button size="lg" asChild>
+                <Link to="/dashboard">
+                  <Shield className="mr-2 h-5 w-5" />
+                  Ver Mi Dashboard
+                </Link>
+              </Button>
+            )}
+          </div>
+        </section>
+      </main>
     </div>
   );
 };
