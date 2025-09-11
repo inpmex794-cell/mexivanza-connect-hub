@@ -12,6 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Gallery } from "@/components/ui/gallery";
 import { RightSidebar } from "@/components/layout/right-sidebar";
 import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { AdminButton, EditButton } from "@/components/ui/admin-button";
 import { VideoStreamingModule } from "@/components/modules/video-streaming";
@@ -778,6 +779,9 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </footer>
+      
+      {/* Use built-in Footer component */}
+      <Footer />
     </div>
   );
 };

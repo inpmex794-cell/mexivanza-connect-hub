@@ -94,6 +94,35 @@
   }
 }
 
+/* Footer and Layout Utilities */
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+}
+
+.word-break-break-word {
+  word-break: break-word;
+}
+
+/* Ensure proper spacing and containment */
+.container-safe {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Responsive text utilities */
+.text-responsive {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Focus states for accessibility */
+.focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
 @layer base {
   * {
     @apply border-border;

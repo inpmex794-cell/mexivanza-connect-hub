@@ -96,6 +96,17 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      // Additional responsive utilities
+      maxWidth: {
+        'xxs': '16rem',
+        'container': '1200px',
+      },
+      // Spacing for consistent layout
+      spacing: {
+        '18': '4.5rem',
+        '88': '22rem',
+        '128': '32rem',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
