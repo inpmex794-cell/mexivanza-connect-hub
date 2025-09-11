@@ -410,7 +410,41 @@ const translations = {
     // Travel search
     "travel.search_placeholder": "Buscar destinos, proveedores, servicios...",
     // Real estate search  
-    "realestate.search": "Buscar propiedades..."
+    "realestate.search": "Buscar propiedades...",
+    
+    // Hero gallery
+    "hero.platform_alt": "Mexivanza Platform Hero",
+    "hero.platform_title": "Mexivanza AI Master Platform",
+    "hero.platform_desc": "Tu puerta de entrada a servicios mexicanos premium",
+    "travel.discover_alt": "Travel Mexico",
+    "travel.discover_title": "Descubre México",
+    "travel.discover_desc": "Paquetes de viaje y experiencias premium",
+    "legal.services_alt": "Legal Services",
+    "legal.services_title": "Excelencia Legal",
+    "legal.services_desc": "Servicios de consultoría legal profesional",
+    
+    // Service sections
+    "services.real_estate": "Bienes Raíces",
+    "services.real_estate_desc": "Propiedades verificadas",
+    "services.web_development": "Desarrollo Web",
+    "services.web_development_desc": "Sitios web profesionales",
+    
+    // Legal section
+    "legal.consultation": "Consultoría",
+    "legal.free_consultation": "Consulta gratuita",
+    
+    // Web development
+    "web_dev.included": "incluido",
+    "web_dev.professional": "Profesional",
+    
+    // Posts
+    "post.like": "Me gusta",
+    "post.comment": "Comentar", 
+    "post.share": "Compartir",
+    "profile.default_user": "Usuario",
+    
+    // Buttons
+    "button.request_quote": "Solicitar Cotización"
   },
   en: {
     // Site metadata
@@ -808,7 +842,41 @@ const translations = {
     // Travel search
     "travel.search_placeholder": "Search destinations, providers, services...",
     // Real estate search
-    "realestate.search": "Search properties..."
+    "realestate.search": "Search properties...",
+    
+    // Hero gallery
+    "hero.platform_alt": "Mexivanza Platform Hero",
+    "hero.platform_title": "Mexivanza AI Master Platform", 
+    "hero.platform_desc": "Your gateway to premium Mexican services",
+    "travel.discover_alt": "Travel Mexico",
+    "travel.discover_title": "Discover Mexico",
+    "travel.discover_desc": "Premium travel packages and experiences",
+    "legal.services_alt": "Legal Services",
+    "legal.services_title": "Legal Excellence", 
+    "legal.services_desc": "Professional legal consultation services",
+    
+    // Service sections
+    "services.real_estate": "Real Estate",
+    "services.real_estate_desc": "Verified properties",
+    "services.web_development": "Web Development",
+    "services.web_development_desc": "Professional websites",
+    
+    // Legal section
+    "legal.consultation": "Consultation",
+    "legal.free_consultation": "Free consultation",
+    
+    // Web development
+    "web_dev.included": "included",
+    "web_dev.professional": "Professional",
+    
+    // Posts
+    "post.like": "Like",
+    "post.comment": "Comment",
+    "post.share": "Share", 
+    "profile.default_user": "User",
+    
+    // Buttons
+    "button.request_quote": "Request Quote"
   },
 };
 

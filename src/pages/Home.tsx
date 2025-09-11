@@ -94,21 +94,21 @@ export const Home: React.FC = () => {
   const heroGallery = [
     {
       src: heroImage,
-      alt: "Mexivanza Platform Hero",
-      title: "Mexivanza AI Master Platform",
-      description: "Your gateway to premium Mexican services"
+      alt: t("hero.platform_alt", "Mexivanza Platform Hero"),
+      title: t("hero.platform_title", "Mexivanza AI Master Platform"),
+      description: t("hero.platform_desc", "Your gateway to premium Mexican services")
     },
     {
       src: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800",
-      alt: "Travel Mexico",
-      title: "Discover Mexico",
-      description: "Premium travel packages and experiences"
+      alt: t("travel.discover_alt", "Travel Mexico"),
+      title: t("travel.discover_title", "Discover Mexico"),
+      description: t("travel.discover_desc", "Premium travel packages and experiences")
     },
     {
       src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800", 
-      alt: "Legal Services",
-      title: "Legal Excellence",
-      description: "Professional legal consultation services"
+      alt: t("legal.services_alt", "Legal Services"),
+      title: t("legal.services_title", "Legal Excellence"),
+      description: t("legal.services_desc", "Professional legal consultation services")
     }
   ];
 
@@ -583,7 +583,7 @@ export const Home: React.FC = () => {
                             </Avatar>
                             <div>
                               <div className="flex items-center space-x-2">
-                                <span className="font-medium text-sm">{post.profiles?.name || 'Usuario'}</span>
+                                <span className="font-medium text-sm">{post.profiles?.name || t("profile.default_user", "Usuario")}</span>
                                 <Badge variant="outline" className="text-xs">{post.category}</Badge>
                               </div>
                               <p className="text-xs text-muted-foreground">{new Date(post.created_at).toLocaleDateString()}</p>
@@ -598,15 +598,15 @@ export const Home: React.FC = () => {
                           <div className="flex space-x-4">
                             <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground hover:text-primary">
                               <Heart className="h-4 w-4 mr-1" />
-                              <span className="text-xs">Me gusta</span>
+                              <span className="text-xs">{t("post.like", "Me gusta")}</span>
                             </Button>
                             <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground hover:text-primary">
                               <MessageSquare className="h-4 w-4 mr-1" />
-                              <span className="text-xs">Comentar</span>
+                              <span className="text-xs">{t("post.comment", "Comentar")}</span>
                             </Button>
                             <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground hover:text-primary">
                               <Share className="h-4 w-4 mr-1" />
-                              <span className="text-xs">Compartir</span>
+                              <span className="text-xs">{t("post.share", "Compartir")}</span>
                             </Button>
                           </div>
                         </div>
