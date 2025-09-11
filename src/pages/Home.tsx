@@ -1,137 +1,163 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/hooks/use-language";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
-  Plane, 
-  Scale, 
-  Monitor, 
-  MapPin, 
-  Users, 
-  Clock,
-  Globe,
-  Shield,
-  Award,
+  Home as HomeIcon,
+  User,
+  Settings,
+  LogOut,
+  Plus,
   Heart,
   MessageSquare,
+  Share,
+  Clock,
+  MapPin,
+  Sun,
+  CloudRain,
+  Users,
+  Building,
+  Briefcase,
+  Scale,
+  Plane,
+  Monitor,
   UserPlus,
-  LogIn
+  LogIn,
+  Shield,
+  Languages
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import heroImage from "@/assets/hero-mexico.jpg";
 
 export const Home: React.FC = () => {
   const { t } = useLanguage();
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, signOut } = useAuth();
+  const navigate = useNavigate();
+  const [posts, setPosts] = useState<any[]>([]);
+  const [newPost, setNewPost] = useState({ title: "", content: "", category: "News" });
+  const [showPostForm, setShowPostForm] = useState(false);
 
-  const services = [
-    {
-      icon: Plane,
-      title: "Paquetes de Viaje",
-      description: "Experiencias de viaje curadas por expertos a través de México",
-      features: ["Itinerarios personalizados", "Experiencias locales", "Soporte 24/7"],
-      href: "/travel"
-    },
-    {
-      icon: Scale,
-      title: "Servicios Legales",
-      description: "Asistencia legal profesional y servicios de consultoría",
-      features: ["Revisión de contratos", "Formación de empresas", "Apoyo migratorio"],
-      href: "/legal"
-    },
-    {
-      icon: Monitor,
-      title: "Desarrollo Web",
-      description: "Soluciones tecnológicas modernas para empresas e individuos",
-      features: ["Desarrollo web", "Marketing digital", "Consultoría tech"],
-      href: "/webdev"
-    },
-    {
-      icon: MapPin,
-      title: "Bienes Raíces",
-      description: "Propiedades verificadas en las mejores ubicaciones de México",
-      features: ["Listados verificados", "Asesoría especializada", "Financiamiento"],
-      href: "/realestate"
+  const categories = [
+    "News", "Fitness", "Cooking", "Travel", "Legal", "Real Estate", 
+    "Business", "Web Development", "Events", "Ads"
+  ];
+
+  // Fetch posts
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('user_posts')
+        .select(`
+          *,
+          profiles (name, avatar_url)
+        `)
+        .order('created_at', { ascending: false })
+        .limit(20);
+
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
     }
-  ];
+  };
 
-  const stats = [
-    { icon: Users, value: "10,000+", label: "Usuarios Activos" },
-    { icon: MapPin, value: "32", label: "Estados Cubiertos" },
-    { icon: Clock, value: "24/7", label: "Soporte Disponible" },
-    { icon: Award, value: "5+", label: "Años de Experiencia" }
-  ];
-
-  const featuredPosts = [
-    {
-      id: 1,
-      title: "Nuevos Paquetes de Viaje Disponibles",
-      content: "Descubre increíbles nuevos destinos en México con nuestras experiencias de viaje curadas.",
-      image: heroImage,
-      time: "Hace 2h",
-      likes: 24,
-      comments: 8,
-      category: "Viajes"
-    },
-    {
-      id: 2,
-      title: "Tip Legal: Registro de Empresas",
-      content: "Pasos esenciales para registrar tu empresa en México. Nuestros expertos legales te guían.",
-      time: "Hace 4h",
-      likes: 18,
-      comments: 5,
-      category: "Legal"
+  const handleCreatePost = async () => {
+    if (!user) {
+      toast.error("Debes iniciar sesión para crear posts");
+      return;
     }
-  ];
+
+    if (!newPost.title.trim() || !newPost.content.trim()) {
+      toast.error("Por favor completa el título y contenido");
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('user_posts')
+        .insert([{
+          user_id: user.id,
+          title: newPost.title,
+          content: newPost.content,
+          scenario_tags: [newPost.category],
+          language: 'es'
+        }]);
+
+      if (error) throw error;
+
+      toast.success("Post creado exitosamente");
+      setNewPost({ title: "", content: "", category: "News" });
+      setShowPostForm(false);
+      fetchPosts();
+    } catch (error) {
+      console.error('Error creating post:', error);
+      toast.error("Error al crear el post");
+    }
+  };
+
+  const handleLogout = async () => {
+    await signOut();
+    toast.success("Sesión cerrada exitosamente");
+    navigate('/');
+  };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Navigation Header */}
-      <header className="bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60 border-b sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-white font-bold">M</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-lg">M</span>
               </div>
-              <div>
-                <h1 className="text-xl font-bold">Mexivanza</h1>
-                <p className="text-xs text-muted-foreground">Plataforma Integral de Servicios</p>
-              </div>
+              <h1 className="text-xl font-bold text-gray-900">Mexivanza</h1>
             </div>
             
             <div className="flex items-center space-x-4">
+              <Button variant="ghost" size="sm">
+                <Languages className="h-4 w-4 mr-2" />
+                ES/EN
+              </Button>
+              
               {user ? (
                 <div className="flex items-center space-x-2">
                   <Badge variant={isAdmin ? "default" : "secondary"}>
                     {isAdmin ? "Admin" : "Usuario"}
                   </Badge>
                   {isAdmin && (
-                    <Button asChild size="sm">
+                    <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700">
                       <Link to="/admin-dashboard">
                         <Shield className="mr-2 h-4 w-4" />
-                        Dashboard Admin
+                        Admin
                       </Link>
                     </Button>
                   )}
-                  <Button asChild variant="outline" size="sm">
-                    <Link to="/dashboard">Dashboard</Link>
-                  </Button>
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
                   <Button asChild variant="outline" size="sm">
                     <Link to="/auth">
                       <LogIn className="mr-2 h-4 w-4" />
-                      Iniciar Sesión
+                      Entrar
                     </Link>
                   </Button>
-                  <Button asChild size="sm">
+                  <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700">
                     <Link to="/auth">
                       <UserPlus className="mr-2 h-4 w-4" />
-                      Registrarse
+                      Registrar
                     </Link>
                   </Button>
                 </div>
@@ -141,174 +167,336 @@ export const Home: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8 space-y-12">
-        {/* Hero Section */}
-        <section className="text-center space-y-6">
-          <div className="relative">
-            <img
-              src={heroImage}
-              alt="Mexivanza - Servicios integrales para México"
-              className="w-full h-96 object-cover rounded-xl shadow-elegant"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl" />
-            <div className="absolute bottom-8 left-8 right-8 text-white">
-              <Badge variant="secondary" className="mb-4">
-                <Globe className="mr-1 h-3 w-3" />
-                Plataforma Soberana
-              </Badge>
-              <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                Mexivanza AI Master Platform
-              </h1>
-              <p className="text-xl text-white/90 max-w-2xl mx-auto">
-                Servicios integrales de viaje, legal, desarrollo web y bienes raíces 
-                con control administrativo soberano y características sociales públicas
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Stats Section */}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
-            <Card key={index} className="text-center">
-              <CardContent className="p-6">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-4">
-                  <stat.icon className="h-6 w-6 text-primary" />
-                </div>
-                <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </CardContent>
-            </Card>
-          ))}
-        </section>
-
-        {/* Services Grid */}
-        <section className="space-y-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">Módulos de Servicios Soberanos</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Servicios controlados por administradores con acceso cifrado y gestión basada en roles
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {services.map((service, index) => (
-              <Card key={index} className="hover:shadow-medium transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                      <service.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold mb-2">{service.title}</h3>
-                      <p className="text-muted-foreground mb-3">{service.description}</p>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {service.features.map((feature, featureIndex) => (
-                          <Badge key={featureIndex} variant="secondary" className="text-xs">
-                            {feature}
-                          </Badge>
-                        ))}
-                      </div>
-                      <Button size="sm" asChild>
-                        <Link to={service.href}>Explorar Servicio</Link>
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Featured Content */}
-        <section className="space-y-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">Contenido Destacado</h2>
-            <p className="text-muted-foreground">
-              Últimas actualizaciones y contenido curado por nuestros administradores
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {featuredPosts.map((post) => (
-              <Card key={post.id} className="hover:shadow-medium transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                      <span className="text-white font-semibold text-sm">M</span>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <span className="font-semibold">Mexivanza</span>
-                        <Badge variant="secondary" className="text-xs">
-                          {post.category}
-                        </Badge>
-                        <span className="text-sm text-muted-foreground">{post.time}</span>
-                      </div>
-                      <h3 className="font-semibold mb-2">{post.title}</h3>
-                      <p className="text-muted-foreground mb-4">{post.content}</p>
-                      
-                      {post.image && (
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="w-full h-48 object-cover rounded-lg mb-4"
-                        />
-                      )}
-
-                      <div className="flex items-center justify-between pt-4 border-t">
-                        <div className="flex items-center space-x-4">
-                          <Button variant="ghost" size="sm" className="text-muted-foreground">
-                            <Heart className="mr-2 h-4 w-4" />
-                            {post.likes}
-                          </Button>
-                          <Button variant="ghost" size="sm" className="text-muted-foreground">
-                            <MessageSquare className="mr-2 h-4 w-4" />
-                            {post.comments}
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="bg-primary/5 rounded-xl p-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Únete a la Plataforma Mexivanza</h2>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Accede a servicios integrales, conecta con profesionales verificados y 
-            forma parte de la comunidad empresarial más importante de México
-          </p>
-          <div className="flex items-center justify-center space-x-4">
-            {!user && (
+      <div className="max-w-6xl mx-auto flex">
+        {/* Left Sidebar - Navigation */}
+        <aside className="w-64 min-h-screen bg-white border-r border-gray-200 p-4">
+          <nav className="space-y-2">
+            <Button variant="ghost" className="w-full justify-start bg-blue-50 text-blue-600">
+              <HomeIcon className="mr-3 h-5 w-5" />
+              Inicio
+            </Button>
+            
+            {user && (
               <>
-                <Button size="lg" asChild>
-                  <Link to="/auth">
-                    <UserPlus className="mr-2 h-5 w-5" />
-                    Crear Cuenta Gratuita
+                <Button asChild variant="ghost" className="w-full justify-start">
+                  <Link to="/dashboard">
+                    <User className="mr-3 h-5 w-5" />
+                    Dashboard
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link to="/auth">Iniciar Sesión</Link>
+                <Button variant="ghost" className="w-full justify-start">
+                  <Settings className="mr-3 h-5 w-5" />
+                  Configuración
+                </Button>
+                <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
+                  <LogOut className="mr-3 h-5 w-5" />
+                  Cerrar Sesión
                 </Button>
               </>
             )}
-            {user && !isAdmin && (
-              <Button size="lg" asChild>
-                <Link to="/dashboard">
-                  <Shield className="mr-2 h-5 w-5" />
-                  Ver Mi Dashboard
-                </Link>
+          </nav>
+
+          {/* Services Section */}
+          <div className="mt-8">
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+              Servicios
+            </h3>
+            <div className="space-y-2">
+              <Button variant="ghost" className="w-full justify-start text-sm">
+                <Plane className="mr-3 h-4 w-4" />
+                Viajes
               </Button>
-            )}
+              <Button variant="ghost" className="w-full justify-start text-sm">
+                <Scale className="mr-3 h-4 w-4" />
+                Legal
+              </Button>
+              <Button variant="ghost" className="w-full justify-start text-sm">
+                <Building className="mr-3 h-4 w-4" />
+                Inmobiliaria
+              </Button>
+              <Button variant="ghost" className="w-full justify-start text-sm">
+                <Monitor className="mr-3 h-4 w-4" />
+                Desarrollo Web
+              </Button>
+            </div>
           </div>
-        </section>
-      </main>
+        </aside>
+
+        {/* Center Feed */}
+        <main className="flex-1 min-h-screen bg-gray-50 p-6">
+          <div className="max-w-2xl mx-auto space-y-6">
+            {/* Create Post Card */}
+            {user && (
+              <Card className="shadow-sm border-gray-200">
+                <CardContent className="p-4">
+                  {!showPostForm ? (
+                    <Button 
+                      onClick={() => setShowPostForm(true)}
+                      variant="outline" 
+                      className="w-full justify-start"
+                    >
+                      <Plus className="mr-2 h-4 w-4" />
+                      ¿Qué tienes en mente?
+                    </Button>
+                  ) : (
+                    <div className="space-y-4">
+                      <Input
+                        placeholder="Título del post..."
+                        value={newPost.title}
+                        onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                      />
+                      <Textarea
+                        placeholder="Escribe algo..."
+                        value={newPost.content}
+                        onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+                        rows={3}
+                      />
+                      <Select value={newPost.category} onValueChange={(value) => setNewPost({ ...newPost, category: value })}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Categoría" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories.map((category) => (
+                            <SelectItem key={category} value={category}>
+                              {category}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <div className="flex space-x-2">
+                        <Button onClick={handleCreatePost} size="sm" className="bg-blue-600 hover:bg-blue-700">
+                          Publicar
+                        </Button>
+                        <Button 
+                          onClick={() => setShowPostForm(false)} 
+                          variant="outline" 
+                          size="sm"
+                        >
+                          Cancelar
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Hero Post */}
+            <Card className="shadow-sm border-gray-200">
+              <CardContent className="p-0">
+                <div className="relative">
+                  <img
+                    src={heroImage}
+                    alt="Mexivanza Platform"
+                    className="w-full h-64 object-cover rounded-t-lg"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-t-lg" />
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <Badge className="mb-2 bg-blue-600">
+                      Destacado
+                    </Badge>
+                    <h2 className="text-2xl font-bold mb-2">
+                      Plataforma Integral Mexivanza
+                    </h2>
+                    <p className="text-white/90">
+                      Servicios profesionales de viaje, legal, desarrollo web y bienes raíces
+                    </p>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <Button size="sm" variant="ghost">
+                        <Heart className="mr-2 h-4 w-4" />
+                        124
+                      </Button>
+                      <Button size="sm" variant="ghost">
+                        <MessageSquare className="mr-2 h-4 w-4" />
+                        28
+                      </Button>
+                      <Button size="sm" variant="ghost">
+                        <Share className="mr-2 h-4 w-4" />
+                        Compartir
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Posts Feed */}
+            {posts.map((post) => (
+              <Card key={post.id} className="shadow-sm border-gray-200">
+                <CardContent className="p-4">
+                  <div className="flex items-start space-x-3">
+                    <Avatar className="w-10 h-10">
+                      <AvatarImage src={post.profiles?.avatar_url} />
+                      <AvatarFallback className="bg-blue-100 text-blue-600">
+                        {post.profiles?.name?.charAt(0) || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <span className="font-semibold text-gray-900">
+                          {post.profiles?.name || 'Usuario'}
+                        </span>
+                        {post.scenario_tags?.[0] && (
+                          <Badge variant="secondary" className="text-xs">
+                            {post.scenario_tags[0]}
+                          </Badge>
+                        )}
+                        <span className="text-sm text-gray-500">
+                          <Clock className="inline h-3 w-3 mr-1" />
+                          {new Date(post.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <h3 className="font-semibold mb-2 text-gray-900">{post.title}</h3>
+                      <p className="text-gray-700 mb-4">{post.content}</p>
+                      
+                      <div className="flex items-center space-x-4 pt-2 border-t border-gray-100">
+                        <Button variant="ghost" size="sm">
+                          <Heart className="mr-2 h-4 w-4" />
+                          Me gusta
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                          <MessageSquare className="mr-2 h-4 w-4" />
+                          Comentar
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                          <Share className="mr-2 h-4 w-4" />
+                          Compartir
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </main>
+
+        {/* Right Sidebar - Contextual Modules */}
+        <aside className="w-80 min-h-screen bg-white border-l border-gray-200 p-4">
+          {/* Weather Widget */}
+          <Card className="mb-6 shadow-sm border-gray-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-semibold flex items-center">
+                <Sun className="mr-2 h-4 w-4 text-yellow-500" />
+                Clima en CDMX
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-2xl font-bold">24°C</div>
+                  <div className="text-sm text-gray-500">Soleado</div>
+                </div>
+                <Sun className="h-8 w-8 text-yellow-500" />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Featured Services */}
+          <Card className="mb-6 shadow-sm border-gray-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-semibold">Servicios Destacados</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="flex items-center space-x-3 p-2 rounded-lg bg-blue-50">
+                <Plane className="h-5 w-5 text-blue-600" />
+                <div>
+                  <div className="text-sm font-medium">Paquetes de Viaje</div>
+                  <div className="text-xs text-gray-500">Desde $2,500 MXN</div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3 p-2 rounded-lg bg-green-50">
+                <Scale className="h-5 w-5 text-green-600" />
+                <div>
+                  <div className="text-sm font-medium">Consultoría Legal</div>
+                  <div className="text-xs text-gray-500">Consulta gratuita</div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3 p-2 rounded-lg bg-purple-50">
+                <Building className="h-5 w-5 text-purple-600" />
+                <div>
+                  <div className="text-sm font-medium">Bienes Raíces</div>
+                  <div className="text-xs text-gray-500">+500 propiedades</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Online Users */}
+          <Card className="shadow-sm border-gray-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-semibold flex items-center">
+                <Users className="mr-2 h-4 w-4 text-green-500" />
+                Usuarios Activos
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-sm">2,847 usuarios en línea</span>
+                </div>
+                <div className="text-xs text-gray-500">
+                  Última actualización hace 1 min
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </aside>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 mt-12">
+        <div className="max-w-6xl mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold">M</span>
+                </div>
+                <span className="font-bold text-gray-900">Mexivanza</span>
+              </div>
+              <p className="text-sm text-gray-600">
+                Plataforma integral de servicios para México
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-3">Servicios</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>Viajes</li>
+                <li>Legal</li>
+                <li>Bienes Raíces</li>
+                <li>Desarrollo Web</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-3">Empresa</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>Acerca de</li>
+                <li>Contacto</li>
+                <li>Carreras</li>
+                <li>Blog</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-3">Legal</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>Privacidad</li>
+                <li>Términos</li>
+                <li>Cookies</li>
+                <li>Soporte</li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-200 mt-8 pt-6 text-center text-sm text-gray-500">
+            © 2024 Mexivanza. Todos los derechos reservados.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
