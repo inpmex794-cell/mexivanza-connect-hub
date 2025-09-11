@@ -336,6 +336,7 @@ const translations = {
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>("es");
+  const [, forceUpdate] = useState({}); // Force re-render trigger
 
   useEffect(() => {
     const saved = localStorage.getItem("mexivanza-language") as Language;
@@ -397,11 +398,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, [language, t]);
 
   const handleSetLanguage = (lang: Language) => {
+    console.log('Language changing from', language, 'to', lang);
     setLanguage(lang);
     localStorage.setItem("mexivanza-language", lang);
     
+    // Force re-render of all components using this context
+    forceUpdate({});
+    
     // Trigger a custom event for components that need to react to language changes
     window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
+    console.log('Language change event dispatched');
   };
 
   return (
