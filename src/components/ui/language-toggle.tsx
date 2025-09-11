@@ -16,21 +16,23 @@ export const LanguageToggle: React.FC<LanguageToggleProps> = ({
   className,
 }) => {
   return (
-    <div className={cn("flex items-center rounded-lg border bg-card p-1", className)}>
+    <div className={cn("flex items-center rounded-full border border-border bg-background p-1 shadow-soft", className)}>
       <Button
-        variant={language === "es" ? "default" : "ghost"}
+        variant={language === "es" ? "facebook" : "ghost"}
         size="sm"
         onClick={() => onLanguageChange("es")}
-        className="h-8 px-3 text-xs"
+        className="h-8 px-3 text-xs rounded-full flex items-center gap-1"
       >
+        <span className="text-sm">🇲🇽</span>
         ES
       </Button>
       <Button
-        variant={language === "en" ? "default" : "ghost"}
+        variant={language === "en" ? "facebook" : "ghost"}
         size="sm"
         onClick={() => onLanguageChange("en")}
-        className="h-8 px-3 text-xs"
+        className="h-8 px-3 text-xs rounded-full flex items-center gap-1"
       >
+        <span className="text-sm">🇺🇸</span>
         EN
       </Button>
     </div>

@@ -9,15 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary-hover shadow-soft",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-soft",
-        outline: "border border-border bg-background hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-        facebook: "bg-primary text-primary-foreground hover:bg-primary-hover shadow-soft font-medium",
-        success: "bg-success text-success-foreground hover:bg-success/90 shadow-soft",
-        whatsapp: "bg-[#25D366] text-white hover:bg-[#25D366]/90 shadow-soft",
+        default: "bg-primary text-primary-foreground hover:bg-primary-hover shadow-soft hover:shadow-medium transition-all",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-soft hover:shadow-medium transition-all",
+        outline: "border border-border bg-background hover:bg-accent hover:text-accent-foreground shadow-soft hover:shadow-medium transition-all",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-soft hover:shadow-medium transition-all",
+        ghost: "hover:bg-accent hover:text-accent-foreground transition-all",
+        link: "text-primary underline-offset-4 hover:underline transition-all",
+        facebook: "bg-primary text-primary-foreground hover:bg-primary-hover shadow-soft hover:shadow-medium font-medium transition-all",
+        success: "bg-success text-success-foreground hover:bg-success/90 shadow-soft hover:shadow-medium transition-all",
+        whatsapp: "bg-[#25D366] text-white hover:bg-[#25D366]/90 shadow-soft hover:shadow-medium transition-all",
+        admin: "bg-accent text-accent-foreground hover:bg-accent/80 shadow-soft hover:shadow-medium border border-primary/20 font-medium transition-all",
       },
       size: {
         default: "h-10 px-4 py-2",
