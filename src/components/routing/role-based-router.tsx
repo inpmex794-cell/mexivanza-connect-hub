@@ -37,5 +37,5 @@ export const RoleBasedRouter: React.FC = () => {
   }
 
   // Public/unauthenticated routing
-  return <Navigate to="/home" replace />;
+  return <Navigate to="/" replace />;
 };

@@ -78,12 +78,15 @@ export const Home: React.FC = () => {
     "Business", "Web Development", "Events", "Ads"
   ];
 
-  // Role-based redirection
+  // Role-based redirection - enforce admin sovereignty
   useEffect(() => {
     if (user?.email === 'mexivanza@mexivanza.com' || isAdmin) {
       navigate('/admin-dashboard');
     } else if (user && userRole === 'verified') {
       navigate('/verified-dashboard');
+    } else if (user) {
+      // Regular authenticated users stay on main home
+      navigate('/home');
     }
   }, [user, userRole, isAdmin, navigate]);
 

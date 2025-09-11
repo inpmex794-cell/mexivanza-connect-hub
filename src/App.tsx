@@ -7,6 +7,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RoleBasedRouter } from '@/components/routing/role-based-router';
+import { PublicLanding } from '@/pages/PublicLanding';
 import { Home } from '@/pages/Home';
 import { Auth } from '@/pages/Auth';
 import { Dashboard } from '@/pages/Dashboard';
@@ -34,8 +35,11 @@ function App() {
             <Router>
               <div className="min-h-screen bg-background">
                 <Routes>
-                  {/* Role-based root routing */}
-                  <Route path="/" element={<RoleBasedRouter />} />
+                  {/* Public landing page for unregistered users */}
+                  <Route path="/" element={<PublicLanding />} />
+                  
+                  {/* Role-based routing for authenticated users */}
+                  <Route path="/dashboard-redirect" element={<RoleBasedRouter />} />
                   
                   {/* Public Routes */}
                   <Route path="/home" element={<Home />} />
@@ -54,6 +58,11 @@ function App() {
                   <Route path="/admin-dashboard" element={<AdminDashboard />} />
                   <Route path="/verified-dashboard" element={<VerifiedDashboard />} />
                   <Route path="/admin/travel-categories" element={<AdminCategoriesManager />} />
+                  
+                  {/* Service Routes */}
+                  <Route path="/legal" element={<Navigate to="/dashboard" replace />} />
+                  <Route path="/real-estate" element={<Navigate to="/dashboard" replace />} />
+                  <Route path="/web-development" element={<Navigate to="/dashboard" replace />} />
                   
                   {/* Fallback */}
                   <Route path="/404" element={<NotFound />} />
