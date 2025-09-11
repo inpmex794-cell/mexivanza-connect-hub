@@ -12,6 +12,13 @@ import { Auth } from '@/pages/Auth';
 import { Dashboard } from '@/pages/Dashboard';
 import { AdminDashboard } from '@/pages/AdminDashboard';
 import { VerifiedDashboard } from '@/pages/VerifiedDashboard';
+import { Privacy } from '@/pages/Privacy';
+import { Terms } from '@/pages/Terms';
+import { Contact } from '@/pages/Contact';
+import { About } from '@/pages/About';
+import { Companies } from '@/pages/Companies';
+import { Careers } from '@/pages/Careers';
+import { Blog } from '@/pages/Blog';
 import NotFound from '@/pages/NotFound';
 
 const queryClient = new QueryClient();
@@ -31,6 +38,13 @@ function App() {
                   {/* Public Routes */}
                   <Route path="/home" element={<Home />} />
                   <Route path="/auth" element={<Auth />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/companies" element={<Companies />} />
+                  <Route path="/careers" element={<Careers />} />
+                  <Route path="/blog" element={<Blog />} />
                   
                   {/* Protected Routes */}
                   <Route path="/dashboard" element={<Dashboard />} />

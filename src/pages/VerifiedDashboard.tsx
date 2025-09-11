@@ -37,8 +37,13 @@ export const VerifiedDashboard: React.FC = () => {
 
   useEffect(() => {
     // Redirect if not verified user
-    if (!user || userRole !== 'verified') {
-      navigate('/');
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+    
+    if (userRole !== 'verified') {
+      navigate('/dashboard');
       return;
     }
     
@@ -119,12 +124,15 @@ export const VerifiedDashboard: React.FC = () => {
     }
   ];
 
-  if (loading) {
+  // Show loading or redirect for non-verified users
+  if (loading || !user || userRole !== 'verified') {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center space-y-4">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="text-muted-foreground">Loading verified dashboard...</p>
+          <p className="text-muted-foreground">
+            {loading ? 'Loading verified dashboard...' : 'Redirecting...'}
+          </p>
         </div>
       </div>
     );
@@ -212,17 +220,23 @@ export const VerifiedDashboard: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {verifiedFeatures.map((feature, index) => (
                   <div
                     key={index}
-                    className="flex items-start gap-4 p-4 border rounded-lg hover:bg-accent transition-colors cursor-pointer"
+                    className="group flex items-start gap-4 p-6 border rounded-xl hover:bg-accent hover:shadow-md transition-all duration-200 cursor-pointer hover:border-primary/20"
                     onClick={feature.action}
                   >
-                    <feature.icon className={`h-6 w-6 ${feature.color} mt-1`} />
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-foreground">{feature.title}</h3>
-                      <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    <div className="p-2 rounded-lg bg-accent group-hover:bg-background transition-colors">
+                      <feature.icon className={`h-6 w-6 ${feature.color}`} />
+                    </div>
+                    <div className="flex-1 space-y-1">
+                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {feature.description}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -278,32 +292,49 @@ export const VerifiedDashboard: React.FC = () => {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Button className="h-16 text-left" onClick={() => navigate('/create-post')}>
-              <div className="flex items-center gap-3">
-                <Plus className="h-6 w-6" />
-                <div>
-                  <div className="font-semibold">{t('verified.create_post', 'Create Post')}</div>
-                  <div className="text-sm opacity-90">{t('verified.share_content', 'Share your content')}</div>
+            <Button 
+              className="h-20 justify-start p-6 group hover:shadow-lg transition-all duration-200" 
+              onClick={() => navigate('/create-post')}
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-2 rounded-lg bg-primary-foreground/10 group-hover:bg-primary-foreground/20 transition-colors">
+                  <Plus className="h-6 w-6" />
+                </div>
+                <div className="text-left">
+                  <div className="font-semibold text-base">{t('verified.create_post', 'Create Post')}</div>
+                  <div className="text-sm opacity-90 font-normal">{t('verified.share_content', 'Share your content')}</div>
                 </div>
               </div>
             </Button>
 
-            <Button className="h-16 text-left" variant="outline" onClick={() => navigate('/messages')}>
-              <div className="flex items-center gap-3">
-                <MessageSquare className="h-6 w-6" />
-                <div>
-                  <div className="font-semibold">{t('verified.view_messages', 'View Messages')}</div>
-                  <div className="text-sm text-muted-foreground">{t('verified.client_communication', 'Client communication')}</div>
+            <Button 
+              className="h-20 justify-start p-6 group hover:shadow-lg transition-all duration-200" 
+              variant="outline" 
+              onClick={() => navigate('/messages')}
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-2 rounded-lg bg-accent group-hover:bg-accent/70 transition-colors">
+                  <MessageSquare className="h-6 w-6 text-primary" />
+                </div>
+                <div className="text-left">
+                  <div className="font-semibold text-base">{t('verified.view_messages', 'View Messages')}</div>
+                  <div className="text-sm text-muted-foreground font-normal">{t('verified.client_communication', 'Client communication')}</div>
                 </div>
               </div>
             </Button>
 
-            <Button className="h-16 text-left" variant="outline" onClick={() => navigate('/settings')}>
-              <div className="flex items-center gap-3">
-                <Settings className="h-6 w-6" />
-                <div>
-                  <div className="font-semibold">{t('verified.account_settings', 'Account Settings')}</div>
-                  <div className="text-sm text-muted-foreground">{t('verified.manage_account', 'Manage your account')}</div>
+            <Button 
+              className="h-20 justify-start p-6 group hover:shadow-lg transition-all duration-200" 
+              variant="outline" 
+              onClick={() => navigate('/settings')}
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-2 rounded-lg bg-accent group-hover:bg-accent/70 transition-colors">
+                  <Settings className="h-6 w-6 text-primary" />
+                </div>
+                <div className="text-left">
+                  <div className="font-semibold text-base">{t('verified.account_settings', 'Account Settings')}</div>
+                  <div className="text-sm text-muted-foreground font-normal">{t('verified.manage_account', 'Manage your account')}</div>
                 </div>
               </div>
             </Button>
