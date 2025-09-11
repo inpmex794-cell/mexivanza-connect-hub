@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
+import { useLanguage } from "@/hooks/use-language";
 import { useNavigate } from "react-router-dom";
 import { LogIn, UserPlus, Mail, Lock, ArrowLeft, Shield, CheckCircle } from "lucide-react";
 
@@ -15,6 +16,7 @@ export const Auth: React.FC = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const { signIn, signUp, user, userRole, isAdmin } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   // Redirect if already logged in based on role
@@ -147,8 +149,8 @@ export const Auth: React.FC = () => {
                 className="w-full"
                 disabled={loading}
               >
-                {loading ? "Procesando..." : (
-                  authType === "login" ? "Iniciar Sesión" : "Crear Cuenta"
+                {loading ? t("auth.processing", "Processing...") : (
+                  authType === "login" ? t("auth.login_button", "Sign In") : t("auth.register_button", "Create Account")
                 )}
               </Button>
             </form>
@@ -158,8 +160,8 @@ export const Auth: React.FC = () => {
             <div className="text-center">
               <p className="text-sm text-muted-foreground mb-2">
                 {authType === "login" 
-                  ? "¿No tienes cuenta?" 
-                  : "¿Ya tienes cuenta?"
+                  ? t("auth.no_account", "Don't have an account?") 
+                  : t("auth.have_account", "Already have an account?")
                 }
               </p>
               <Button 
@@ -167,7 +169,7 @@ export const Auth: React.FC = () => {
                 onClick={() => setAuthType(authType === "login" ? "register" : "login")}
                 className="w-full"
               >
-                {authType === "login" ? "Crear Cuenta" : "Iniciar Sesión"}
+                {authType === "login" ? t("auth.switch_to_register", "Create Account") : t("auth.switch_to_login", "Sign In")}
               </Button>
             </div>
 
