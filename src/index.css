@@ -101,5 +101,110 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    /* Prevent horizontal overflow */
+    overflow-x: hidden;
+  }
+
+  /* Global text containment and overflow handling */
+  h1, h2, h3, h4, h5, h6, p, span, div {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* Prevent text overflow in specific contexts */
+  .text-container {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Number and address specific handling */
+  .number-text, .address-text, .email-text {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+
+  /* Container constraint classes */
+  .container-safe {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  /* Mobile-first responsive containers */
+  @media (min-width: 640px) {
+    .container-safe {
+      max-width: 640px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container-safe {
+      max-width: 768px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-safe {
+      max-width: 1024px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-safe {
+      max-width: 1280px;
+    }
+  }
+
+  /* Form and input containment */
+  input, textarea, select {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Card content overflow prevention */
+  .card-content-safe {
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Dropdown proper styling */
+  [data-radix-popper-content-wrapper] {
+    z-index: 50 !important;
+  }
+
+  /* Dropdown menu background fix */
+  [role="menu"], [role="listbox"] {
+    background: hsl(var(--popover)) !important;
+    border: 1px solid hsl(var(--border)) !important;
+    z-index: 50;
+  }
+
+  /* Text truncation utilities */
+  .text-truncate-1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .text-truncate-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .text-truncate-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 }

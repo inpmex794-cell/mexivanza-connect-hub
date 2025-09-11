@@ -310,20 +310,20 @@ export const Home: React.FC = () => {
           </aside>
 
           {/* Center Feed - Main Content */}
-          <main className="flex-1 min-h-screen bg-background ml-64 mr-80">
-            <div className="max-w-2xl mx-auto p-6 space-y-6">
+          <main className="flex-1 min-h-screen bg-background ml-64 mr-80 overflow-hidden">
+            <div className="max-w-2xl mx-auto p-4 sm:p-6 space-y-6 container-safe">
               {/* Create Post Card */}
               {user && (
-                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-shadow duration-200">
-                <CardContent className="p-6">
+                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-shadow duration-200 overflow-hidden">
+                <CardContent className="p-4 sm:p-6">
                   {!showPostForm ? (
                     <Button 
                       onClick={() => setShowPostForm(true)}
                       variant="outline" 
-                      className="w-full justify-start h-12 text-muted-foreground hover:text-foreground hover:bg-accent border-dashed"
+                      className="w-full justify-start h-12 text-muted-foreground hover:text-foreground hover:bg-accent border-dashed text-wrap"
                     >
-                      <Plus className="mr-3 h-5 w-5" />
-                      <span className="text-base">¿Qué quieres compartir hoy?</span>
+                      <Plus className="mr-3 h-5 w-5 flex-shrink-0" />
+                      <span className="text-sm sm:text-base truncate">¿Qué quieres compartir hoy?</span>
                     </Button>
                   ) : (
                     <div className="space-y-4">
@@ -374,29 +374,29 @@ export const Home: React.FC = () => {
               <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 overflow-hidden">
                 <CardContent className="p-0">
                   <Gallery images={heroGallery} cols={3} className="mb-0" />
-                  <div className="p-6">
+                  <div className="p-4 sm:p-6">
                     <div className="text-center space-y-4">
                       <EditableContent 
                         contentKey="hero-title"
                         defaultValue="Plataforma Integral Mexivanza"
-                        className="text-3xl font-bold text-foreground block"
+                        className="text-2xl sm:text-3xl font-bold text-foreground block overflow-wrap break-word"
                       />
                       <EditableContent 
                         contentKey="hero-description"
                         defaultValue="Servicios profesionales de viaje, legal, desarrollo web y bienes raíces. Conectando México con soluciones de primera clase."
-                        className="text-muted-foreground text-lg leading-relaxed block"
+                        className="text-muted-foreground text-base sm:text-lg leading-relaxed block overflow-wrap break-word"
                         multiline
                       />
-                      <div className="flex justify-center gap-4 pt-4">
+                      <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
                         <WhatsAppButton
                           message={t("whatsapp.general_inquiry", "¡Hola! Estoy interesado en los servicios de Mexivanza.")}
-                          className="bg-[#25D366] hover:bg-[#25D366]/90 text-white px-6 py-3"
+                          className="bg-[#25D366] hover:bg-[#25D366]/90 text-white px-4 sm:px-6 py-3 text-sm sm:text-base"
                         >
-                          <MessageSquare className="mr-2 h-4 w-4" />
-                          Contactar WhatsApp
+                          <MessageSquare className="mr-2 h-4 w-4 flex-shrink-0" />
+                          <span className="truncate">Contactar WhatsApp</span>
                         </WhatsAppButton>
-                        <Button variant="outline" className="px-6 py-3">
-                          Ver Servicios
+                        <Button variant="outline" className="px-4 sm:px-6 py-3 text-sm sm:text-base">
+                          <span className="truncate">Ver Servicios</span>
                         </Button>
                       </div>
                     </div>
@@ -424,16 +424,16 @@ export const Home: React.FC = () => {
                </Card>
 
               {/* Module Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                        <Video className="h-6 w-6 text-primary" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <Card className="shadow-sm border-border bg-card hover:shadow-md transition-all duration-200 cursor-pointer group overflow-hidden">
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="flex items-center gap-3 sm:gap-4 mb-4">
+                      <div className="p-2 sm:p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors flex-shrink-0">
+                        <Video className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                       </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground">Video Streaming</h3>
-                        <p className="text-sm text-muted-foreground">Upload and share videos</p>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-semibold text-foreground text-sm sm:text-base truncate">Video Streaming</h3>
+                        <p className="text-xs sm:text-sm text-muted-foreground truncate">Upload and share videos</p>
                       </div>
                     </div>
                     <Button 

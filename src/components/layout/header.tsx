@@ -26,23 +26,23 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-card border-b border-border shadow-soft">
-      <div className="flex h-full items-center justify-between px-4">
+    <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-card border-b border-border shadow-soft overflow-hidden">
+      <div className="flex h-full items-center justify-between px-4 container-safe max-w-full">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-3">
-          <div className="h-8 w-8 rounded-lg bg-primary"></div>
-          <span className="text-xl font-bold text-foreground">Mexivanza</span>
+        <Link to="/" className="flex items-center space-x-2 sm:space-x-3 min-w-0">
+          <div className="h-8 w-8 rounded-lg bg-primary flex-shrink-0"></div>
+          <span className="text-lg sm:text-xl font-bold text-foreground truncate">Mexivanza</span>
         </Link>
 
         {/* Center Search/Navigation */}
-        <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
-          <div className="relative w-full">
+        <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-4 lg:mx-8 min-w-0">
+          <div className="relative w-full min-w-0">
             <input
               type="text"
               placeholder={t("search.placeholder", "Search services, regions...")}
-              className="w-full px-4 py-2 pl-10 bg-muted rounded-full border-0 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
+              className="w-full max-w-full px-4 py-2 pl-10 bg-muted rounded-full border-0 text-sm focus:ring-2 focus:ring-primary focus:outline-none box-border"
             />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
