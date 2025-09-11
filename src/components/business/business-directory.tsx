@@ -48,7 +48,7 @@ export const BusinessDirectory: React.FC = () => {
     "Travel",
     "Legal",
     "Digital",
-    "Real Estate",
+    t("services.realestate", "Real Estate"),
     "Restaurant",
     "Healthcare",
     "Education",

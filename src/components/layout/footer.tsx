@@ -19,19 +19,19 @@ export const Footer: React.FC = () => {
     {
       title: t("nav.legal"),
       links: [
-        { name: "Constitución de Empresas", href: "/legal/incorporation" },
-        { name: "Derecho Migratorio", href: "/legal/immigration" },
-        { name: "Bienes Raíces", href: "/legal/real-estate" },
-        { name: "Derecho Fiscal", href: "/legal/tax" },
+        { name: t("footer.legal.incorporation", "Constitución de Empresas"), href: "/legal/incorporation" },
+        { name: t("footer.legal.immigration", "Derecho Migratorio"), href: "/legal/immigration" },
+        { name: t("footer.legal.real_estate", "Bienes Raíces"), href: "/legal/real-estate" },
+        { name: t("footer.legal.tax", "Derecho Fiscal"), href: "/legal/tax" },
       ],
     },
     {
       title: t("nav.digital"),
       links: [
-        { name: "Desarrollo Web", href: "/digital/web-development" },
-        { name: "Marketing Digital", href: "/digital/marketing" },
-        { name: "E-commerce", href: "/digital/ecommerce" },
-        { name: "Consultoría Tech", href: "/digital/consulting" },
+        { name: t("footer.digital.web_dev", "Desarrollo Web"), href: "/digital/web-development" },
+        { name: t("footer.digital.marketing", "Marketing Digital"), href: "/digital/marketing" },
+        { name: t("footer.digital.ecommerce", "E-commerce"), href: "/digital/ecommerce" },
+        { name: t("footer.digital.consulting", "Consultoría Tech"), href: "/digital/consulting" },
       ],
     },
   ];
@@ -78,14 +78,14 @@ export const Footer: React.FC = () => {
 
         <div className="border-t mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 Mexivanza. Todos los derechos reservados.
+            {t("footer.copyright", "© 2024 Mexivanza. Todos los derechos reservados.")}
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <Link to="/privacy" className="text-muted-foreground hover:text-primary text-sm">
-              Política de Privacidad
+              {t("footer.privacy", "Política de Privacidad")}
             </Link>
             <Link to="/terms" className="text-muted-foreground hover:text-primary text-sm">
-              Términos de Servicio
+              {t("footer.terms", "Términos de Servicio")}
             </Link>
           </div>
         </div>

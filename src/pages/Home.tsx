@@ -666,7 +666,7 @@ export const Home: React.FC = () => {
           "@context": "https://schema.org",
           "@type": "Organization",
           "name": "Mexivanza",
-          "description": "Plataforma integral de servicios profesionales en México",
+          "description": t("company.description", "Plataforma integral de servicios profesionales en México"),
           "url": "https://mexivanza.com",
           "logo": "https://mexivanza.com/logo.png",
           "sameAs": [
@@ -678,7 +678,7 @@ export const Home: React.FC = () => {
           },
           "hasOfferCatalog": {
             "@type": "OfferCatalog",
-            "name": "Servicios Mexivanza",
+            "name": t("services.catalog", "Servicios Mexivanza"),
             "itemListElement": [
               {
                 "@type": "Offer",
@@ -692,16 +692,16 @@ export const Home: React.FC = () => {
                 "@type": "Offer", 
                 "itemOffered": {
                   "@type": "Service",
-                  "name": "Servicios Legales",
-                  "description": "Consultoría legal profesional"
+                  "name": t("services.legal_consultation", "Servicios Legales"),
+                  "description": t("services.legal_consultation_desc", "Consultoría legal profesional")
                 }
               },
               {
                 "@type": "Offer",
                 "itemOffered": {
                   "@type": "Service", 
-                  "name": "Desarrollo Web",
-                  "description": "Soluciones digitales empresariales"
+                  "name": t("services.webdev_solutions", "Desarrollo Web"),
+                  "description": t("services.webdev_solutions_desc", "Soluciones digitales empresariales")
                 }
               },
               {
