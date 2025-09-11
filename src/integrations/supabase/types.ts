@@ -481,6 +481,41 @@ export type Database = {
         }
         Relationships: []
       }
+      post_interactions: {
+        Row: {
+          content: string | null
+          created_at: string
+          id: string
+          interaction_type: string
+          post_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          interaction_type: string
+          post_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          id?: string
+          interaction_type?: string
+          post_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "post_interactions_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "user_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       posts: {
         Row: {
           category: string
@@ -715,6 +750,7 @@ export type Database = {
       user_posts: {
         Row: {
           ad_status: string | null
+          category: string | null
           content: string | null
           created_at: string
           expires_at: string | null
@@ -731,6 +767,7 @@ export type Database = {
         }
         Insert: {
           ad_status?: string | null
+          category?: string | null
           content?: string | null
           created_at?: string
           expires_at?: string | null
@@ -747,6 +784,7 @@ export type Database = {
         }
         Update: {
           ad_status?: string | null
+          category?: string | null
           content?: string | null
           created_at?: string
           expires_at?: string | null

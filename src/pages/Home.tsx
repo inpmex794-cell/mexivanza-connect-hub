@@ -91,6 +91,7 @@ export const Home: React.FC = () => {
           user_id: user.id,
           title: newPost.title,
           content: newPost.content,
+          category: newPost.category,
           scenario_tags: [newPost.category],
           language: 'es'
         }]);
@@ -114,16 +115,16 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      <header className="bg-card border-b border-border sticky top-0 z-50 shadow-soft">
         <div className="max-w-6xl mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">M</span>
+              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-lg">M</span>
               </div>
-              <h1 className="text-xl font-bold text-gray-900">Mexivanza</h1>
+              <h1 className="text-xl font-bold text-foreground">Mexivanza</h1>
             </div>
             
             <div className="flex items-center space-x-4">
@@ -138,7 +139,7 @@ export const Home: React.FC = () => {
                     {isAdmin ? "Admin" : "Usuario"}
                   </Badge>
                   {isAdmin && (
-                    <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700">
+                    <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
                       <Link to="/admin-dashboard">
                         <Shield className="mr-2 h-4 w-4" />
                         Admin
@@ -154,7 +155,7 @@ export const Home: React.FC = () => {
                       Entrar
                     </Link>
                   </Button>
-                  <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700">
+                  <Button asChild size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
                     <Link to="/auth">
                       <UserPlus className="mr-2 h-4 w-4" />
                       Registrar
@@ -169,9 +170,9 @@ export const Home: React.FC = () => {
 
       <div className="max-w-6xl mx-auto flex">
         {/* Left Sidebar - Navigation */}
-        <aside className="w-64 min-h-screen bg-white border-r border-gray-200 p-4">
+        <aside className="w-64 min-h-screen bg-card border-r border-border p-4">
           <nav className="space-y-2">
-            <Button variant="ghost" className="w-full justify-start bg-blue-50 text-blue-600">
+            <Button variant="ghost" className="w-full justify-start bg-accent text-primary">
               <HomeIcon className="mr-3 h-5 w-5" />
               Inicio
             </Button>
@@ -223,11 +224,11 @@ export const Home: React.FC = () => {
         </aside>
 
         {/* Center Feed */}
-        <main className="flex-1 min-h-screen bg-gray-50 p-6">
+        <main className="flex-1 min-h-screen bg-muted p-6">
           <div className="max-w-2xl mx-auto space-y-6">
             {/* Create Post Card */}
             {user && (
-              <Card className="shadow-sm border-gray-200">
+              <Card className="shadow-soft border-border">
                 <CardContent className="p-4">
                   {!showPostForm ? (
                     <Button 
@@ -264,7 +265,7 @@ export const Home: React.FC = () => {
                         </SelectContent>
                       </Select>
                       <div className="flex space-x-2">
-                        <Button onClick={handleCreatePost} size="sm" className="bg-blue-600 hover:bg-blue-700">
+                        <Button onClick={handleCreatePost} size="sm" className="bg-primary hover:bg-primary-hover text-primary-foreground">
                           Publicar
                         </Button>
                         <Button 
@@ -282,7 +283,7 @@ export const Home: React.FC = () => {
             )}
 
             {/* Hero Post */}
-            <Card className="shadow-sm border-gray-200">
+            <Card className="shadow-soft border-border">
               <CardContent className="p-0">
                 <div className="relative">
                   <img
@@ -292,7 +293,7 @@ export const Home: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-t-lg" />
                   <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <Badge className="mb-2 bg-blue-600">
+                    <Badge className="mb-2 bg-primary text-primary-foreground">
                       Destacado
                     </Badge>
                     <h2 className="text-2xl font-bold mb-2">
@@ -326,23 +327,23 @@ export const Home: React.FC = () => {
 
             {/* Posts Feed */}
             {posts.map((post) => (
-              <Card key={post.id} className="shadow-sm border-gray-200">
+              <Card key={post.id} className="shadow-soft border-border">
                 <CardContent className="p-4">
                   <div className="flex items-start space-x-3">
                     <Avatar className="w-10 h-10">
                       <AvatarImage src={post.profiles?.avatar_url} />
-                      <AvatarFallback className="bg-blue-100 text-blue-600">
+                      <AvatarFallback className="bg-accent text-primary">
                         {post.profiles?.name?.charAt(0) || 'U'}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-2">
-                        <span className="font-semibold text-gray-900">
+                        <span className="font-semibold text-foreground">
                           {post.profiles?.name || 'Usuario'}
                         </span>
-                        {post.scenario_tags?.[0] && (
+                        {post.category && (
                           <Badge variant="secondary" className="text-xs">
-                            {post.scenario_tags[0]}
+                            {post.category}
                           </Badge>
                         )}
                         <span className="text-sm text-gray-500">
@@ -350,10 +351,10 @@ export const Home: React.FC = () => {
                           {new Date(post.created_at).toLocaleDateString()}
                         </span>
                       </div>
-                      <h3 className="font-semibold mb-2 text-gray-900">{post.title}</h3>
-                      <p className="text-gray-700 mb-4">{post.content}</p>
+                      <h3 className="font-semibold mb-2 text-foreground">{post.title}</h3>
+                      <p className="text-muted-foreground mb-4">{post.content}</p>
                       
-                      <div className="flex items-center space-x-4 pt-2 border-t border-gray-100">
+                      <div className="flex items-center space-x-4 pt-2 border-t border-border">
                         <Button variant="ghost" size="sm">
                           <Heart className="mr-2 h-4 w-4" />
                           Me gusta
@@ -376,9 +377,9 @@ export const Home: React.FC = () => {
         </main>
 
         {/* Right Sidebar - Contextual Modules */}
-        <aside className="w-80 min-h-screen bg-white border-l border-gray-200 p-4">
+        <aside className="w-80 min-h-screen bg-card border-l border-border p-4">
           {/* Weather Widget */}
-          <Card className="mb-6 shadow-sm border-gray-200">
+          <Card className="mb-6 shadow-soft border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-semibold flex items-center">
                 <Sun className="mr-2 h-4 w-4 text-yellow-500" />
@@ -397,27 +398,27 @@ export const Home: React.FC = () => {
           </Card>
 
           {/* Featured Services */}
-          <Card className="mb-6 shadow-sm border-gray-200">
+          <Card className="mb-6 shadow-soft border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-semibold">Servicios Destacados</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="flex items-center space-x-3 p-2 rounded-lg bg-blue-50">
-                <Plane className="h-5 w-5 text-blue-600" />
+              <div className="flex items-center space-x-3 p-2 rounded-lg bg-accent">
+                <Plane className="h-5 w-5 text-primary" />
                 <div>
                   <div className="text-sm font-medium">Paquetes de Viaje</div>
                   <div className="text-xs text-gray-500">Desde $2,500 MXN</div>
                 </div>
               </div>
-              <div className="flex items-center space-x-3 p-2 rounded-lg bg-green-50">
-                <Scale className="h-5 w-5 text-green-600" />
+              <div className="flex items-center space-x-3 p-2 rounded-lg bg-accent">
+                <Scale className="h-5 w-5 text-success" />
                 <div>
                   <div className="text-sm font-medium">Consultoría Legal</div>
                   <div className="text-xs text-gray-500">Consulta gratuita</div>
                 </div>
               </div>
-              <div className="flex items-center space-x-3 p-2 rounded-lg bg-purple-50">
-                <Building className="h-5 w-5 text-purple-600" />
+              <div className="flex items-center space-x-3 p-2 rounded-lg bg-accent">
+                <Building className="h-5 w-5 text-primary" />
                 <div>
                   <div className="text-sm font-medium">Bienes Raíces</div>
                   <div className="text-xs text-gray-500">+500 propiedades</div>
@@ -427,7 +428,7 @@ export const Home: React.FC = () => {
           </Card>
 
           {/* Online Users */}
-          <Card className="shadow-sm border-gray-200">
+          <Card className="shadow-soft border-border">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-semibold flex items-center">
                 <Users className="mr-2 h-4 w-4 text-green-500" />
@@ -450,7 +451,7 @@ export const Home: React.FC = () => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-12">
+      <footer className="bg-card border-t border-border mt-12">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
