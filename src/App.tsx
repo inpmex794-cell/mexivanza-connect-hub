@@ -14,47 +14,47 @@ import { AdminDashboard } from "./components/admin/admin-dashboard";
 
 const queryClient = new QueryClient();
 
-// Protected Route Component for Admin
-const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, isAdmin, loading } = useAuth();
-  
-  if (loading) {
-    return <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-        <p className="mt-4 text-muted-foreground">Verificando acceso...</p>
-      </div>
-    </div>;
-  }
-  
-  if (!user || !isAdmin) {
-    return <Navigate to="/auth" replace />;
-  }
-  
-  return <>{children}</>;
-};
-
-// Protected Route Component for Regular Users
-const UserRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, loading } = useAuth();
-  
-  if (loading) {
-    return <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-        <p className="mt-4 text-muted-foreground">Cargando...</p>
-      </div>
-    </div>;
-  }
-  
-  if (!user) {
-    return <Navigate to="/auth" replace />;
-  }
-  
-  return <>{children}</>;
-};
-
 function AppRoutes() {
+  // Protected Route Component for Admin
+  const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const { user, isAdmin, loading } = useAuth();
+    
+    if (loading) {
+      return <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Verificando acceso...</p>
+        </div>
+      </div>;
+    }
+    
+    if (!user || !isAdmin) {
+      return <Navigate to="/auth" replace />;
+    }
+    
+    return <>{children}</>;
+  };
+
+  // Protected Route Component for Regular Users
+  const UserRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const { user, loading } = useAuth();
+    
+    if (loading) {
+      return <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Cargando...</p>
+        </div>
+      </div>;
+    }
+    
+    if (!user) {
+      return <Navigate to="/auth" replace />;
+    }
+    
+    return <>{children}</>;
+  };
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
