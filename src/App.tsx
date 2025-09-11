@@ -19,6 +19,8 @@ import { About } from '@/pages/About';
 import { Companies } from '@/pages/Companies';
 import { Careers } from '@/pages/Careers';
 import { Blog } from '@/pages/Blog';
+import TravelCategories from '@/pages/TravelCategories';
+import AdminCategoriesManager from '@/pages/AdminCategoriesManager';
 import NotFound from '@/pages/NotFound';
 
 const queryClient = new QueryClient();
@@ -45,11 +47,13 @@ function App() {
                   <Route path="/companies" element={<Companies />} />
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/blog" element={<Blog />} />
+                  <Route path="/travel/categories" element={<TravelCategories />} />
                   
                   {/* Protected Routes */}
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/admin-dashboard" element={<AdminDashboard />} />
                   <Route path="/verified-dashboard" element={<VerifiedDashboard />} />
+                  <Route path="/admin/travel-categories" element={<AdminCategoriesManager />} />
                   
                   {/* Fallback */}
                   <Route path="/404" element={<NotFound />} />
