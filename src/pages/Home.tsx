@@ -282,21 +282,21 @@ export const Home: React.FC = () => {
               {/* Services Section */}
               <div className="mt-6">
                 <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3 px-3">
-                  Servicios Premium
+                  {t("services.premium", "Servicios Premium")}
                 </h3>
                 <div className="space-y-1">
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
                     <Plane className="mr-3 h-4 w-4 text-primary" />
                     <div className="text-left">
-                      <div className="font-medium">Viajes</div>
-                      <div className="text-xs text-muted-foreground">Paquetes premium</div>
+                      <div className="font-medium">{t("services.travel", "Viajes")}</div>
+                      <div className="text-xs text-muted-foreground">{t("services.travel_desc", "Paquetes premium")}</div>
                     </div>
                   </Button>
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
                     <Scale className="mr-3 h-4 w-4 text-success" />
                     <div className="text-left">
-                      <div className="font-medium">Legal</div>
-                      <div className="text-xs text-muted-foreground">Consulta gratuita</div>
+                      <div className="font-medium">{t("services.legal", "Legal")}</div>
+                      <div className="text-xs text-muted-foreground">{t("services.legal_desc", "Consulta gratuita")}</div>
                     </div>
                   </Button>
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
@@ -309,8 +309,8 @@ export const Home: React.FC = () => {
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
                     <Monitor className="mr-3 h-4 w-4 text-primary" />
                     <div className="text-left">
-                      <div className="font-medium">Desarrollo Web</div>
-                      <div className="text-xs text-muted-foreground">Soluciones digitales</div>
+                      <div className="font-medium">{t("services.webdev", "Desarrollo Web")}</div>
+                      <div className="text-xs text-muted-foreground">{t("services.webdev_desc", "Soluciones digitales")}</div>
                     </div>
                   </Button>
                 </div>
@@ -405,7 +405,7 @@ export const Home: React.FC = () => {
                           <span className="truncate">Contactar WhatsApp</span>
                         </WhatsAppButton>
                         <Button variant="outline" className="px-4 sm:px-6 py-3 text-sm sm:text-base">
-                          <span className="truncate">Ver Servicios</span>
+                          <span className="truncate">{t("button.view_services", "Ver Servicios")}</span>
                         </Button>
                       </div>
                     </div>
@@ -551,8 +551,8 @@ export const Home: React.FC = () => {
                         <FileText className="h-6 w-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground">Legal Documents</h3>
-                        <p className="text-sm text-muted-foreground">Generate legal docs</p>
+                        <h3 className="font-semibold text-foreground">{t("legal.documents", "Legal Documents")}</h3>
+                        <p className="text-sm text-muted-foreground">{t("legal.documents_desc", "Generate legal docs")}</p>
                       </div>
                     </div>
                     <Button 
@@ -728,18 +728,18 @@ export const Home: React.FC = () => {
               </div>
               <EditableContent 
                 contentKey="footer-description"
-                defaultValue="Plataforma integral de servicios para México"
+                defaultValue={t("footer.description", "Plataforma integral de servicios para México")}
                 className="text-sm text-muted-foreground"
                 multiline
               />
             </div>
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Servicios</h3>
+              <h3 className="font-semibold text-foreground mb-3">{t("nav.services", "Servicios")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Viajes</li>
-                <li>Legal</li>
-                <li>Bienes Raíces</li>
-                <li>Desarrollo Web</li>
+                <li>{t("services.travel", "Viajes")}</li>
+                <li>{t("services.legal", "Legal")}</li>
+                <li>{t("services.realestate", "Bienes Raíces")}</li>
+                <li>{t("services.webdev", "Desarrollo Web")}</li>
               </ul>
             </div>
             <div>
@@ -752,7 +752,7 @@ export const Home: React.FC = () => {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-foreground mb-3">Legal</h3>
+              <h3 className="font-semibold text-foreground mb-3">{t("services.legal", "Legal")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>Privacidad</li>
                 <li>Términos</li>
