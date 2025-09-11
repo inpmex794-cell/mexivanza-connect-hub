@@ -10,6 +10,7 @@ interface WhatsAppButtonProps {
   className?: string;
   size?: "default" | "sm" | "lg" | "xl";
   variant?: "whatsapp" | "outline" | "ghost";
+  children?: React.ReactNode;
 }
 
 export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
@@ -18,6 +19,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   className,
   size = "default",
   variant = "whatsapp",
+  children,
 }) => {
   const { t } = useLanguage();
 
@@ -35,7 +37,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
       className={cn("gap-2", className)}
     >
       <MessageCircle className="h-4 w-4" />
-      WhatsApp
+      {children || "WhatsApp"}
     </Button>
   );
 };

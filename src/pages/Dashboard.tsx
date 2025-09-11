@@ -142,7 +142,7 @@ export const Dashboard: React.FC = () => {
                 Para acceder a todas las funciones del dashboard, incluyendo autenticación real, 
                 datos de usuario y gestión de reservaciones, conecta tu proyecto a Supabase.
               </p>
-              <Button variant="hero">
+              <Button variant="facebook">
                 Conectar Supabase
               </Button>
             </div>

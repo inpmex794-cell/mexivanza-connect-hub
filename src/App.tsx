@@ -20,9 +20,9 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="flex flex-col min-h-screen">
+          <div className="min-h-screen bg-background">
             <Header />
-            <main className="flex-1">
+            <main>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/auth" element={<Auth />} />
@@ -37,7 +37,6 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
-            <Footer />
           </div>
         </BrowserRouter>
       </TooltipProvider>

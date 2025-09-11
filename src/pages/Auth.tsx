@@ -35,11 +35,11 @@ export const Auth: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted/50 p-4">
-      <Card className="w-full max-w-md shadow-strong">
-        <CardHeader className="text-center">
-          <Link to="/" className="flex items-center justify-center space-x-2 mb-4">
-            <div className="h-8 w-8 rounded-lg bg-gradient-hero"></div>
+    <div className="min-h-screen flex items-center justify-center bg-muted/20 p-4">
+      <Card className="w-full max-w-md shadow-strong border-0">
+        <CardHeader className="text-center pb-4">
+          <Link to="/" className="flex items-center justify-center space-x-2 mb-6">
+            <div className="h-8 w-8 rounded-lg bg-primary"></div>
             <span className="text-xl font-bold">Mexivanza</span>
           </Link>
           <CardTitle className="text-2xl">
@@ -80,7 +80,7 @@ export const Auth: React.FC = () => {
             <Button 
               type="submit" 
               className="w-full" 
-              variant="hero"
+              variant="facebook"
               size="lg"
               disabled={loading}
             >

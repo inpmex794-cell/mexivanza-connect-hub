@@ -12,55 +12,51 @@ export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  const navItems = [
-    { key: "nav.home", href: "/" },
-    { key: "nav.travel", href: "/travel" },
-    { key: "nav.legal", href: "/legal" },
-    { key: "nav.digital", href: "/digital" },
-  ];
-
   const handleAuthClick = (type: "login" | "register") => {
-    // For now, just log - will be connected to Supabase
-    console.log(`${type} clicked - requires Supabase integration`);
     navigate(`/auth?type=${type}`);
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+    <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-card border-b border-border shadow-soft">
+      <div className="flex h-full items-center justify-between px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2">
-          <div className="h-8 w-8 rounded-lg bg-gradient-hero"></div>
+        <Link to="/" className="flex items-center space-x-3">
+          <div className="h-8 w-8 rounded-lg bg-primary"></div>
           <span className="text-xl font-bold text-foreground">Mexivanza</span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.key}
-              to={item.href}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-            >
-              {t(item.key)}
-            </Link>
-          ))}
-        </nav>
+        {/* Center Search/Navigation */}
+        <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
+          <div className="relative w-full">
+            <input
+              type="text"
+              placeholder={t("search.placeholder", "Search services, regions...")}
+              className="w-full px-4 py-2 pl-10 bg-muted rounded-full border-0 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
+            />
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+          </div>
+        </div>
 
         {/* Desktop Auth & Language */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden md:flex items-center space-x-3">
           <LanguageToggle
             language={language}
             onLanguageChange={setLanguage}
           />
           <Button 
             variant="ghost" 
+            size="sm"
             onClick={() => handleAuthClick("login")}
           >
             {t("nav.login")}
           </Button>
           <Button 
-            variant="hero" 
+            variant="facebook" 
+            size="sm"
             onClick={() => handleAuthClick("register")}
           >
             {t("nav.register")}
@@ -81,21 +77,23 @@ export const Header: React.FC = () => {
       {/* Mobile Menu */}
       <div
         className={cn(
-          "md:hidden border-t bg-background",
+          "md:hidden border-t bg-card",
           isMenuOpen ? "block" : "hidden"
         )}
       >
-        <nav className="container mx-auto flex flex-col space-y-4 p-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.key}
-              to={item.href}
-              className="text-foreground hover:text-primary transition-colors font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {t(item.key)}
-            </Link>
-          ))}
+        <div className="flex flex-col space-y-4 p-4">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder={t("search.placeholder", "Search...")}
+              className="w-full px-4 py-2 pl-10 bg-muted rounded-full border-0 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
+            />
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+          </div>
           <div className="flex flex-col space-y-2 pt-4 border-t">
             <LanguageToggle
               language={language}
@@ -113,7 +111,7 @@ export const Header: React.FC = () => {
               {t("nav.login")}
             </Button>
             <Button 
-              variant="hero" 
+              variant="facebook" 
               className="w-full"
               onClick={() => {
                 handleAuthClick("register");
@@ -123,7 +121,7 @@ export const Header: React.FC = () => {
               {t("nav.register")}
             </Button>
           </div>
-        </nav>
+        </div>
       </div>
     </header>
   );
