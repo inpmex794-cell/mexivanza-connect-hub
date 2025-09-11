@@ -74,6 +74,14 @@ export const PublicLanding: React.FC = () => {
       stats: '1000+ propiedades'
     },
     {
+      icon: <Users className="h-8 w-8" />,
+      title: t('directory.title', 'Directorio'),
+      description: t('directory.subtitle', 'Negocios verificados'),
+      href: '/business-directory',
+      color: 'text-green-600',
+      stats: 'Verificado'
+    },
+    {
       icon: <Monitor className="h-8 w-8" />,
       title: t('services.web_development', 'Desarrollo Web'),
       description: t('services.web_development_desc', 'Sitios web profesionales'),

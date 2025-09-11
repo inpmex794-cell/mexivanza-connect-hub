@@ -317,6 +317,15 @@ export const Home: React.FC = () => {
                       <div className="text-xs text-muted-foreground">+500 {t("services.realestate_desc", "properties")}</div>
                     </div>
                   </Button>
+                  <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3" asChild>
+                    <Link to="/business-directory">
+                      <Users className="mr-3 h-4 w-4 text-success" />
+                      <div className="text-left">
+                        <div className="font-medium">{t("directory.title", "Directorio")}</div>
+                        <div className="text-xs text-muted-foreground">{t("directory.verified_businesses", "Negocios verificados")}</div>
+                      </div>
+                    </Link>
+                  </Button>
                   <Button variant="ghost" className="w-full justify-start text-sm hover:bg-accent rounded-lg p-3">
                     <Monitor className="mr-3 h-4 w-4 text-primary" />
                     <div className="text-left">

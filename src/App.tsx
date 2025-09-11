@@ -20,6 +20,7 @@ import { About } from '@/pages/About';
 import { Companies } from '@/pages/Companies';
 import { Careers } from '@/pages/Careers';
 import { Blog } from '@/pages/Blog';
+import { BusinessDirectoryPage } from '@/pages/BusinessDirectory';
 import TravelCategories from '@/pages/TravelCategories';
 import AdminCategoriesManager from '@/pages/AdminCategoriesManager';
 import NotFound from '@/pages/NotFound';
@@ -52,6 +53,8 @@ function App() {
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/travel/categories" element={<TravelCategories />} />
+                  <Route path="/business-directory" element={<BusinessDirectoryPage />} />
+                  <Route path="/businesses" element={<BusinessDirectoryPage />} />
                   
                   {/* Protected Routes */}
                   <Route path="/dashboard" element={<Dashboard />} />
