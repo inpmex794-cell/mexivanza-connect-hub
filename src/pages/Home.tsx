@@ -213,12 +213,12 @@ export const Home: React.FC = () => {
 
   const handleCreatePost = async () => {
     if (!user) {
-      toast.error("Debes iniciar sesión para crear posts");
+      toast.error(t("posts.login_required", "Debes iniciar sesión para crear posts"));
       return;
     }
 
     if (!newPost.title.trim() || !newPost.content.trim()) {
-      toast.error("Por favor completa el título y contenido");
+      toast.error(t("posts.complete_fields", "Por favor completa el título y contenido"));
       return;
     }
 
@@ -242,7 +242,7 @@ export const Home: React.FC = () => {
       fetchPosts();
     } catch (error) {
       console.error('Error creating post:', error);
-      toast.error("Error al crear el post");
+      toast.error(t("posts.error_creating", "Error al crear el post"));
     }
   };
 
@@ -357,7 +357,7 @@ export const Home: React.FC = () => {
                       />
                       <Select value={newPost.category} onValueChange={(value) => setNewPost({ ...newPost, category: value })}>
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Selecciona una categoría" />
+                          <SelectValue placeholder={t("form.select_category", "Selecciona una categoría")} />
                         </SelectTrigger>
                         <SelectContent>
                           {categories.map((category) => (
@@ -393,12 +393,12 @@ export const Home: React.FC = () => {
                     <div className="text-center space-y-4">
                       <EditableContent 
                         contentKey="hero-title"
-                        defaultValue="Plataforma Integral Mexivanza"
+                        defaultValue={t("hero.title_default", "Plataforma Integral Mexivanza")}
                         className="text-2xl sm:text-3xl font-bold text-foreground block overflow-wrap break-word"
                       />
                       <EditableContent 
                         contentKey="hero-description"
-                        defaultValue="Servicios profesionales de viaje, legal, desarrollo web y bienes raíces. Conectando México con soluciones de primera clase."
+                        defaultValue={t("hero.description_default", "Servicios profesionales de viaje, legal, desarrollo web y bienes raíces. Conectando México con soluciones de primera clase.")}
                         className="text-muted-foreground text-base sm:text-lg leading-relaxed block overflow-wrap break-word"
                         multiline
                       />
@@ -501,7 +501,7 @@ export const Home: React.FC = () => {
                       className="w-full"
                       onClick={() => document.getElementById('financial-dashboard')?.scrollIntoView({ behavior: 'smooth' })}
                     >
-                      View Market
+                      {t("button.view_market", "View Market")}
                     </Button>
                   </CardContent>
                 </Card>
@@ -513,17 +513,17 @@ export const Home: React.FC = () => {
                         <Shield className="h-6 w-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground">Verified Agents</h3>
+                        <h3 className="font-semibold text-foreground">{t("modules.verified_agents", "Verified Agents")}</h3>
                         <p className="text-sm text-muted-foreground">Connect with professionals</p>
                       </div>
                     </div>
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      className="w-full"
+                      className="w-full whitespace-nowrap overflow-hidden text-ellipsis"
                       onClick={() => document.getElementById('verified-agents')?.scrollIntoView({ behavior: 'smooth' })}
                     >
-                      Find Agents
+                      <span className="truncate">{t("button.find_agents", "Find Agents")}</span>
                     </Button>
                   </CardContent>
                 </Card>
@@ -535,17 +535,17 @@ export const Home: React.FC = () => {
                         <Scale className="h-6 w-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground">Trademark Registration</h3>
+                        <h3 className="font-semibold text-foreground">{t("modules.trademark_registration", "Trademark Registration")}</h3>
                         <p className="text-sm text-muted-foreground">Register your brand</p>
                       </div>
                     </div>
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      className="w-full"
+                      className="w-full whitespace-nowrap overflow-hidden text-ellipsis"
                       onClick={() => document.getElementById('trademark-registration')?.scrollIntoView({ behavior: 'smooth' })}
                     >
-                      Register Trademark
+                      <span className="truncate">{t("button.register_trademark", "Register Trademark")}</span>
                     </Button>
                   </CardContent>
                 </Card>
@@ -567,7 +567,7 @@ export const Home: React.FC = () => {
                       className="w-full"
                       onClick={() => document.getElementById('legal-documents')?.scrollIntoView({ behavior: 'smooth' })}
                     >
-                      Generate Documents
+                      {t("button.generate_documents", "Generate Documents")}
                     </Button>
                   </CardContent>
                 </Card>
