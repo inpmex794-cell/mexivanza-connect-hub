@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      ads: {
+        Row: {
+          business_id: number | null
+          category: string
+          created_at: string | null
+          currency: string | null
+          description: string | null
+          expires_at: string | null
+          id: string
+          image_url: string | null
+          location: string | null
+          price: number | null
+          status: string | null
+          title: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          business_id?: number | null
+          category: string
+          created_at?: string | null
+          currency?: string | null
+          description?: string | null
+          expires_at?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          price?: number | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          business_id?: number | null
+          category?: string
+          created_at?: string | null
+          currency?: string | null
+          description?: string | null
+          expires_at?: string | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          price?: number | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       bookings: {
         Row: {
           business_id: number
@@ -44,6 +95,36 @@ export type Database = {
         }
         Relationships: []
       }
+      business_reviews: {
+        Row: {
+          business_id: number | null
+          created_at: string | null
+          id: string
+          rating: number | null
+          review_text: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          business_id?: number | null
+          created_at?: string | null
+          id?: string
+          rating?: number | null
+          review_text?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          business_id?: number | null
+          created_at?: string | null
+          id?: string
+          rating?: number | null
+          review_text?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       businesses: {
         Row: {
           category: string
@@ -52,9 +133,18 @@ export type Database = {
           documents: string
           id: number
           location: string
+          logo_url: string | null
           name: string
+          payment_enabled: boolean | null
+          phone: string | null
+          rating: number | null
+          review_count: number | null
+          template_enabled: boolean | null
           user_id: string
+          verification_documents: Json | null
+          verification_status: string | null
           verified: boolean
+          website: string | null
         }
         Insert: {
           category?: string
@@ -63,9 +153,18 @@ export type Database = {
           documents?: string
           id?: number
           location?: string
+          logo_url?: string | null
           name?: string
+          payment_enabled?: boolean | null
+          phone?: string | null
+          rating?: number | null
+          review_count?: number | null
+          template_enabled?: boolean | null
           user_id?: string
+          verification_documents?: Json | null
+          verification_status?: string | null
           verified?: boolean
+          website?: string | null
         }
         Update: {
           category?: string
@@ -74,9 +173,105 @@ export type Database = {
           documents?: string
           id?: number
           location?: string
+          logo_url?: string | null
           name?: string
+          payment_enabled?: boolean | null
+          phone?: string | null
+          rating?: number | null
+          review_count?: number | null
+          template_enabled?: boolean | null
           user_id?: string
+          verification_documents?: Json | null
+          verification_status?: string | null
           verified?: boolean
+          website?: string | null
+        }
+        Relationships: []
+      }
+      financial_data: {
+        Row: {
+          change_amount: number | null
+          change_percent: number | null
+          created_at: string | null
+          current_price: number | null
+          id: string
+          last_updated: string | null
+          market_cap: number | null
+          name: string
+          symbol: string
+          volume: number | null
+        }
+        Insert: {
+          change_amount?: number | null
+          change_percent?: number | null
+          created_at?: string | null
+          current_price?: number | null
+          id?: string
+          last_updated?: string | null
+          market_cap?: number | null
+          name: string
+          symbol: string
+          volume?: number | null
+        }
+        Update: {
+          change_amount?: number | null
+          change_percent?: number | null
+          created_at?: string | null
+          current_price?: number | null
+          id?: string
+          last_updated?: string | null
+          market_cap?: number | null
+          name?: string
+          symbol?: string
+          volume?: number | null
+        }
+        Relationships: []
+      }
+      gaming_content: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          game_type: string | null
+          id: string
+          image_url: string | null
+          likes: number | null
+          platform: string | null
+          rating: number | null
+          title: string
+          trailer_url: string | null
+          updated_at: string | null
+          user_id: string | null
+          video_url: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          game_type?: string | null
+          id?: string
+          image_url?: string | null
+          likes?: number | null
+          platform?: string | null
+          rating?: number | null
+          title: string
+          trailer_url?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          video_url?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          game_type?: string | null
+          id?: string
+          image_url?: string | null
+          likes?: number | null
+          platform?: string | null
+          rating?: number | null
+          title?: string
+          trailer_url?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          video_url?: string | null
         }
         Relationships: []
       }
@@ -176,6 +371,72 @@ export type Database = {
         }
         Relationships: []
       }
+      real_estate: {
+        Row: {
+          bathrooms: number | null
+          bedrooms: number | null
+          business_id: number | null
+          contact_info: Json | null
+          coordinates: unknown | null
+          created_at: string | null
+          currency: string | null
+          description: string | null
+          features: Json | null
+          id: string
+          images: Json | null
+          location: string
+          price: number
+          property_type: string
+          square_meters: number | null
+          status: string | null
+          title: string
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          bathrooms?: number | null
+          bedrooms?: number | null
+          business_id?: number | null
+          contact_info?: Json | null
+          coordinates?: unknown | null
+          created_at?: string | null
+          currency?: string | null
+          description?: string | null
+          features?: Json | null
+          id?: string
+          images?: Json | null
+          location: string
+          price: number
+          property_type: string
+          square_meters?: number | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          bathrooms?: number | null
+          bedrooms?: number | null
+          business_id?: number | null
+          contact_info?: Json | null
+          coordinates?: unknown | null
+          created_at?: string | null
+          currency?: string | null
+          description?: string | null
+          features?: Json | null
+          id?: string
+          images?: Json | null
+          location?: string
+          price?: number
+          property_type?: string
+          square_meters?: number | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       users: {
         Row: {
           age: number
@@ -209,6 +470,54 @@ export type Database = {
           name?: string
           phone?: string
           tier?: string
+        }
+        Relationships: []
+      }
+      video_content: {
+        Row: {
+          business_id: number | null
+          category: string | null
+          created_at: string | null
+          description: string | null
+          duration: number | null
+          id: string
+          is_live: boolean | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string | null
+          user_id: string | null
+          video_url: string
+          view_count: number | null
+        }
+        Insert: {
+          business_id?: number | null
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration?: number | null
+          id?: string
+          is_live?: boolean | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string | null
+          user_id?: string | null
+          video_url: string
+          view_count?: number | null
+        }
+        Update: {
+          business_id?: number | null
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration?: number | null
+          id?: string
+          is_live?: boolean | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string | null
+          video_url?: string
+          view_count?: number | null
         }
         Relationships: []
       }
