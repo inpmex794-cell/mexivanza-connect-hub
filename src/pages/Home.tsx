@@ -258,7 +258,6 @@ export const Home: React.FC = () => {
   };
 
   return (
-  return (
     <div className="min-h-screen bg-background">
       {/* Use the proper Header component with language toggle */}
       <Header />
