@@ -327,7 +327,48 @@ const translations = {
     "verified.view_messages": "Ver Mensajes",
     "verified.client_communication": "Comunicación con clientes",
     "verified.account_settings": "Configuración de Cuenta",
-    "verified.manage_account": "Gestionar tu cuenta"
+    "verified.manage_account": "Gestionar tu cuenta",
+    // Directory translations
+    "directory.title": "Directorio",
+    "directory.subtitle": "Directorio de Negocios",
+    "directory.verified_businesses": "Negocios verificados",
+    "directory.search_placeholder": "Buscar negocios...",
+    "directory.filter_category": "Filtrar por categoría",
+    "directory.filter_location": "Filtrar por ubicación",
+    "directory.all_categories": "Todas las categorías",
+    "directory.all_locations": "Todas las ubicaciones",
+    "directory.verified": "Verificado",
+    "directory.contact": "Contactar",
+    "directory.view_profile": "Ver Perfil",
+    "directory.no_results": "No se encontraron negocios",
+    "directory.submit_business": "Registrar Negocio",
+    "directory.business_name": "Nombre del Negocio",
+    "directory.business_description": "Descripción del Negocio",
+    "directory.business_category": "Categoría del Negocio",
+    "directory.business_location": "Ubicación",
+    "directory.business_phone": "Teléfono",
+    "directory.business_website": "Sitio Web",
+    "directory.business_logo": "Logo del Negocio",
+    "directory.verification_documents": "Documentos de Verificación",
+    "directory.submit_for_review": "Enviar para Revisión",
+    "directory.submission_success": "Negocio enviado para revisión exitosamente",
+    // Travel categories specific
+    "travel.explore_packages": "Explorar Paquetes",
+    "travel.packages": "paquetes",
+    // Real estate specific  
+    "real_estate.properties": "propiedades",
+    "real_estate.verified": "Verificadas",
+    // Web dev specific
+    "web_dev.included": "incluido",
+    "web_dev.professional": "Profesional",
+    // Common buttons
+    "button.explore": "Explorar",
+    "button.contact": "Contactar", 
+    "button.request_quote": "Solicitar Cotización",
+    // Posts
+    "posts.recent_posts": "Posts Recientes",
+    "posts.posts": "posts",
+    "posts.no_posts": "No hay posts disponibles"
   },
   en: {
     // Site metadata
@@ -644,7 +685,48 @@ const translations = {
     "footer.about": "About",
     "footer.contact_english": "Contact",
     "footer.careers": "Careers",
-    "footer.blog": "Blog"
+    "footer.blog": "Blog",
+    // Directory translations
+    "directory.title": "Directory",
+    "directory.subtitle": "Business Directory", 
+    "directory.verified_businesses": "Verified businesses",
+    "directory.search_placeholder": "Search businesses...",
+    "directory.filter_category": "Filter by category",
+    "directory.filter_location": "Filter by location",
+    "directory.all_categories": "All categories",
+    "directory.all_locations": "All locations",
+    "directory.verified": "Verified",
+    "directory.contact": "Contact",
+    "directory.view_profile": "View Profile",
+    "directory.no_results": "No businesses found",
+    "directory.submit_business": "Submit Business",
+    "directory.business_name": "Business Name",
+    "directory.business_description": "Business Description",
+    "directory.business_category": "Business Category",
+    "directory.business_location": "Location",
+    "directory.business_phone": "Phone",
+    "directory.business_website": "Website",
+    "directory.business_logo": "Business Logo",
+    "directory.verification_documents": "Verification Documents",
+    "directory.submit_for_review": "Submit for Review",
+    "directory.submission_success": "Business submitted for review successfully",
+    // Travel categories specific
+    "travel.explore_packages": "Explore Packages",
+    "travel.packages": "packages",
+    // Real estate specific
+    "real_estate.properties": "properties", 
+    "real_estate.verified": "Verified",
+    // Web dev specific
+    "web_dev.included": "included",
+    "web_dev.professional": "Professional",
+    // Common buttons
+    "button.explore": "Explore",
+    "button.contact": "Contact",
+    "button.request_quote": "Request Quote",
+    // Posts
+    "posts.recent_posts": "Recent Posts",
+    "posts.posts": "posts", 
+    "posts.no_posts": "No posts available"
   },
 };
 
