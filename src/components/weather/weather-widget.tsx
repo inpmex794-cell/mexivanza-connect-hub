@@ -63,9 +63,9 @@ const mockWeatherData: { [key: string]: WeatherData } = {
       feelsLike: 24
     },
     forecast: [
-      { date: '2024-01-16', day: 'Today', high: 25, low: 15, condition: 'partly-cloudy', precipitation: 10 },
-      { date: '2024-01-17', day: 'Tomorrow', high: 27, low: 16, condition: 'sunny', precipitation: 0 },
-      { date: '2024-01-18', day: 'Thursday', high: 24, low: 14, condition: 'rainy', precipitation: 80 }
+      { date: '2024-01-16', day: 'Hoy', high: 25, low: 15, condition: 'partly-cloudy', precipitation: 10 },
+      { date: '2024-01-17', day: 'Mañana', high: 27, low: 16, condition: 'sunny', precipitation: 0 },
+      { date: '2024-01-18', day: 'Jueves', high: 24, low: 14, condition: 'rainy', precipitation: 80 }
     ],
     alerts: []
   },
@@ -83,9 +83,9 @@ const mockWeatherData: { [key: string]: WeatherData } = {
       feelsLike: 32
     },
     forecast: [
-      { date: '2024-01-16', day: 'Today', high: 30, low: 24, condition: 'sunny', precipitation: 5 },
-      { date: '2024-01-17', day: 'Tomorrow', high: 29, low: 23, condition: 'partly-cloudy', precipitation: 15 },
-      { date: '2024-01-18', day: 'Thursday', high: 28, low: 22, condition: 'rainy', precipitation: 60 }
+      { date: '2024-01-16', day: 'Hoy', high: 30, low: 24, condition: 'sunny', precipitation: 5 },
+      { date: '2024-01-17', day: 'Mañana', high: 29, low: 23, condition: 'partly-cloudy', precipitation: 15 },
+      { date: '2024-01-18', day: 'Jueves', high: 28, low: 22, condition: 'rainy', precipitation: 60 }
     ],
     alerts: [
       {
@@ -110,9 +110,9 @@ const mockWeatherData: { [key: string]: WeatherData } = {
       feelsLike: 27
     },
     forecast: [
-      { date: '2024-01-16', day: 'Today', high: 28, low: 18, condition: 'cloudy', precipitation: 20 },
-      { date: '2024-01-17', day: 'Tomorrow', high: 26, low: 17, condition: 'rainy', precipitation: 70 },
-      { date: '2024-01-18', day: 'Thursday', high: 25, low: 16, condition: 'partly-cloudy', precipitation: 30 }
+      { date: '2024-01-16', day: 'Hoy', high: 28, low: 18, condition: 'cloudy', precipitation: 20 },
+      { date: '2024-01-17', day: 'Mañana', high: 26, low: 17, condition: 'rainy', precipitation: 70 },
+      { date: '2024-01-18', day: 'Jueves', high: 25, low: 16, condition: 'partly-cloudy', precipitation: 30 }
     ],
     alerts: []
   }
@@ -128,14 +128,29 @@ export const WeatherWidget: React.FC<{ location?: string }> = ({ location = 'Mex
 
   useEffect(() => {
     loadWeatherData(selectedCity);
-  }, [selectedCity]);
+  }, [selectedCity, language]); // Add language dependency
 
   const loadWeatherData = async (city: string) => {
     setLoading(true);
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 500));
-      setWeatherData(mockWeatherData[city] || mockWeatherData['Mexico City']);
+      const baseData = mockWeatherData[city] || mockWeatherData['Mexico City'];
+      
+      // Update forecast days based on language
+      const updatedForecast = baseData.forecast.map((day, index) => ({
+        ...day,
+        day: index === 0 
+          ? t("weather.today", "Hoy")
+          : index === 1 
+          ? t("weather.tomorrow", "Mañana")
+          : language === 'es' ? 'Jueves' : 'Thursday'
+      }));
+      
+      setWeatherData({
+        ...baseData,
+        forecast: updatedForecast
+      });
     } catch (error) {
       console.error('Error loading weather data:', error);
     } finally {

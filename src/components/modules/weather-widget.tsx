@@ -51,7 +51,7 @@ export const WeatherWidget: React.FC = () => {
     // Simulate API call - replace with actual weather API
     setTimeout(() => {
       setWeather({
-        location: "Ciudad de México",
+        location: language === 'es' ? "Ciudad de México" : "Mexico City",
         temperature: 22,
         condition: "partly-cloudy",
         humidity: 65,
@@ -94,11 +94,11 @@ export const WeatherWidget: React.FC = () => {
 
   const getConditionText = (condition: string) => {
     const conditions = {
-      'sunny': language === 'es' ? 'Soleado' : 'Sunny',
-      'cloudy': language === 'es' ? 'Nublado' : 'Cloudy',
-      'partly-cloudy': language === 'es' ? 'Parcialmente nublado' : 'Partly Cloudy',
-      'rainy': language === 'es' ? 'Lluvioso' : 'Rainy',
-      'snowy': language === 'es' ? 'Nevando' : 'Snowy'
+      'sunny': t("weather.sunny", "Soleado"),
+      'cloudy': t("weather.cloudy", "Nublado"),
+      'partly-cloudy': t("weather.partly_cloudy", "Parcialmente nublado"),
+      'rainy': t("weather.rainy", "Lluvioso"),
+      'snowy': t("weather.snowy", "Nevando")
     };
     return conditions[condition as keyof typeof conditions] || condition;
   };
