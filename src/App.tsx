@@ -7,7 +7,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RoleBasedRouter } from '@/components/routing/role-based-router';
-import { PublicLanding } from '@/pages/PublicLanding';
+import { MexivanzaPlatform } from '@/components/platform/mexivanza-platform';
 import { Home } from '@/pages/Home';
 import { Auth } from '@/pages/Auth';
 import { Dashboard } from '@/pages/Dashboard';
@@ -22,6 +22,9 @@ import { Careers } from '@/pages/Careers';
 import { Blog } from '@/pages/Blog';
 import { BusinessDirectoryPage } from '@/pages/BusinessDirectory';
 import TravelCategories from '@/pages/TravelCategories';
+import { VideoFeed } from '@/pages/VideoFeed';
+import { TravelBooking } from '@/pages/TravelBooking';
+import { BusinessBuilder } from '@/pages/BusinessBuilder';
 import AdminCategoriesManager from '@/pages/AdminCategoriesManager';
 import NotFound from '@/pages/NotFound';
 
@@ -36,8 +39,8 @@ function App() {
             <Router>
               <div className="min-h-screen bg-background">
                 <Routes>
-                  {/* Public landing page for unregistered users */}
-                  <Route path="/" element={<PublicLanding />} />
+                  {/* Public landing page - now uses complete platform */}
+                  <Route path="/" element={<MexivanzaPlatform />} />
                   
                   {/* Role-based routing for authenticated users */}
                   <Route path="/dashboard-redirect" element={<RoleBasedRouter />} />
@@ -53,6 +56,9 @@ function App() {
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/travel/categories" element={<TravelCategories />} />
+                  <Route path="/travel" element={<TravelBooking />} />
+                  <Route path="/videos" element={<VideoFeed />} />
+                  <Route path="/business-builder" element={<BusinessBuilder />} />
                   <Route path="/business-directory" element={<BusinessDirectoryPage />} />
                   <Route path="/businesses" element={<BusinessDirectoryPage />} />
                   
