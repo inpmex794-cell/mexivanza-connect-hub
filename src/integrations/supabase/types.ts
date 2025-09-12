@@ -1061,6 +1061,7 @@ export type Database = {
           location: string
           name: string
           phone: string
+          role: string | null
           tier: string
         }
         Insert: {
@@ -1072,6 +1073,7 @@ export type Database = {
           location?: string
           name?: string
           phone?: string
+          role?: string | null
           tier?: string
         }
         Update: {
@@ -1083,6 +1085,7 @@ export type Database = {
           location?: string
           name?: string
           phone?: string
+          role?: string | null
           tier?: string
         }
         Relationships: []
