@@ -28,6 +28,9 @@ import { BusinessBuilder } from '@/pages/BusinessBuilder';
 import AdminCategoriesManager from '@/pages/AdminCategoriesManager';
 import { TravelHomepage } from '@/pages/TravelHomepage';
 import { PackageDetail } from '@/pages/PackageDetail';
+import { TravelBookWizard } from '@/pages/TravelBookWizard';
+import { BookingConfirmationPage } from '@/pages/BookingConfirmation';
+import { AccountBookings } from '@/pages/AccountBookings';
 import NotFound from '@/pages/NotFound';
 
 const queryClient = new QueryClient();
@@ -60,6 +63,9 @@ function App() {
                   <Route path="/travel" element={<TravelHomepage />} />
                   <Route path="/travel/categories" element={<TravelCategories />} />
                   <Route path="/travel/package/:id" element={<PackageDetail />} />
+                  <Route path="/travel/book/:packageId" element={<TravelBookWizard />} />
+                  <Route path="/travel/confirm/:bookingId" element={<BookingConfirmationPage />} />
+                  <Route path="/account/bookings" element={<AccountBookings />} />
                   <Route path="/travel/booking" element={<TravelBooking />} />
                   <Route path="/videos" element={<VideoFeed />} />
                   <Route path="/business-builder" element={<BusinessBuilder />} />
