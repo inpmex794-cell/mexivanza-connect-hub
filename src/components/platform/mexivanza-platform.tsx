@@ -1,9 +1,7 @@
 import React from 'react';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { LeftSidebar } from '@/components/layout/left-sidebar';
-import { MainFeed } from '@/components/feed/main-feed';
-import { RightSidebar } from '@/components/layout/right-sidebar';
+import { TravelHomepage } from '@/components/travel/travel-homepage';
 import { useAuth } from '@/hooks/use-auth';
 import { Navigate } from 'react-router-dom';
 
@@ -22,24 +20,10 @@ export const MexivanzaPlatform: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Sticky Header */}
       <Header />
-      
-      {/* Three-Column Layout */}
-      <div className="pt-16 min-h-screen bg-muted/30">
-        <div className="max-w-7xl mx-auto flex">
-          {/* Left Sidebar - Navigation */}
-          <LeftSidebar />
-          
-          {/* Center Feed - Main Content */}
-          <MainFeed />
-          
-          {/* Right Sidebar - Contextual Modules */}
-          <RightSidebar />
-        </div>
+      <div className="pt-16">
+        <TravelHomepage />
       </div>
-      
-      {/* Footer */}
       <Footer />
     </div>
   );

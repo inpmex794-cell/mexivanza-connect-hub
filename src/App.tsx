@@ -26,6 +26,8 @@ import { VideoFeed } from '@/pages/VideoFeed';
 import { TravelBooking } from '@/pages/TravelBooking';
 import { BusinessBuilder } from '@/pages/BusinessBuilder';
 import AdminCategoriesManager from '@/pages/AdminCategoriesManager';
+import { TravelHomepage } from '@/pages/TravelHomepage';
+import { PackageDetail } from '@/pages/PackageDetail';
 import NotFound from '@/pages/NotFound';
 
 const queryClient = new QueryClient();
@@ -55,8 +57,10 @@ function App() {
                   <Route path="/companies" element={<Companies />} />
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/blog" element={<Blog />} />
+                  <Route path="/travel" element={<TravelHomepage />} />
                   <Route path="/travel/categories" element={<TravelCategories />} />
-                  <Route path="/travel" element={<TravelBooking />} />
+                  <Route path="/travel/package/:id" element={<PackageDetail />} />
+                  <Route path="/travel/booking" element={<TravelBooking />} />
                   <Route path="/videos" element={<VideoFeed />} />
                   <Route path="/business-builder" element={<BusinessBuilder />} />
                   <Route path="/business-directory" element={<BusinessDirectoryPage />} />

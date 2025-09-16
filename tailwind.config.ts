@@ -96,16 +96,35 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      // Additional responsive utilities
+      // Mexivanza Typography System
+      fontFamily: {
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'display': ['Playfair Display', 'serif'],
+        'body': ['Inter', 'system-ui', 'sans-serif'],
+      },
+      // Travel platform responsive utilities
       maxWidth: {
         'xxs': '16rem',
         'container': '1200px',
+        'hero': '1920px',
       },
-      // Spacing for consistent layout
+      // Travel-specific spacing
       spacing: {
         '18': '4.5rem',
         '88': '22rem',
         '128': '32rem',
+        '144': '36rem',
+        '160': '40rem',
+      },
+      // Travel platform colors extension
+      warning: {
+        DEFAULT: "hsl(var(--warning))",
+        foreground: "hsl(var(--warning-foreground))",
+      },
+      mexivanza: {
+        'primary': '#004aad',
+        'background': '#f0f4ff', 
+        'accent': '#ffb400',
       },
     },
   },
