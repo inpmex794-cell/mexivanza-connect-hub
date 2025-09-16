@@ -13,8 +13,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
-import { CalendarIcon, Users, MapPin, Clock, Star, CreditCard, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { CalendarIcon, Users, MapPin, Clock, Star, CreditCard, ArrowLeft, ArrowRight, Plus, Minus, Check, X } from 'lucide-react';
 import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
 
 interface TravelPackage {
   id: string;
