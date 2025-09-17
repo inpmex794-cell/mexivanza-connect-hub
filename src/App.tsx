@@ -1,4 +1,3 @@
-import { DashboardRouter } from './dashboard/DashboardRouter';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from '@/hooks/use-auth';
@@ -33,6 +32,7 @@ import { TravelBookWizard } from '@/pages/TravelBookWizard';
 import { BookingConfirmationPage } from '@/pages/BookingConfirmation';
 import { AccountBookings } from '@/pages/AccountBookings';
 import NotFound from '@/pages/NotFound';
+import DashboardRouter from './dashboard/DashboardRouter';
 
 const queryClient = new QueryClient();
 
@@ -73,23 +73,10 @@ function App() {
                   <Route path="/business-directory" element={<BusinessDirectoryPage />} />
                   <Route path="/businesses" element={<BusinessDirectoryPage />} />
                   
+                  {/* Admin Dashboard */}
+                  <Route path="/dashboard/*" element={<DashboardRouter />} />
+                  
                   {/* Protected Routes */}
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  import { DashboardRouter } from './dashboard/DashboardRouter';
-
-...
-
-<Routes>
-  {/* Role-based routing for authenticated users */}
-  <Route path="/dashboard-redirect" element={<RoleBasedRouter />} />
-
-  {/* Mount the full admin dashboard */}
-  <Route path="/dashboard/*" element={<DashboardRouter />} />
-
-  {/* Public Routes */}
-  ...
-</Routes>
-
                   <Route path="/admin-dashboard" element={<AdminDashboard />} />
                   <Route path="/verified-dashboard" element={<VerifiedDashboard />} />
                   <Route path="/admin/travel-categories" element={<AdminCategoriesManager />} />
