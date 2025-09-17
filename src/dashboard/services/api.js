@@ -511,74 +511,521 @@ function mockApiResponse(endpoint, options) {
 // API methods
 export const api = {
   // Dashboard stats
-  getStats: () => apiCall('/stats'),
+  import { supabase } from '../lib/supabase-client';
+
+export const statsService = {
+  // ✅ Fetch dashboard stats
+  getStats: async () => {
+    // Count total trips
+    const { count: tripsCount, error: tripsError } = await supabase
+      .from('travel_packages')
+      .select('*', { count: 'exact', head: true });
+    if (tripsError) throw tripsError;
+
+    // Count total destinations
+    const { count: destinationsCount, error: destError } = await supabase
+      .from('destinations')
+      .select('*', { count: 'exact', head: true });
+    if (destError) throw destError;
+
+    // Count total bookings
+    const { count: bookingsCount, error: bookingsError } = await supabase
+      .from('bookings')
+      .select('*', { count: 'exact', head: true });
+    if (bookingsError) throw bookingsError;
+
+    // Sum total revenue
+    const { data: revenueData, error: revenueError } = await supabase
+      .from('bookings')
+      .select('total');
+    if (revenueError) throw revenueError;
+
+    const totalRevenue = revenueData?.reduce((sum, row) => sum + (row.total || 0), 0) || 0;
+
+    return {
+      trips: tripsCount || 0,
+      destinations: destinationsCount || 0,
+      bookings: bookingsCount || 0,
+      revenue: totalRevenue,
+    };
+  },
+};
+
   
   // Trips
-  getTrips: () => apiCall('/trips'),
-  createTrip: (data) => apiCall('/trips', { method: 'POST', body: JSON.stringify(data) }),
-  updateTrip: (data) => apiCall('/trips', { method: 'PUT', body: JSON.stringify(data) }),
-  deleteTrip: (id) => apiCall(`/trips/${id}`, { method: 'DELETE' }),
+  import { supabase } from '../lib/supabase-client';
+
+export const tripService = {
+  // ✅ Fetch all trips
+  getTrips: async () => {
+    const { data, error } = await supabase
+      .from('travel_packages')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
+  // ✅ Create a new trip
+  createTrip: async (data) => {
+    const { data: result, error } = await supabase
+      .from('travel_packages')
+      .insert([data]);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Update an existing trip
+  updateTrip: async (data) => {
+    const { id, ...fields } = data;
+
+    const { data: result, error } = await supabase
+      .from('travel_packages')
+      .update(fields)
+      .eq('id', id);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Delete a trip by ID
+  deleteTrip: async (id) => {
+    const { error } = await supabase
+      .from('travel_packages')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  },
+};
+
   
   // Destinations
-  getDestinations: () => apiCall('/destinations'),
-  createDestination: (data) => apiCall('/destinations', { method: 'POST', body: JSON.stringify(data) }),
-  updateDestination: (data) => apiCall('/destinations', { method: 'PUT', body: JSON.stringify(data) }),
-  deleteDestination: (id) => apiCall(`/destinations/${id}`, { method: 'DELETE' }),
+ getDestinations: async () => {
+  const { data, error } = await supabase
+    .from('destinations')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data;
+},
+
+ createDestination: async (data) => {
+  const { data: result, error } = await supabase
+    .from('destinations')
+    .insert([data]);
+
+  if (error) throw error;
+  return result;
+},
+
+  updateDestination: async (data) => {
+  const { id, ...fields } = data;
+
+  const { data: result, error } = await supabase
+    .from('destinations')
+    .update(fields)
+    .eq('id', id);
+
+  if (error) throw error;
+  return result;
+},
+
+ deleteDestination: async (id) => {
+  const { error } = await supabase
+    .from('destinations')
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
+},
+
   
   // Categories
-  getCategories: () => apiCall('/categories'),
-  createCategory: (data) => apiCall('/categories', { method: 'POST', body: JSON.stringify(data) }),
-  updateCategory: (data) => apiCall('/categories', { method: 'PUT', body: JSON.stringify(data) }),
-  deleteCategory: (id) => apiCall(`/categories/${id}`, { method: 'DELETE' }),
+import { supabase } from '../lib/supabase-client';
+
+export const categoryService = {
+  // ✅ Fetch all categories
+  getCategories: async () => {
+    const { data, error } = await supabase
+      .from('categories')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
+  // ✅ Create a new category
+  createCategory: async (data) => {
+    const { data: result, error } = await supabase
+      .from('categories')
+      .insert([data]);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Update an existing category
+  updateCategory: async (data) => {
+    const { id, ...fields } = data;
+
+    const { data: result, error } = await supabase
+      .from('categories')
+      .update(fields)
+      .eq('id', id);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Delete a category by ID
+  deleteCategory: async (id) => {
+    const { error } = await supabase
+      .from('categories')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  },
+};
+
   
   // Tags
-  getTags: () => apiCall('/tags'),
-  createTag: (data) => apiCall('/tags', { method: 'POST', body: JSON.stringify(data) }),
-  updateTag: (data) => apiCall('/tags', { method: 'PUT', body: JSON.stringify(data) }),
-  deleteTag: (id) => apiCall(`/tags/${id}`, { method: 'DELETE' }),
+  import { supabase } from '../lib/supabase-client';
+
+export const tagService = {
+  // ✅ Fetch all tags
+  getTags: async () => {
+    const { data, error } = await supabase
+      .from('tags')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
+  // ✅ Create a new tag
+  createTag: async (data) => {
+    const { data: result, error } = await supabase
+      .from('tags')
+      .insert([data]);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Update an existing tag
+  updateTag: async (data) => {
+    const { id, ...fields } = data;
+
+    const { data: result, error } = await supabase
+      .from('tags')
+      .update(fields)
+      .eq('id', id);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Delete a tag by ID
+  deleteTag: async (id) => {
+    const { error } = await supabase
+      .from('tags')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  },
+};
+
   
   // Features
-  getFeatures: () => apiCall('/features'),
-  createFeature: (data) => apiCall('/features', { method: 'POST', body: JSON.stringify(data) }),
-  updateFeature: (data) => apiCall('/features', { method: 'PUT', body: JSON.stringify(data) }),
-  deleteFeature: (id) => apiCall(`/features/${id}`, { method: 'DELETE' }),
+  import { supabase } from '../lib/supabase-client';
+
+export const featureService = {
+  // ✅ Fetch all features
+  getFeatures: async () => {
+    const { data, error } = await supabase
+      .from('features')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
+  // ✅ Create a new feature
+  createFeature: async (data) => {
+    const { data: result, error } = await supabase
+      .from('features')
+      .insert([data]);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Update an existing feature
+  updateFeature: async (data) => {
+    const { id, ...fields } = data;
+
+    const { data: result, error } = await supabase
+      .from('features')
+      .update(fields)
+      .eq('id', id);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Delete a feature by ID
+  deleteFeature: async (id) => {
+    const { error } = await supabase
+      .from('features')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  },
+};
+
   
   // Services
-  getServices: () => apiCall('/services'),
-  createService: (data) => apiCall('/services', { method: 'POST', body: JSON.stringify(data) }),
-  updateService: (data) => apiCall('/services', { method: 'PUT', body: JSON.stringify(data) }),
-  deleteService: (id) => apiCall(`/services/${id}`, { method: 'DELETE' }),
+  import { supabase } from '../lib/supabase-client';
+
+export const serviceService = {
+  // ✅ Fetch all services
+  getServices: async () => {
+    const { data, error } = await supabase
+      .from('services')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
+  // ✅ Create a new service
+  createService: async (data) => {
+    const { data: result, error } = await supabase
+      .from('services')
+      .insert([data]);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Update an existing service
+  updateService: async (data) => {
+    const { id, ...fields } = data;
+
+    const { data: result, error } = await supabase
+      .from('services')
+      .update(fields)
+      .eq('id', id);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Delete a service by ID
+  deleteService: async (id) => {
+    const { error } = await supabase
+      .from('services')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  },
+};
+
   
   // Bookings
-  getBookings: () => apiCall('/bookings'),
-  updateBooking: (data) => apiCall('/bookings', { method: 'PUT', body: JSON.stringify(data) }),
+  import { supabase } from '../lib/supabase-client';
+
+export const bookingService = {
+  // ✅ Fetch all bookings (admin view)
+  getBookings: async () => {
+    const { data, error } = await supabase
+      .from('bookings')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
+  // ✅ Update an existing booking
+  updateBooking: async (data) => {
+    const { id, ...fields } = data;
+
+    const { data: result, error } = await supabase
+      .from('bookings')
+      .update(fields)
+      .eq('id', id);
+
+    if (error) throw error;
+    return result;
+  },
+};
+
   
   // Pages
-  getPages: () => apiCall('/pages'),
-  createPage: (data) => apiCall('/pages', { method: 'POST', body: JSON.stringify(data) }),
-  updatePage: (data) => apiCall('/pages', { method: 'PUT', body: JSON.stringify(data) }),
-  deletePage: (id) => apiCall(`/pages/${id}`, { method: 'DELETE' }),
+  import { supabase } from '../lib/supabase-client';
+
+export const pageService = {
+  // ✅ Fetch all pages
+  getPages: async () => {
+    const { data, error } = await supabase
+      .from('pages')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
+  // ✅ Create a new page
+  createPage: async (data) => {
+    const { data: result, error } = await supabase
+      .from('pages')
+      .insert([data]);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Update an existing page
+  updatePage: async (data) => {
+    const { id, ...fields } = data;
+
+    const { data: result, error } = await supabase
+      .from('pages')
+      .update(fields)
+      .eq('id', id);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Delete a page by ID
+  deletePage: async (id) => {
+    const { error } = await supabase
+      .from('pages')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  },
+};
+
   
   // Users
-  getUsers: () => apiCall('/users'),
-  createUser: (data) => apiCall('/users', { method: 'POST', body: JSON.stringify(data) }),
-  updateUser: (data) => apiCall('/users', { method: 'PUT', body: JSON.stringify(data) }),
-  deleteUser: (id) => apiCall(`/users/${id}`, { method: 'DELETE' }),
+ import { supabase } from '../lib/supabase-client';
+
+export const userService = {
+  // ✅ Fetch all users (from profiles table)
+  getUsers: async () => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('id, email, name, is_admin, created_at')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  },
+
+  // ✅ Create a new user (via Supabase Auth)
+  createUser: async ({ email, password, name, is_admin = false }) => {
+    // Create in auth.users
+    const { data: authData, error: authError } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+    if (authError) throw authError;
+
+    // Insert into profiles
+    const { data: profileData, error: profileError } = await supabase
+      .from('profiles')
+      .insert([
+        {
+          id: authData.user.id,
+          email,
+          name,
+          is_admin,
+        },
+      ]);
+
+    if (profileError) throw profileError;
+    return profileData;
+  },
+
+  // ✅ Update an existing user profile
+  updateUser: async (data) => {
+    const { id, ...fields } = data;
+
+    const { data: result, error } = await supabase
+      .from('profiles')
+      .update(fields)
+      .eq('id', id);
+
+    if (error) throw error;
+    return result;
+  },
+
+  // ✅ Delete a user (from Auth + Profiles)
+  deleteUser: async (id) => {
+    // ⚠️ Requires a server-side function or admin service role key
+    const { error: profileError } = await supabase
+      .from('profiles')
+      .delete()
+      .eq('id', id);
+
+    if (profileError) throw profileError;
+
+    // Deleting from auth.users must be done server-side with service role key
+    // Example: call an Edge Function to handle the deletion securely
+  },
+};
+
   
   // Media
-  uploadFile: (file) => {
-    // Simulate file upload
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          success: true,
-          data: {
-            url: `/dashboard/assets/uploads/${file.name}`,
-            filename: file.name,
-            size: file.size
-          }
-        });
-      }, 1000);
-    });
+ import { supabase } from '../lib/supabase-client';
+
+export const uploadFile = async (file: File) => {
+  try {
+    // Create a unique path for the file
+    const filePath = `uploads/${Date.now()}-${file.name}`;
+
+    // Upload to Supabase Storage bucket named "media"
+    const { error: uploadError } = await supabase.storage
+      .from('media')
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: false,
+      });
+
+    if (uploadError) throw uploadError;
+
+    // Get the public URL
+    const { data: publicUrlData } = supabase.storage
+      .from('media')
+      .getPublicUrl(filePath);
+
+    return {
+      success: true,
+      data: {
+        url: publicUrlData.publicUrl,
+        filename: file.name,
+        size: file.size,
+      },
+    };
+  } catch (err) {
+    console.error('File upload failed:', err.message);
+    return { success: false, error: err.message };
   }
 };
