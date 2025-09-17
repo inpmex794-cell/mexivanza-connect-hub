@@ -32,12 +32,16 @@ export function TripsPage() {
       key: 'title',
       title: 'Title',
       sortable: true,
-      render: (value: string, row: any) => (
-        <div>
-          <div className="font-medium text-foreground">{value}</div>
-          <div className="text-xs text-muted-foreground">{row.destination}</div>
-        </div>
-      )
+      render: (value: string | object, row: any) => {
+        const title = typeof value === 'object' && value ? (value as any).en || (value as any).es || 'Untitled' : value || 'Untitled';
+        const destination = typeof row.destination === 'object' && row.destination ? (row.destination as any).en || (row.destination as any).es || row.destination : row.destination || '';
+        return (
+          <div>
+            <div className="font-medium text-foreground">{title}</div>
+            <div className="text-xs text-muted-foreground">{destination}</div>
+          </div>
+        );
+      }
     },
     {
       key: 'category',
