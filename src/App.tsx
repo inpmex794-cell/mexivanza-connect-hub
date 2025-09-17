@@ -26,10 +26,12 @@ import { VideoFeed } from '@/pages/VideoFeed';
 import { TravelBooking } from '@/pages/TravelBooking';
 import { BusinessBuilder } from '@/pages/BusinessBuilder';
 import AdminCategoriesManager from '@/pages/AdminCategoriesManager';
-import { TravelHomepage } from '@/pages/TravelHomepage';
+import { TravelHomepage } from '@/components/travel/TravelHomepage';
+import { TravelPackages } from '@/components/travel/TravelPackages';
+import { TravelBookingWizard } from '@/components/travel/TravelBookingWizard';
 import { PackageDetail } from '@/pages/PackageDetail';
-import { TravelBookWizard } from '@/pages/TravelBookWizard';
 import { BookingConfirmationPage } from '@/pages/BookingConfirmation';
+import { UserDashboard } from '@/pages/UserDashboard';
 import { AccountBookings } from '@/pages/AccountBookings';
 import NotFound from '@/pages/NotFound';
 import DashboardRouter from './dashboard/DashboardRouter';
@@ -62,10 +64,12 @@ function App() {
                   <Route path="/careers" element={<Careers />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/travel" element={<TravelHomepage />} />
+                  <Route path="/travel/packages" element={<TravelPackages />} />
                   <Route path="/travel/categories" element={<TravelCategories />} />
-                  <Route path="/travel/package/:id" element={<PackageDetail />} />
-                  <Route path="/travel/book/:packageId" element={<TravelBookWizard />} />
-                  <Route path="/travel/confirm/:bookingId" element={<BookingConfirmationPage />} />
+                  <Route path="/travel/package/:packageId" element={<PackageDetail />} />
+                  <Route path="/travel/book/:packageId" element={<TravelBookingWizard />} />
+                  <Route path="/travel/booking-confirmation/:bookingId" element={<BookingConfirmationPage />} />
+                  <Route path="/account" element={<UserDashboard />} />
                   <Route path="/account/bookings" element={<AccountBookings />} />
                   <Route path="/travel/booking" element={<TravelBooking />} />
                   <Route path="/videos" element={<VideoFeed />} />
