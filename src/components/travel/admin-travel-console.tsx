@@ -267,7 +267,7 @@ export const AdminTravelConsole: React.FC = () => {
       booking.traveler_name.toLowerCase().includes(bookingFilter.search.toLowerCase()) ||
       booking.traveler_email.toLowerCase().includes(bookingFilter.search.toLowerCase());
     
-    const matchesStatus = !bookingFilter.status || 
+    const matchesStatus = !bookingFilter.status || bookingFilter.status === 'all' ||
       booking.booking_status === bookingFilter.status ||
       booking.payment_status === bookingFilter.status;
     
@@ -534,7 +534,7 @@ export const AdminTravelConsole: React.FC = () => {
                   <SelectValue placeholder={language === 'es' ? 'Estado' : 'Status'} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">{language === 'es' ? 'Todos' : 'All'}</SelectItem>
+                  <SelectItem value="all">{language === 'es' ? 'Todos' : 'All'}</SelectItem>
                   <SelectItem value="pending">{language === 'es' ? 'Pendiente' : 'Pending'}</SelectItem>
                   <SelectItem value="confirmed">{language === 'es' ? 'Confirmado' : 'Confirmed'}</SelectItem>
                   <SelectItem value="paid">{language === 'es' ? 'Pagado' : 'Paid'}</SelectItem>

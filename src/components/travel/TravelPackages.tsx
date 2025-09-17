@@ -88,7 +88,7 @@ export function TravelPackages() {
     );
 
     // Duration filter
-    if (filters.duration) {
+    if (filters.duration && filters.duration !== 'all') {
       const [min, max] = filters.duration.split('-').map(Number);
       filtered = filtered.filter(pkg => {
         if (max) {
@@ -106,7 +106,7 @@ export function TravelPackages() {
     }
 
     // Destination filter
-    if (filters.destination) {
+    if (filters.destination && filters.destination !== 'all') {
       filtered = filtered.filter(pkg =>
         pkg.destination?.toLowerCase().includes(filters.destination.toLowerCase())
       );
@@ -220,7 +220,7 @@ export function TravelPackages() {
                         <SelectValue placeholder={t('selectDuration', 'Seleccionar duración')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">Todas las duraciones</SelectItem>
+                        <SelectItem value="all">Todas las duraciones</SelectItem>
                         <SelectItem value="1-3">1-3 días</SelectItem>
                         <SelectItem value="4-7">4-7 días</SelectItem>
                         <SelectItem value="8-14">8-14 días</SelectItem>
@@ -239,7 +239,7 @@ export function TravelPackages() {
                         <SelectValue placeholder={t('selectDestination', 'Seleccionar destino')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">Todos los destinos</SelectItem>
+                        <SelectItem value="all">Todos los destinos</SelectItem>
                         {availableDestinations.map(destination => (
                           <SelectItem key={destination} value={destination}>
                             {destination}

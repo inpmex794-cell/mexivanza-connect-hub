@@ -96,12 +96,12 @@ export const TravelSearchFilters: React.FC<TravelSearchFiltersProps> = ({
     // Update URL params when filters change
     const params = new URLSearchParams();
     
-    if (filters.destination) params.set('destination', filters.destination);
+    if (filters.destination && filters.destination !== 'all') params.set('destination', filters.destination);
     if (filters.priceRange[0] > 0) params.set('minPrice', filters.priceRange[0].toString());
     if (filters.priceRange[1] < 50000) params.set('maxPrice', filters.priceRange[1].toString());
-    if (filters.duration) params.set('duration', filters.duration);
+    if (filters.duration && filters.duration !== 'all') params.set('duration', filters.duration);
     if (filters.tags.length > 0) params.set('tags', filters.tags.join(','));
-    if (filters.dateRange) params.set('dateRange', filters.dateRange);
+    if (filters.dateRange && filters.dateRange !== 'all') params.set('dateRange', filters.dateRange);
 
     setSearchParams(params, { replace: true });
     onFiltersChange(filters);
@@ -127,18 +127,18 @@ export const TravelSearchFilters: React.FC<TravelSearchFiltersProps> = ({
     setFilters({
       destination: '',
       priceRange: [0, 50000],
-      duration: '',
+      duration: 'all',
       tags: [],
-      dateRange: ''
+      dateRange: 'all'
     });
   };
 
-  const hasActiveFilters = filters.destination || 
+  const hasActiveFilters = (filters.destination && filters.destination !== 'all') || 
     filters.priceRange[0] > 0 || 
     filters.priceRange[1] < 50000 ||
-    filters.duration ||
+    (filters.duration && filters.duration !== 'all') ||
     filters.tags.length > 0 ||
-    filters.dateRange;
+    (filters.dateRange && filters.dateRange !== 'all');
 
   const formatPrice = (amount: number) => {
     return new Intl.NumberFormat(language === 'es' ? 'es-MX' : 'en-US', {
@@ -246,7 +246,7 @@ export const TravelSearchFilters: React.FC<TravelSearchFiltersProps> = ({
                   <SelectValue placeholder={language === 'es' ? 'Cualquier duración' : 'Any duration'} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">{language === 'es' ? 'Cualquier duración' : 'Any duration'}</SelectItem>
+                  <SelectItem value="all">{language === 'es' ? 'Cualquier duración' : 'Any duration'}</SelectItem>
                   {durations.map((duration) => (
                     <SelectItem key={duration.value} value={duration.value}>
                       {duration.label}
@@ -290,7 +290,7 @@ export const TravelSearchFilters: React.FC<TravelSearchFiltersProps> = ({
                   <SelectValue placeholder={language === 'es' ? 'Cualquier fecha' : 'Any time'} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">{language === 'es' ? 'Cualquier fecha' : 'Any time'}</SelectItem>
+                  <SelectItem value="all">{language === 'es' ? 'Cualquier fecha' : 'Any time'}</SelectItem>
                   <SelectItem value="next-month">{language === 'es' ? 'Próximo mes' : 'Next month'}</SelectItem>
                   <SelectItem value="next-3-months">{language === 'es' ? 'Próximos 3 meses' : 'Next 3 months'}</SelectItem>
                   <SelectItem value="next-6-months">{language === 'es' ? 'Próximos 6 meses' : 'Next 6 months'}</SelectItem>
@@ -328,12 +328,12 @@ export const TravelSearchFilters: React.FC<TravelSearchFiltersProps> = ({
                   />
                 </Badge>
               )}
-              {filters.duration && (
+              {filters.duration && filters.duration !== 'all' && (
                 <Badge variant="outline" className="gap-1">
                   {durations.find(d => d.value === filters.duration)?.label}
                   <X 
                     className="w-3 h-3 cursor-pointer" 
-                    onClick={() => updateFilter('duration', '')}
+                    onClick={() => updateFilter('duration', 'all')}
                   />
                 </Badge>
               )}
