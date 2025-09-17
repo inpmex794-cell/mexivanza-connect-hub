@@ -188,6 +188,66 @@ export type Database = {
         }
         Relationships: []
       }
+      categories: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: number
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: number
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      destinations: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          featured: boolean | null
+          id: number
+          images: Json | null
+          name: string
+          region: string | null
+          slug: string
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          featured?: boolean | null
+          id?: number
+          images?: Json | null
+          name: string
+          region?: string | null
+          slug: string
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          featured?: boolean | null
+          id?: number
+          images?: Json | null
+          name?: string
+          region?: string | null
+          slug?: string
+          status?: string | null
+        }
+        Relationships: []
+      }
       encrypted_messages: {
         Row: {
           created_at: string
@@ -215,6 +275,30 @@ export type Database = {
           message_type?: string | null
           recipient_id?: string | null
           sender_id?: string | null
+        }
+        Relationships: []
+      }
+      features: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          icon: string | null
+          id: number
+          name: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: number
+          name: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: number
+          name?: string
         }
         Relationships: []
       }
@@ -418,6 +502,33 @@ export type Database = {
         }
         Relationships: []
       }
+      media: {
+        Row: {
+          alt: string | null
+          created_at: string | null
+          id: number
+          kind: string | null
+          meta: Json | null
+          url: string
+        }
+        Insert: {
+          alt?: string | null
+          created_at?: string | null
+          id?: number
+          kind?: string | null
+          meta?: Json | null
+          url: string
+        }
+        Update: {
+          alt?: string | null
+          created_at?: string | null
+          id?: number
+          kind?: string | null
+          meta?: Json | null
+          url?: string
+        }
+        Relationships: []
+      }
       members: {
         Row: {
           id: string
@@ -481,6 +592,33 @@ export type Database = {
           read?: boolean
           type?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      pages: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          id: number
+          slug: string
+          status: string | null
+          title: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          id?: number
+          slug: string
+          status?: string | null
+          title: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          id?: number
+          slug?: string
+          status?: string | null
+          title?: string
         }
         Relationships: []
       }
@@ -556,9 +694,11 @@ export type Database = {
           bio: Json | null
           business_type: string | null
           created_at: string
+          email: string | null
           gender: string | null
           header_url: string | null
           id: string
+          is_admin: boolean | null
           language_preference: string | null
           location: string | null
           name: string
@@ -574,9 +714,11 @@ export type Database = {
           bio?: Json | null
           business_type?: string | null
           created_at?: string
+          email?: string | null
           gender?: string | null
           header_url?: string | null
           id: string
+          is_admin?: boolean | null
           language_preference?: string | null
           location?: string | null
           name: string
@@ -592,9 +734,11 @@ export type Database = {
           bio?: Json | null
           business_type?: string | null
           created_at?: string
+          email?: string | null
           gender?: string | null
           header_url?: string | null
           id?: string
+          is_admin?: boolean | null
           language_preference?: string | null
           location?: string | null
           name?: string
@@ -675,6 +819,88 @@ export type Database = {
         }
         Relationships: []
       }
+      service_trips: {
+        Row: {
+          service_id: number
+          trip_id: number
+        }
+        Insert: {
+          service_id: number
+          trip_id: number
+        }
+        Update: {
+          service_id?: number
+          trip_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_trips_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_trips_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "service_trips_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips_view"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      services: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          icon: string | null
+          id: number
+          name: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: number
+          name: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          icon?: string | null
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
+      tags: {
+        Row: {
+          created_at: string | null
+          id: number
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
       trademark_applications: {
         Row: {
           applicant_info: Json
@@ -724,6 +950,7 @@ export type Database = {
           package_id: string | null
           payment_status: string | null
           special_requests: string | null
+          status: Database["public"]["Enums"]["booking_status"] | null
           stripe_session_id: string | null
           total_amount: number | null
           travel_end_date: string
@@ -743,6 +970,7 @@ export type Database = {
           package_id?: string | null
           payment_status?: string | null
           special_requests?: string | null
+          status?: Database["public"]["Enums"]["booking_status"] | null
           stripe_session_id?: string | null
           total_amount?: number | null
           travel_end_date: string
@@ -762,6 +990,7 @@ export type Database = {
           package_id?: string | null
           payment_status?: string | null
           special_requests?: string | null
+          status?: Database["public"]["Enums"]["booking_status"] | null
           stripe_session_id?: string | null
           total_amount?: number | null
           travel_end_date?: string
@@ -857,62 +1086,241 @@ export type Database = {
       travel_packages: {
         Row: {
           availability: number | null
+          availability_count: number | null
+          base_price: number | null
           city: string | null
           created_at: string
           created_by: string | null
+          currency: string | null
           description: Json
+          description_md: Json | null
+          destination: string | null
           duration: number | null
+          duration_days: number | null
           featured: boolean | null
           gallery: Json | null
           id: string
+          images: string[] | null
           is_demo: boolean | null
+          is_featured: boolean | null
           is_published: boolean | null
           itinerary: Json | null
           pricing_tiers: Json | null
+          rating: number | null
           region: string | null
           scenario_tags: string[] | null
+          slug: string | null
+          summary: Json | null
+          tags: string[] | null
           title: Json
           updated_at: string
         }
         Insert: {
           availability?: number | null
+          availability_count?: number | null
+          base_price?: number | null
           city?: string | null
           created_at?: string
           created_by?: string | null
+          currency?: string | null
           description: Json
+          description_md?: Json | null
+          destination?: string | null
           duration?: number | null
+          duration_days?: number | null
           featured?: boolean | null
           gallery?: Json | null
           id?: string
+          images?: string[] | null
           is_demo?: boolean | null
+          is_featured?: boolean | null
           is_published?: boolean | null
           itinerary?: Json | null
           pricing_tiers?: Json | null
+          rating?: number | null
           region?: string | null
           scenario_tags?: string[] | null
+          slug?: string | null
+          summary?: Json | null
+          tags?: string[] | null
           title: Json
           updated_at?: string
         }
         Update: {
           availability?: number | null
+          availability_count?: number | null
+          base_price?: number | null
           city?: string | null
           created_at?: string
           created_by?: string | null
+          currency?: string | null
           description?: Json
+          description_md?: Json | null
+          destination?: string | null
           duration?: number | null
+          duration_days?: number | null
           featured?: boolean | null
           gallery?: Json | null
           id?: string
+          images?: string[] | null
           is_demo?: boolean | null
+          is_featured?: boolean | null
           is_published?: boolean | null
           itinerary?: Json | null
           pricing_tiers?: Json | null
+          rating?: number | null
           region?: string | null
           scenario_tags?: string[] | null
+          slug?: string | null
+          summary?: Json | null
+          tags?: string[] | null
           title?: Json
           updated_at?: string
         }
         Relationships: []
+      }
+      trip_features: {
+        Row: {
+          feature_id: number
+          trip_id: number
+        }
+        Insert: {
+          feature_id: number
+          trip_id: number
+        }
+        Update: {
+          feature_id?: number
+          trip_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_features_feature_id_fkey"
+            columns: ["feature_id"]
+            isOneToOne: false
+            referencedRelation: "features"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trip_features_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trip_features_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips_view"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trip_tags: {
+        Row: {
+          tag_id: number
+          trip_id: number
+        }
+        Insert: {
+          tag_id: number
+          trip_id: number
+        }
+        Update: {
+          tag_id?: number
+          trip_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "tags"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trip_tags_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trip_tags_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips_view"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trips: {
+        Row: {
+          availability: unknown | null
+          category_id: number | null
+          created_at: string | null
+          currency: string | null
+          description: string | null
+          destination_id: number | null
+          duration_days: number | null
+          featured: boolean | null
+          id: number
+          images: Json | null
+          itinerary: Json | null
+          price: number | null
+          slug: string
+          status: string | null
+          title: string
+        }
+        Insert: {
+          availability?: unknown | null
+          category_id?: number | null
+          created_at?: string | null
+          currency?: string | null
+          description?: string | null
+          destination_id?: number | null
+          duration_days?: number | null
+          featured?: boolean | null
+          id?: number
+          images?: Json | null
+          itinerary?: Json | null
+          price?: number | null
+          slug: string
+          status?: string | null
+          title: string
+        }
+        Update: {
+          availability?: unknown | null
+          category_id?: number | null
+          created_at?: string | null
+          currency?: string | null
+          description?: string | null
+          destination_id?: number | null
+          duration_days?: number | null
+          featured?: boolean | null
+          id?: number
+          images?: Json | null
+          itinerary?: Json | null
+          price?: number | null
+          slug?: string
+          status?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trips_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trips_destination_id_fkey"
+            columns: ["destination_id"]
+            isOneToOne: false
+            referencedRelation: "destinations"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_posts: {
         Row: {
@@ -1266,9 +1674,97 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      trips_view: {
+        Row: {
+          availability: unknown | null
+          category_id: number | null
+          category_name: string | null
+          created_at: string | null
+          currency: string | null
+          description: string | null
+          destination_id: number | null
+          destination_name: string | null
+          duration_days: number | null
+          featured: boolean | null
+          id: number | null
+          images: Json | null
+          itinerary: Json | null
+          price: number | null
+          slug: string | null
+          status: string | null
+          title: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trips_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trips_destination_id_fkey"
+            columns: ["destination_id"]
+            isOneToOne: false
+            referencedRelation: "destinations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
+      create_booking: {
+        Args:
+          | {
+              p_end_date: string
+              p_package_id: string
+              p_start_date: string
+              p_status?: Database["public"]["Enums"]["booking_status"]
+              p_traveler_email: string
+              p_traveler_name: string
+              p_traveler_whatsapp: string
+            }
+          | {
+              p_end_date: string
+              p_package_id: string
+              p_start_date: string
+              p_status?: Database["public"]["Enums"]["booking_status"]
+              p_traveler_email: string
+              p_traveler_name: string
+              p_traveler_whatsapp: string
+              p_user_id: string
+            }
+          | {
+              p_end_date: string
+              p_package_id: string
+              p_start_date: string
+              p_status?: string
+              p_traveler_email: string
+              p_traveler_name: string
+              p_traveler_whatsapp: string
+              p_user_id: string
+            }
+        Returns: {
+          booking_status: string | null
+          created_at: string | null
+          id: string
+          is_demo: boolean | null
+          number_of_travelers: number | null
+          package_id: string | null
+          payment_status: string | null
+          special_requests: string | null
+          status: Database["public"]["Enums"]["booking_status"] | null
+          stripe_session_id: string | null
+          total_amount: number | null
+          travel_end_date: string
+          travel_start_date: string
+          traveler_email: string
+          traveler_name: string
+          traveler_whatsapp: string | null
+          updated_at: string | null
+          user_id: string | null
+        }[]
+      }
       get_public_business_listing: {
         Args: { business_id: number }
         Returns: {
@@ -1306,6 +1802,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "verified" | "user"
+      booking_status: "pending" | "paid" | "canceled" | "refunded"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1434,6 +1931,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "verified", "user"],
+      booking_status: ["pending", "paid", "canceled", "refunded"],
     },
   },
 } as const
