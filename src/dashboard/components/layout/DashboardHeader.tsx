@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LogOut, User, Plus, FileText, Upload } from 'lucide-react';
 
 export function DashboardHeader() {
@@ -47,9 +48,12 @@ export function DashboardHeader() {
             </Button>
           </div>
 
-          <div className="flex items-center space-x-2 text-sm">
-            <User size={16} className="text-muted-foreground" />
-            <span className="text-foreground">{user?.email}</span>
+          <div className="flex items-center space-x-3">
+            <ThemeToggle />
+            <div className="flex items-center space-x-2 text-sm">
+              <User size={16} className="text-muted-foreground" />
+              <span className="text-foreground">{user?.email}</span>
+            </div>
           </div>
           <Button
             variant="ghost"

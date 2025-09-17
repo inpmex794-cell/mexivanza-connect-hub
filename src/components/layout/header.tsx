@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLanguage } from "@/hooks/use-language";
@@ -52,6 +53,7 @@ export const Header: React.FC = () => {
 
         {/* Desktop Auth & Language */}
         <div className="hidden md:flex items-center space-x-3">
+          <ThemeToggle />
           <LanguageToggle
             language={language}
             onLanguageChange={setLanguage}
@@ -156,11 +158,14 @@ export const Header: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-2 pt-4 border-t">
-            <LanguageToggle
-              language={language}
-              onLanguageChange={setLanguage}
-              className="self-start"
-            />
+            <div className="flex items-center space-x-2 mb-2">
+              <ThemeToggle variant="outline" size="sm" />
+              <LanguageToggle
+                language={language}
+                onLanguageChange={setLanguage}
+                className="flex-1"
+              />
+            </div>
             {user ? (
               <>
                 <div className="flex items-center space-x-2 py-2">

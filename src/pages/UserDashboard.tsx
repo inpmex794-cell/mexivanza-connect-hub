@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Calendar, MapPin, User, Mail, Phone, Edit, Eye } from 'lucide-react';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/use-auth';
 import { useLanguage } from '@/hooks/use-language';
@@ -134,6 +135,28 @@ export function UserDashboard() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Account Header */}
+      <header className="bg-card border-b border-border px-4 py-4">
+        <div className="container mx-auto flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <Link to="/" className="flex items-center space-x-2">
+              <div className="h-8 w-8 rounded-lg bg-primary flex-shrink-0"></div>
+              <span className="text-lg font-bold text-foreground">Mexivanza</span>
+            </Link>
+            <span className="text-muted-foreground">Mi Cuenta</span>
+          </div>
+          
+          <div className="flex items-center space-x-3">
+            <ThemeToggle />
+            <Link to="/travel/packages">
+              <Button variant="outline" size="sm">
+                {t('browsePackages', 'Explorar Paquetes')}
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </header>
+
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">

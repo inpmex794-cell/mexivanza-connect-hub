@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from '@/hooks/use-auth';
 import { LanguageProvider } from '@/hooks/use-language';
+import { ThemeProvider } from '@/hooks/use-theme';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -42,10 +43,11 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <TooltipProvider>
-          <AuthProvider>
-            <Router>
+      <ThemeProvider>
+        <LanguageProvider>
+          <TooltipProvider>
+            <AuthProvider>
+              <Router>
               <div className="min-h-screen bg-background">
                 <Routes>
                   {/* Public landing page - now uses complete platform */}
@@ -99,10 +101,11 @@ function App() {
                 <Toaster />
                 <Sonner />
               </div>
-            </Router>
-          </AuthProvider>
-        </TooltipProvider>
-      </LanguageProvider>
+              </Router>
+            </AuthProvider>
+          </TooltipProvider>
+        </LanguageProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

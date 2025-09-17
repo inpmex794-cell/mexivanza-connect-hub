@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Search, MapPin, Calendar, Users, Star, Plane, Heart, Shield } from 'lucide-react';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { supabase } from '@/integrations/supabase/client';
 import { useLanguage } from '@/hooks/use-language';
 
@@ -80,8 +81,39 @@ export function TravelHomepage() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Travel Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-card/95 backdrop-blur-sm border-b border-border shadow-sm">
+        <div className="flex h-full items-center justify-between px-4 container mx-auto">
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="h-8 w-8 rounded-lg bg-primary flex-shrink-0"></div>
+            <span className="text-lg font-bold text-foreground">Mexivanza</span>
+          </Link>
+          
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link to="/travel" className="text-foreground hover:text-primary">
+              {t('home', 'Inicio')}
+            </Link>
+            <Link to="/travel/packages" className="text-foreground hover:text-primary">
+              {t('packages', 'Paquetes')}
+            </Link>
+            <Link to="/travel/categories" className="text-foreground hover:text-primary">
+              {t('categories', 'Categorías')}
+            </Link>
+          </nav>
+          
+          <div className="flex items-center space-x-3">
+            <ThemeToggle />
+            <Link to="/login">
+              <Button variant="outline" size="sm">
+                {t('login', 'Iniciar Sesión')}
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </header>
+
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-secondary/10 text-white">
+      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-secondary/10 text-white pt-16">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative container mx-auto px-4 py-20 lg:py-32">
           <div className="max-w-4xl mx-auto text-center">
