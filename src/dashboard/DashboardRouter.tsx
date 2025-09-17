@@ -6,10 +6,12 @@ import { LoginPage } from './pages/LoginPage';
 import { DashboardLayout } from './components/layout/DashboardLayout';
 import { DashboardHome } from './pages/DashboardHome';
 import { TripsPage } from './pages/TripsPage';
+import { TripCreator } from './pages/TripCreator';
 import { DestinationsPage } from './pages/DestinationsPage';
 import { CategoriesPage } from './pages/CategoriesPage';
 import { TagsPage } from './pages/TagsPage';
 import { PagesPage } from './pages/PagesPage';
+import { PageCreator } from './pages/PageCreator';
 import { FeaturesPage } from './pages/FeaturesPage';
 import { ServicesPage } from './pages/ServicesPage';
 import { BookingsPage } from './pages/BookingsPage';
@@ -30,10 +32,13 @@ export default function DashboardRouter() {
                 <Routes>
                   <Route index element={<DashboardHome />} />
                   <Route path="trips" element={<TripsPage />} />
+                  <Route path="trips/new" element={<TripCreator />} />
+                  <Route path="trips/edit/:id" element={<TripCreator />} />
                   <Route path="destinations" element={<DestinationsPage />} />
                   <Route path="categories" element={<CategoriesPage />} />
                   <Route path="tags" element={<TagsPage />} />
                   <Route path="pages" element={<PagesPage />} />
+                  <Route path="pages/new" element={<PageCreator />} />
                   <Route path="features" element={<FeaturesPage />} />
                   <Route path="services" element={<ServicesPage />} />
                   <Route path="bookings" element={<BookingsPage />} />

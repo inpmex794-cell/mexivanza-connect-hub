@@ -10,6 +10,7 @@ import { RoleBasedRouter } from '@/components/routing/role-based-router';
 import { MexivanzaPlatform } from '@/components/platform/mexivanza-platform';
 import { Home } from '@/pages/Home';
 import { Auth } from '@/pages/Auth';
+import { UserLogin } from '@/pages/UserLogin';
 import { Dashboard } from '@/pages/Dashboard';
 import { AdminDashboard } from '@/pages/AdminDashboard';
 import { VerifiedDashboard } from '@/pages/VerifiedDashboard';
@@ -56,6 +57,7 @@ function App() {
                   {/* Public Routes */}
                   <Route path="/home" element={<Home />} />
                   <Route path="/auth" element={<Auth />} />
+                  <Route path="/login" element={<UserLogin />} />
                   <Route path="/privacy" element={<Privacy />} />
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/contact" element={<Contact />} />

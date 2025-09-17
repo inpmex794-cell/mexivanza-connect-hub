@@ -4,11 +4,14 @@ import { DataTable } from '../components/ui/DataTable';
 import { StatusBadge } from '../components/ui/StatusBadge';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { api } from '../services/api';
-import { Plus, Edit, Trash2, DollarSign } from 'lucide-react';
+import { Plus, Edit, Trash2, DollarSign, Eye, Copy, Star } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from '@/hooks/use-toast';
 
 export function TripsPage() {
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTrips = async () => {
@@ -26,6 +29,66 @@ export function TripsPage() {
 
     fetchTrips();
   }, []);
+
+  const handleDuplicate = async (tripId: string) => {
+    try {
+      // TODO: Implement duplicate functionality
+      toast({
+        title: "Feature Coming Soon",
+        description: "Trip duplication will be available soon",
+      });
+    } catch (error) {
+      console.error('Error duplicating trip:', error);
+      toast({
+        title: "Error",
+        description: "Failed to duplicate trip",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleToggleFeatured = async (tripId: string, currentFeatured: boolean) => {
+    try {
+      // TODO: Implement toggle featured functionality
+      toast({
+        title: "Feature Coming Soon",
+        description: "Toggle featured will be available soon",
+      });
+    } catch (error) {
+      console.error('Error toggling featured status:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update featured status",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleDelete = async (tripId: string) => {
+    if (!confirm('Are you sure you want to delete this trip? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      const response = await api.deleteTrip(tripId);
+      if (response.success) {
+        setTrips(trips.filter((trip: any) => trip.id !== tripId));
+        toast({
+          title: "Success",
+          description: "Trip deleted successfully"
+        });
+      } else {
+        throw new Error(response.message || 'Failed to delete trip');
+      }
+    } catch (error) {
+      console.error('Error deleting trip:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete trip",
+        variant: "destructive"
+      });
+    }
+  };
 
   const columns = [
     {
@@ -88,11 +151,46 @@ export function TripsPage() {
       key: 'actions',
       title: 'Actions',
       render: (value: any, row: any) => (
-        <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm">
+        <div className="flex items-center space-x-1">
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => navigate(`/travel/package/${row.id}`)}
+            title="View"
+          >
+            <Eye size={14} />
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => navigate(`/dashboard/trips/edit/${row.id}`)}
+            title="Edit"
+          >
             <Edit size={14} />
           </Button>
-          <Button variant="ghost" size="sm">
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => handleDuplicate(row.id)}
+            title="Duplicate"
+          >
+            <Copy size={14} />
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => handleToggleFeatured(row.id, row.featured)}
+            title={row.featured ? "Remove from featured" : "Make featured"}
+          >
+            <Star size={14} className={row.featured ? "fill-current text-accent" : ""} />
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => handleDelete(row.id)}
+            title="Delete"
+            className="text-destructive hover:text-destructive"
+          >
             <Trash2 size={14} />
           </Button>
         </div>
@@ -115,7 +213,7 @@ export function TripsPage() {
           <h1 className="text-3xl font-display font-bold text-foreground">Trips</h1>
           <p className="text-muted-foreground mt-2">Manage your travel packages and experiences</p>
         </div>
-        <Button>
+        <Button onClick={() => navigate('/dashboard/trips/new')}>
           <Plus size={16} />
           <span className="ml-2">Add Trip</span>
         </Button>
