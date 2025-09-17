@@ -5,6 +5,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { TripMap } from '@/components/maps/trip-map';
+import { GoogleMapsProvider } from '@/components/maps/google-maps-loader';
 import { 
   Plus, 
   Trash2, 
@@ -14,7 +17,8 @@ import {
   Image,
   ChevronUp,
   ChevronDown,
-  Eye
+  Eye,
+  Map
 } from 'lucide-react';
 
 interface ItineraryDay {
@@ -24,6 +28,8 @@ interface ItineraryDay {
   location: string;
   time: string;
   image: string;
+  lat?: number;
+  lng?: number;
 }
 
 interface ItineraryBuilderProps {
@@ -33,6 +39,7 @@ interface ItineraryBuilderProps {
 
 export function ItineraryBuilder({ itinerary, onChange }: ItineraryBuilderProps) {
   const [previewMode, setPreviewMode] = useState(false);
+  const [activeTab, setActiveTab] = useState('builder');
 
   const addDay = () => {
     const newDay: ItineraryDay = {
@@ -41,7 +48,9 @@ export function ItineraryBuilder({ itinerary, onChange }: ItineraryBuilderProps)
       description: '',
       location: '',
       time: '09:00',
-      image: ''
+      image: '',
+      lat: undefined,
+      lng: undefined
     };
     onChange([...itinerary, newDay]);
   };
@@ -132,7 +141,15 @@ export function ItineraryBuilder({ itinerary, onChange }: ItineraryBuilderProps)
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      
+      <CardContent>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="builder">Builder</TabsTrigger>
+            <TabsTrigger value="map">Map View</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="builder" className="space-y-6 mt-4">
         {itinerary.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <p>No itinerary days yet. Click "Add Day" to get started.</p>
@@ -196,18 +213,43 @@ export function ItineraryBuilder({ itinerary, onChange }: ItineraryBuilderProps)
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor={`location-${index}`} className="flex items-center">
-                    <MapPin size={16} className="mr-1" />
-                    Location
-                  </Label>
-                  <Input
-                    id={`location-${index}`}
-                    value={day.location}
-                    onChange={(e) => updateDay(index, 'location', e.target.value)}
-                    placeholder="e.g., Cancun International Airport"
-                  />
-                </div>
+                  <div className="space-y-2">
+                    <Label htmlFor={`location-${index}`} className="flex items-center">
+                      <MapPin size={16} className="mr-1" />
+                      Location
+                    </Label>
+                    <Input
+                      id={`location-${index}`}
+                      value={day.location}
+                      onChange={(e) => updateDay(index, 'location', e.target.value)}
+                      placeholder="e.g., Cancun International Airport"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor={`lat-${index}`}>Latitude</Label>
+                      <Input
+                        id={`lat-${index}`}
+                        type="number"
+                        step="any"
+                        value={day.lat || ''}
+                        onChange={(e) => updateDay(index, 'lat', parseFloat(e.target.value) || undefined)}
+                        placeholder="19.4326"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor={`lng-${index}`}>Longitude</Label>
+                      <Input
+                        id={`lng-${index}`}
+                        type="number"
+                        step="any"
+                        value={day.lng || ''}
+                        onChange={(e) => updateDay(index, 'lng', parseFloat(e.target.value) || undefined)}
+                        placeholder="-99.1332"
+                      />
+                    </div>
+                  </div>
 
                 <div className="space-y-2">
                   <Label htmlFor={`description-${index}`}>Description</Label>
@@ -250,7 +292,31 @@ export function ItineraryBuilder({ itinerary, onChange }: ItineraryBuilderProps)
               <span className="ml-2">Add Another Day</span>
             </Button>
           </div>
-        )}
+            )}
+
+            {itinerary.length > 0 && (
+              <div className="text-center pt-4">
+                <Button variant="outline" onClick={addDay}>
+                  <Plus size={16} />
+                  <span className="ml-2">Add Another Day</span>
+                </Button>
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="map">
+            <div className="mt-4">
+              <GoogleMapsProvider>
+                <TripMap
+                  itinerary={itinerary}
+                  height="500px"
+                  showRoutes={true}
+                  interactive={true}
+                />
+              </GoogleMapsProvider>
+            </div>
+          </TabsContent>
+        </Tabs>
       </CardContent>
     </Card>
   );

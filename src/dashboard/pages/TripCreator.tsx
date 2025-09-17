@@ -12,6 +12,8 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ItineraryBuilder } from '../components/ItineraryBuilder';
+import { DestinationMap } from '@/components/maps/destination-map';
+import { GoogleMapsProvider } from '@/components/maps/google-maps-loader';
 import { api } from '../services/api';
 import { 
   Save, 
@@ -297,10 +299,11 @@ export function TripCreator() {
       </div>
 
       <Tabs defaultValue="basic" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="basic">Basic Info</TabsTrigger>
           <TabsTrigger value="details">Details & Media</TabsTrigger>
           <TabsTrigger value="itinerary">Itinerary</TabsTrigger>
+          <TabsTrigger value="map">Map</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
 
@@ -591,6 +594,27 @@ export function TripCreator() {
             itinerary={formData.itinerary}
             onChange={(itinerary) => handleInputChange('itinerary', itinerary)}
           />
+        </TabsContent>
+
+        {/* Map View */}
+        <TabsContent value="map">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <MapPin className="mr-2" size={20} />
+                Trip Map Overview
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <GoogleMapsProvider>
+                <DestinationMap
+                  name={formData.title || "Trip Location"}
+                  height="500px"
+                  editable={false}
+                />
+              </GoogleMapsProvider>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         {/* Settings */}
