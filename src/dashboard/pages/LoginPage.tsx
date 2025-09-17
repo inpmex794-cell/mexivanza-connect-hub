@@ -8,13 +8,13 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 
 export function LoginPage() {
-  const { user, login } = useAuth();
-  const [email, setEmail] = useState('admin@mexivanza.com');
-  const [password, setPassword] = useState('admin123');
+  const { user, login, loading: authLoading } = useAuth();
+  const [email, setEmail] = useState('mexivanza@mexivanza.com');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  if (user) {
+  if (user && !authLoading) {
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -24,9 +24,9 @@ export function LoginPage() {
     setError('');
 
     try {
-      const success = await login(email, password);
-      if (!success) {
-        setError('Invalid credentials. Use admin@mexivanza.com / admin123');
+      const { error: loginError } = await login(email, password);
+      if (loginError) {
+        setError(loginError.message || 'Invalid credentials. Please try again.');
       }
     } catch (err) {
       setError('An error occurred during login');
@@ -99,9 +99,9 @@ export function LoginPage() {
           </form>
 
           <div className="mt-6 p-4 bg-muted rounded-md">
-            <p className="text-xs text-muted-foreground mb-2">Demo credentials:</p>
-            <p className="text-xs font-mono">admin@mexivanza.com</p>
-            <p className="text-xs font-mono">admin123</p>
+            <p className="text-xs text-muted-foreground mb-2">Admin access required:</p>
+            <p className="text-xs font-mono">mexivanza@mexivanza.com</p>
+            <p className="text-xs text-muted-foreground">Contact admin for password</p>
           </div>
         </div>
       </div>

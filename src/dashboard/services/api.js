@@ -1,5 +1,5 @@
-// Mexivanza Travel Dashboard API Service
-// Replace with real API endpoints when integrating with backend
+// Mexivanza Connect Hub - Real Supabase API Service  
+export { api } from './supabaseApi.js';
 
 const BASE_URL = '/api';
 

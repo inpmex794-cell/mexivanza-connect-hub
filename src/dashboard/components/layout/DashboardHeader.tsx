@@ -19,7 +19,7 @@ export function DashboardHeader() {
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2 text-sm">
             <User size={16} className="text-muted-foreground" />
-            <span className="text-foreground">{user?.username}</span>
+            <span className="text-foreground">{user?.email}</span>
           </div>
           <Button
             variant="ghost"
