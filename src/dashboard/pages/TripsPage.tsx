@@ -56,7 +56,7 @@ export function TripsPage() {
       render: (value: number) => (
         <div className="flex items-center text-foreground font-medium">
           <DollarSign size={14} />
-          {value.toLocaleString()}
+          {value ? value.toLocaleString() : 'N/A'}
         </div>
       )
     },
