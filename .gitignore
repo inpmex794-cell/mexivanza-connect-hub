@@ -7,18 +7,38 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Dependency folders
+node_modules/
+bun.lockb
+
+# Build output
+dist/
+dist-ssr/
 *.local
 
-# Editor directories and files
-.vscode/*
+# Supabase artifacts
+.env
+.env.local
+.env.production
+sample-data.sql
+
+# Editor configs
+.vscode/
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# System files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Lovable metadata
+components.json
+lovable.json
+lovable.lock
