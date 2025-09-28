@@ -26,17 +26,17 @@ export const Auth: React.FC = () => {
     if (typeParam === "register") setAuthType("register");
   }, [searchParams]);
 
-  useEffect(() => {
-    if (user) {
-      if (user.email === "mexivanza@mexivanza.com" || isAdmin) {
-        navigate("/admin-dashboard");
-      } else if (userRole === "verified") {
-        navigate("/verified-dashboard");
-      } else {
-        navigate("/dashboard");
-      }
+ useEffect(() => {
+  if (user) {
+    if (isAdmin) {
+      navigate("/admin-dashboard");
+    } else if (userRole === "verified") {
+      navigate("/verified-dashboard");
+    } else {
+      navigate("/dashboard");
     }
-  }, [user, userRole, isAdmin, navigate]);
+  }
+}, [user, userRole, isAdmin, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
