@@ -33,7 +33,7 @@ useEffect(() => {
     } else if (userRole === "verified") {
       navigate("/verified-dashboard");
     } else {
-      navigate("/user-dashboard"); // ✅ This is your customer dashboard
+      navigate("/account"); // ✅ This is the correct customer dashboard
     }
   }
 }, [user, userRole, isAdmin, navigate]);
