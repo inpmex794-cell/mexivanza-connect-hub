@@ -26,14 +26,14 @@ export const Auth: React.FC = () => {
     if (typeParam === "register") setAuthType("register");
   }, [searchParams]);
 
- useEffect(() => {
+useEffect(() => {
   if (user) {
-    if (isAdmin) {
+    if (isAdmin === true) {
       navigate("/admin-dashboard");
     } else if (userRole === "verified") {
       navigate("/verified-dashboard");
     } else {
-      navigate("/dashboard");
+      navigate("/user-dashboard"); // ✅ This is your customer dashboard
     }
   }
 }, [user, userRole, isAdmin, navigate]);
