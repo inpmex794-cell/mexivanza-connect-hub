@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
@@ -114,11 +113,11 @@ export const Auth: React.FC = () => {
                 </>
               )}
             </CardTitle>
-            <CardDescription>
+            <p>
               {authType === "login"
                 ? "Access your Mexivanza account / Accede a tu cuenta de Mexivanza"
                 : "Join the Mexivanza platform / Únete a la plataforma Mexivanza"}
-            </CardDescription>
+            </p>
           </CardHeader>
 
           <CardContent>
@@ -188,4 +187,3 @@ export const Auth: React.FC = () => {
     </div>
   );
 };
-
