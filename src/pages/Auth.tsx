@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from "react";
 import {
-  Card, CardContent, CardDescription, CardHeader, CardTitle,
-  Button, Input, Label, Separator
-} from "@/components/ui";
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/use-auth";
 import { useLanguage } from "@/hooks/use-language";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
-  LogIn, UserPlus, Mail, Lock, ArrowLeft
+  LogIn,
+  UserPlus,
+  Mail,
+  Lock,
+  ArrowLeft
 } from "lucide-react";
 
 export const Auth: React.FC = () => {
@@ -26,17 +37,17 @@ export const Auth: React.FC = () => {
     if (typeParam === "register") setAuthType("register");
   }, [searchParams]);
 
-useEffect(() => {
-  if (user) {
-    if (isAdmin === true) {
-      navigate("/admin-dashboard");
-    } else if (userRole === "verified") {
-      navigate("/verified-dashboard");
-    } else {
-      navigate("/account"); // ✅ This is the correct customer dashboard
+  useEffect(() => {
+    if (user) {
+      if (isAdmin === true || userRole === "admin") {
+        navigate("/admin-dashboard");
+      } else if (userRole === "verified") {
+        navigate("/verified-dashboard");
+      } else {
+        navigate("/account");
+      }
     }
-  }
-}, [user, userRole, isAdmin, navigate]);
+  }, [user, userRole, isAdmin, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,9 +58,10 @@ useEffect(() => {
 
     setLoading(true);
     try {
-      const result = authType === "login"
-        ? await signIn(email, password)
-        : await signUp(email, password);
+      const result =
+        authType === "login"
+          ? await signIn(email, password)
+          : await signUp(email, password);
 
       if (result.error) {
         const msg = result.error.message;
@@ -63,9 +75,11 @@ useEffect(() => {
           toast.error(msg);
         }
       } else {
-        toast.success(authType === "register"
-          ? "Cuenta creada exitosamente. ¡Bienvenido a Mexivanza!"
-          : "Inicio de sesión exitoso. ¡Bienvenido de vuelta!");
+        toast.success(
+          authType === "register"
+            ? "Cuenta creada exitosamente. ¡Bienvenido a Mexivanza!"
+            : "Inicio de sesión exitoso. ¡Bienvenido de vuelta!"
+        );
       }
     } catch {
       toast.error("Error inesperado. Intenta de nuevo.");
@@ -143,8 +157,8 @@ useEffect(() => {
                 {loading
                   ? t("auth.processing", "Processing...")
                   : authType === "login"
-                    ? t("auth.login_button", "Sign In")
-                    : t("auth.register_button", "Create Account")}
+                  ? t("auth.login_button", "Sign In")
+                  : t("auth.register_button", "Create Account")}
               </Button>
             </form>
 
@@ -158,7 +172,9 @@ useEffect(() => {
               </p>
               <Button
                 variant="outline"
-                onClick={() => setAuthType(authType === "login" ? "register" : "login")}
+                onClick={() =>
+                  setAuthType(authType === "login" ? "register" : "login")
+                }
                 className="w-full"
               >
                 {authType === "login"
@@ -172,3 +188,4 @@ useEffect(() => {
     </div>
   );
 };
+
