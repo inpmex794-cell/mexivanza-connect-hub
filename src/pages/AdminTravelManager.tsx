@@ -8,7 +8,7 @@ const AdminTravelManagerPage: React.FC = () => {
   const { user } = useAuth();
   
   // Check if user is admin (you may want to add proper role checking)
-  if (!user || user.email !== 'mexivanza@mexivanza.com') {
+  if (!user || user.email !== 'inpmex794@gmail.com') {
     return <Navigate to="/auth" replace />;
   }
 
