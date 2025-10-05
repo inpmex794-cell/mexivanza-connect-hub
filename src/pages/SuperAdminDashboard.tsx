@@ -20,3 +20,11 @@ const SuperAdminDashboard: React.FC = () => {
 };
 
 export default SuperAdminDashboard;
+import DestinationManager from '@/components/admin/DestinationManager';
+
+return (
+  <PageLayout>
+    <DestinationManager />
+  </PageLayout>
+);
+
