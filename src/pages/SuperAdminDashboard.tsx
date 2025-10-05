@@ -23,7 +23,26 @@ const SuperAdminDashboard: React.FC = () => {
   );
 };
 
-export default SuperAdminDashboard;
+export default function SuperAdminDashboard() {
+  const { userRole } = useAuth();
+
+  console.log("User role:", userRole);
+
+  if (!userRole) {
+    return <div>Loading user role...</div>;
+  }
+
+  if (userRole !== 'super_admin') {
+    return <div>Access denied. Your role is: {userRole}</div>;
+  }
+
+  return (
+    <PageLayout>
+      <h1>Super Admin Dashboard Loaded</h1>
+    </PageLayout>
+  );
+}
+
 
 
 
