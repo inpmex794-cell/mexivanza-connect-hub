@@ -19,4 +19,12 @@ const AdminTravelManagerPage: React.FC = () => {
   );
 };
 
+
 export default AdminTravelManagerPage;
+import DestinationManager from '@/components/admin/DestinationManager';
+
+return (
+  <PageLayout>
+    <DestinationManager />
+  </PageLayout>
+);
