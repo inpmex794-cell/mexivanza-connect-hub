@@ -11,10 +11,14 @@ export default function DestinationManager() {
     fetchDestinations();
   }, []);
 
-  async function fetchDestinations() {
-    const { data, error } = await supabase.from('destinations').select('*');
-    if (!error) setDestinations(data);
-  }
+async function fetchDestinations() {
+  const { data, error } = await supabase
+    .from('destinations')
+    .select('id, name, slug, description, region');
+
+  if (!error) setDestinations(data);
+}
+
 
   async function handleSubmit() {
     const { error } = await supabase.from('destinations').insert([form]);
@@ -36,11 +40,15 @@ export default function DestinationManager() {
 
       <div className="mt-6">
         <h3 className="text-lg font-semibold">Existing Destinations</h3>
-        <ul className="list-disc pl-5">
-          {destinations.map(dest => (
-            <li key={dest.id}>{dest.state} — {dest.city}</li>
-          ))}
-        </ul>
+       <ul className="list-disc pl-5">
+  {destinations.map(dest => (
+    <li key={dest.id}>
+      <strong>{dest.name}</strong> — {dest.region}<br />
+      <em>{dest.description}</em>
+    </li>
+  ))}
+</ul>
+
       </div>
     </div>
   );
