@@ -16,7 +16,6 @@ import { Home } from '@/pages/Home';
 import { Auth } from '@/pages/Auth';
 import { UserLogin } from '@/pages/UserLogin';
 import { Dashboard } from '@/pages/Dashboard';
-import { AdminDashboard } from '@/pages/AdminDashboard';
 import { VerifiedDashboard } from '@/pages/VerifiedDashboard';
 import { Privacy } from '@/pages/Privacy';
 import { Terms } from '@/pages/Terms';
@@ -40,6 +39,8 @@ import { UserDashboard } from '@/pages/UserDashboard';
 import { AccountBookings } from '@/pages/AccountBookings';
 import NotFound from '@/pages/NotFound';
 import DashboardRouter from './dashboard/DashboardRouter';
+
+// ✅ Import the real admin console
 import AdminTravelConsole from '@/components/travel/admin-travel-console';
 
 const queryClient = new QueryClient();
@@ -92,13 +93,13 @@ function App() {
 
                     {/* Admin and dashboard routes */}
                     <Route path="/dashboard/*" element={<DashboardRouter />} />
-                    <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                    
+                    {/* ✅ Point both admin routes to the real console */}
+                    <Route path="/admin-dashboard" element={<AdminTravelConsole />} />
+                    <Route path="/super-admin" element={<AdminTravelConsole />} />
+
                     <Route path="/verified-dashboard" element={<VerifiedDashboard />} />
                     <Route path="/admin/travel-categories" element={<AdminCategoriesManager />} />
-
-              {/* Super Admin Dashboard */}
-<Route path="/super-admin" element={<AdminTravelConsole />} />
-
 
                     {/* Role-based redirect */}
                     <Route path="/dashboard-redirect" element={<RoleBasedRouter />} />
@@ -126,4 +127,5 @@ function App() {
 }
 
 export default App;
+
 
