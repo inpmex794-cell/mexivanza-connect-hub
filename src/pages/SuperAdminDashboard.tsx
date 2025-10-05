@@ -27,4 +27,5 @@ return (
     <DestinationManager />
   </PageLayout>
 );
+<Route path="/super-admin" element={<SuperAdminDashboard />} />
 
