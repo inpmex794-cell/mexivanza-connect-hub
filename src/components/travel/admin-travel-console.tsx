@@ -627,3 +627,4 @@ const AdminTravelConsole: React.FC = () => {
 };
 
 export default AdminTravelConsole;
+
