@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// ✅ Correct
 import { supabase } from '@/integrations/supabase/supabaseClient';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
