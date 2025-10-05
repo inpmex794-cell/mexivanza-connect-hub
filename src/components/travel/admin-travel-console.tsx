@@ -474,14 +474,17 @@ const AdminTravelConsole: React.FC = () => {
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      <Badge className={getStatusColor(booking.payment_status)}>
-                        {booking.payment_status}
-                      </Badge>
-                    <TableCell>
-                      <Button variant="outline" size="sm">
-                        <Eye className="w-4 h-4" />
-                      </Button>
-                    </TableCell>
+                      <TableCell>
+  <Badge className={getStatusColor(booking.payment_status)}>
+    {booking.payment_status}
+  </Badge>
+</TableCell>
+<TableCell>
+  <Button variant="outline" size="sm">
+    <Eye className="w-4 h-4" />
+  </Button>
+</TableCell>
+
                   </TableRow>
                 ))}
               </TableBody>
