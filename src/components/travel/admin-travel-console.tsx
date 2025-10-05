@@ -1,83 +1,143 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '@/hooks/use-auth';
-import { useLanguage } from '@/hooks/use-language';
-import { supabase } from '@/integrations/supabase/client';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Calendar } from '@/components/ui/calendar';
-import { Checkbox } from '@/components/ui/checkbox';
-import { 
-  Plane, Package, Calendar as CalendarIcon, Star, Plus, Edit, Trash2, 
-  Filter, Download, Search, MapPin, Clock, Users, DollarSign,
-  TrendingUp, Eye, CheckCircle, XCircle, AlertCircle
-} from 'lucide-react';
-import { toast } from 'sonner';
-import { format } from 'date-fns';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "@/context/useAuth";
+import { Navigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { PagesPage } from "@/dashboard/pages/PagesPage";
+import { TagsPage } from "@/dashboard/pages/TagsPage";
 
-interface TravelPackage {
-  id: string;
-  title: any;
-  description: any;
-  region: string;
-  city: string;
-  duration: number;
-  pricing_tiers: any;
-  gallery: any;
-  scenario_tags: string[];
-  featured: boolean;
-  is_published: boolean;
-  availability: number;
-}
+const AdminTravelConsole: React.FC = () => {
+  const { user, isAdmin } = useAuth();
+  const [activeTab, setActiveTab] = useState("overview");
+  const [packages, setPackages] = useState<any[]>([]);
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-interface TravelExtra {
-  id: string;
-  name: any;
-  description: any;
-  price: number;
-  per_person: boolean;
-  category: string;
-  package_id?: string;
-}
+  // Protect route
+  if (!user) return <Navigate to="/user-login" replace />;
+  if (!isAdmin) return <div>Access denied</div>;
 
-interface AvailabilitySlot {
-  id: string;
-  package_id: string;
-  available_date: string;
-  capacity: number;
-  booked_count: number;
-  price_multiplier: number;
-}
+  // Fetch data
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const { data: pkgData } = await supabase.from("travel_packages").select("*");
+      const { data: bookingData } = await supabase
+        .from("travel_bookings")
+        .select("*, travel_packages(*)");
 
-interface Booking {
-  id: string;
-  user_id: string;
-  package_id: string;
-  travel_start_date: string;
-  travel_end_date: string;
-  number_of_travelers: number;
-  total_amount: number;
-  traveler_name: string;
-  traveler_email: string;
-  booking_status: string;
-  payment_status: string;
-  created_at: string;
-  travel_packages: {
-    title: any;
-    city: string;
-    region: string;
-  };
-}
+      setPackages(pkgData || []);
+      setBookings(bookingData || []);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
-export const AdminTravelConsole: React.FC = () => {
+  if (loading) return <div>Loading admin console…</div>;
+
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-6">Admin Travel Console</h1>
+
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <TabsList className="grid w-full grid-cols-7">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="packages">Packages</TabsTrigger>
+          <TabsTrigger value="bookings">Bookings</TabsTrigger>
+          <TabsTrigger value="availability">Availability</TabsTrigger>
+          <TabsTrigger value="extras">Extras</TabsTrigger>
+          <TabsTrigger value="pages">Pages</TabsTrigger>
+          <TabsTrigger value="tags">Tags</TabsTrigger>
+        </TabsList>
+
+        {/* Overview */}
+        <TabsContent value="overview">
+          <Card>
+            <CardHeader>
+              <CardTitle>Overview</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Total Packages: {packages.length}</p>
+              <p>Total Bookings: {bookings.length}</p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Packages */}
+        <TabsContent value="packages">
+          <Card>
+            <CardHeader>
+              <CardTitle>Packages</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {packages.map((pkg) => (
+                <div key={pkg.id} className="flex justify-between border-b py-2">
+                  <span>{pkg.name}</span>
+                  <Button variant="outline" size="sm">Edit</Button>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Bookings */}
+        <TabsContent value="bookings">
+          <Card>
+            <CardHeader>
+              <CardTitle>Bookings</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {bookings.map((b) => (
+                <div key={b.id} className="border-b py-2">
+                  <p>{b.customer_name} booked {b.travel_packages?.name}</p>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Availability */}
+        <TabsContent value="availability">
+          <Card>
+            <CardHeader>
+              <CardTitle>Availability</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Coming soon…</p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Extras */}
+        <TabsContent value="extras">
+          <Card>
+            <CardHeader>
+              <CardTitle>Extras</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Coming soon…</p>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Pages */}
+        <TabsContent value="pages">
+          <PagesPage />
+        </TabsContent>
+
+        {/* Tags */}
+        <TabsContent value="tags">
+          <TagsPage />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+};
+
+export default AdminTravelConsole;
+
   const { user, isAdmin } = useAuth();
   const { language } = useLanguage();
   
