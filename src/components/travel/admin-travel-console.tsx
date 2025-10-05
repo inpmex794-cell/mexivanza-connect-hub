@@ -1,187 +1,68 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/useAuth";
+import { useLanguage } from "@/hooks/use-language";
 import { Navigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { toast } from "sonner";
+import { format } from "date-fns";
+import {
+  TrendingUp,
+  Package,
+  CalendarIcon,
+  Star,
+  Users,
+  DollarSign,
+  MapPin,
+  Clock,
+  Plus,
+  Edit,
+  Trash2,
+  Download,
+  Eye
+} from "lucide-react";
+
 import { PagesPage } from "@/dashboard/pages/PagesPage";
 import { TagsPage } from "@/dashboard/pages/TagsPage";
 
 const AdminTravelConsole: React.FC = () => {
   const { user, isAdmin } = useAuth();
+  const { language } = useLanguage();
+
   const [activeTab, setActiveTab] = useState("overview");
   const [packages, setPackages] = useState<any[]>([]);
+  const [extras, setExtras] = useState<any[]>([]);
+  const [availability, setAvailability] = useState<any[]>([]);
   const [bookings, setBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-
-  // Protect route
-  if (!user) return <Navigate to="/user-login" replace />;
-  if (!isAdmin) return <div>Access denied</div>;
-
-  // Fetch data
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const { data: pkgData } = await supabase.from("travel_packages").select("*");
-      const { data: bookingData } = await supabase
-        .from("travel_bookings")
-        .select("*, travel_packages(*)");
-
-      setPackages(pkgData || []);
-      setBookings(bookingData || []);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  if (loading) return <div>Loading admin console…</div>;
-
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Admin Travel Console</h1>
-
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-7">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="packages">Packages</TabsTrigger>
-          <TabsTrigger value="bookings">Bookings</TabsTrigger>
-          <TabsTrigger value="availability">Availability</TabsTrigger>
-          <TabsTrigger value="extras">Extras</TabsTrigger>
-          <TabsTrigger value="pages">Pages</TabsTrigger>
-          <TabsTrigger value="tags">Tags</TabsTrigger>
-        </TabsList>
-
-        {/* Overview */}
-        <TabsContent value="overview">
-          <Card>
-            <CardHeader>
-              <CardTitle>Overview</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>Total Packages: {packages.length}</p>
-              <p>Total Bookings: {bookings.length}</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Packages */}
-        <TabsContent value="packages">
-          <Card>
-            <CardHeader>
-              <CardTitle>Packages</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {packages.map((pkg) => (
-                <div key={pkg.id} className="flex justify-between border-b py-2">
-                  <span>{pkg.name}</span>
-                  <Button variant="outline" size="sm">Edit</Button>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Bookings */}
-        <TabsContent value="bookings">
-          <Card>
-            <CardHeader>
-              <CardTitle>Bookings</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {bookings.map((b) => (
-                <div key={b.id} className="border-b py-2">
-                  <p>{b.customer_name} booked {b.travel_packages?.name}</p>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Availability */}
-        <TabsContent value="availability">
-          <Card>
-            <CardHeader>
-              <CardTitle>Availability</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>Coming soon…</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Extras */}
-        <TabsContent value="extras">
-          <Card>
-            <CardHeader>
-              <CardTitle>Extras</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>Coming soon…</p>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Pages */}
-        <TabsContent value="pages">
-          <PagesPage />
-        </TabsContent>
-
-        {/* Tags */}
-        <TabsContent value="tags">
-          <TagsPage />
-        </TabsContent>
-      </Tabs>
-    </div>
-  );
-};
-
-export default AdminTravelConsole;
-
-  const { user, isAdmin } = useAuth();
-  const { language } = useLanguage();
-  
-  const [activeTab, setActiveTab] = useState('overview');
-  const [packages, setPackages] = useState<TravelPackage[]>([]);
-  const [extras, setExtras] = useState<TravelExtra[]>([]);
-  const [availability, setAvailability] = useState<AvailabilitySlot[]>([]);
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [loading, setLoading] = useState(true);
-  
-  // Dialog states
-  const [showPackageDialog, setShowPackageDialog] = useState(false);
-  const [showExtraDialog, setShowExtraDialog] = useState(false);
-  const [showAvailabilityDialog, setShowAvailabilityDialog] = useState(false);
-  
-  // Editing states
-  const [editingPackage, setEditingPackage] = useState<TravelPackage | null>(null);
-  const [editingExtra, setEditingExtra] = useState<TravelExtra | null>(null);
-  
-  // Filters
-  const [packageFilter, setPackageFilter] = useState('');
-  const [bookingFilter, setBookingFilter] = useState({
-    status: '',
-    dateRange: '',
-    search: ''
-  });
-
-  // KPIs
   const [kpis, setKpis] = useState({
     totalBookings: 0,
     totalRevenue: 0,
-    topDestination: '',
-    bookingsThisMonth: 0
+    topDestination: "",
+    bookingsThisMonth: 0,
   });
 
-  // Admin check
-  if (!user || !isAdmin) {
-    return <Navigate to="/" replace />;
-  }
+  const [showPackageDialog, setShowPackageDialog] = useState(false);
+  const [showExtraDialog, setShowExtraDialog] = useState(false);
+  const [showAvailabilityDialog, setShowAvailabilityDialog] = useState(false);
+  const [editingPackage, setEditingPackage] = useState<any | null>(null);
+  const [editingExtra, setEditingExtra] = useState<any | null>(null);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const [packageFilter, setPackageFilter] = useState("");
+  const [bookingFilter, setBookingFilter] = useState({
+    status: "",
+    dateRange: "",
+    search: "",
+  });
 
+  if (!user) return <Navigate to="/user-login" replace />;
+  if (!isAdmin) return <div>Access denied</div>;
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -334,6 +215,9 @@ export default AdminTravelConsole;
     return matchesSearch && matchesStatus;
   });
 
+  useEffect(() => {
+    fetchData();
+  }, []);
   if (loading) {
     return (
       <div className="container-safe py-8">
@@ -366,7 +250,7 @@ export default AdminTravelConsole;
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="overview">
             <TrendingUp className="w-4 h-4 mr-2" />
             {language === 'es' ? 'Resumen' : 'Overview'}
@@ -387,11 +271,15 @@ export default AdminTravelConsole;
             <Users className="w-4 h-4 mr-2" />
             {language === 'es' ? 'Reservas' : 'Bookings'}
           </TabsTrigger>
+          <TabsTrigger value="pages">
+            {language === 'es' ? 'Páginas' : 'Pages'}
+          </TabsTrigger>
+          <TabsTrigger value="tags">
+            {language === 'es' ? 'Etiquetas' : 'Tags'}
+          </TabsTrigger>
         </TabsList>
-
         {/* Overview Tab */}
         <TabsContent value="overview" className="space-y-6">
-          {/* KPI Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card>
               <CardContent className="p-6">
@@ -458,7 +346,6 @@ export default AdminTravelConsole;
             </Card>
           </div>
 
-          {/* Recent Bookings */}
           <Card>
             <CardHeader>
               <CardTitle>{language === 'es' ? 'Reservas recientes' : 'Recent bookings'}</CardTitle>
@@ -489,14 +376,12 @@ export default AdminTravelConsole;
         {/* Packages Tab */}
         <TabsContent value="packages" className="space-y-6">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <Input
-                placeholder={language === 'es' ? 'Buscar paquetes...' : 'Search packages...'}
-                value={packageFilter}
-                onChange={(e) => setPackageFilter(e.target.value)}
-                className="w-64"
-              />
-            </div>
+            <Input
+              placeholder={language === 'es' ? 'Buscar paquetes...' : 'Search packages...'}
+              value={packageFilter}
+              onChange={(e) => setPackageFilter(e.target.value)}
+              className="w-64"
+            />
             <Button onClick={() => {
               setEditingPackage(null);
               setShowPackageDialog(true);
@@ -575,96 +460,7 @@ export default AdminTravelConsole;
             ))}
           </div>
         </TabsContent>
-
-        {/* Bookings Tab */}
-        <TabsContent value="bookings" className="space-y-6">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <Input
-                placeholder={language === 'es' ? 'Buscar reservas...' : 'Search bookings...'}
-                value={bookingFilter.search}
-                onChange={(e) => setBookingFilter(prev => ({ ...prev, search: e.target.value }))}
-                className="w-64"
-              />
-              <Select 
-                value={bookingFilter.status} 
-                onValueChange={(value) => setBookingFilter(prev => ({ ...prev, status: value }))}
-              >
-                <SelectTrigger className="w-40">
-                  <SelectValue placeholder={language === 'es' ? 'Estado' : 'Status'} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">{language === 'es' ? 'Todos' : 'All'}</SelectItem>
-                  <SelectItem value="pending">{language === 'es' ? 'Pendiente' : 'Pending'}</SelectItem>
-                  <SelectItem value="confirmed">{language === 'es' ? 'Confirmado' : 'Confirmed'}</SelectItem>
-                  <SelectItem value="paid">{language === 'es' ? 'Pagado' : 'Paid'}</SelectItem>
-                  <SelectItem value="cancelled">{language === 'es' ? 'Cancelado' : 'Cancelled'}</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <Button onClick={exportBookingsCSV}>
-              <Download className="w-4 h-4 mr-2" />
-              {language === 'es' ? 'Exportar CSV' : 'Export CSV'}
-            </Button>
-          </div>
-
-          <Card>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{language === 'es' ? 'Viajero' : 'Traveler'}</TableHead>
-                  <TableHead>{language === 'es' ? 'Paquete' : 'Package'}</TableHead>
-                  <TableHead>{language === 'es' ? 'Fecha' : 'Date'}</TableHead>
-                  <TableHead>{language === 'es' ? 'Personas' : 'Travelers'}</TableHead>
-                  <TableHead>{language === 'es' ? 'Total' : 'Total'}</TableHead>
-                  <TableHead>{language === 'es' ? 'Estado' : 'Status'}</TableHead>
-                  <TableHead>{language === 'es' ? 'Pago' : 'Payment'}</TableHead>
-                  <TableHead>{language === 'es' ? 'Acciones' : 'Actions'}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredBookings.map((booking) => (
-                  <TableRow key={booking.id}>
-                    <TableCell>
-                      <div>
-                        <div className="font-medium">{booking.traveler_name}</div>
-                        <div className="text-sm text-muted-foreground">{booking.traveler_email}</div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div>
-                        <div className="font-medium">{booking.travel_packages?.title?.[language]}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {booking.travel_packages?.city}, {booking.travel_packages?.region}
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>{format(new Date(booking.travel_start_date), 'MMM dd, yyyy')}</TableCell>
-                    <TableCell>{booking.number_of_travelers}</TableCell>
-                    <TableCell className="font-medium">{formatPrice(booking.total_amount)}</TableCell>
-                    <TableCell>
-                      <Badge className={getStatusColor(booking.booking_status)}>
-                        {booking.booking_status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge className={getStatusColor(booking.payment_status)}>
-                        {booking.payment_status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="ghost" size="sm">
-                        <Eye className="w-3 h-3" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
-        </TabsContent>
-
-        {/* Availability and Extras tabs would go here... */}
+        {/* Availability Tab */}
         <TabsContent value="availability" className="space-y-6">
           <div className="text-center py-12">
             <CalendarIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
@@ -677,6 +473,7 @@ export default AdminTravelConsole;
           </div>
         </TabsContent>
 
+        {/* Extras Tab */}
         <TabsContent value="extras" className="space-y-6">
           <div className="text-center py-12">
             <Star className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
@@ -688,7 +485,19 @@ export default AdminTravelConsole;
             </p>
           </div>
         </TabsContent>
+
+        {/* Pages Tab */}
+        <TabsContent value="pages">
+          <PagesPage />
+        </TabsContent>
+
+        {/* Tags Tab */}
+        <TabsContent value="tags">
+          <TagsPage />
+        </TabsContent>
       </Tabs>
     </div>
   );
 };
+
+export default AdminTravelConsole;
