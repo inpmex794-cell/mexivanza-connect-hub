@@ -477,8 +477,17 @@ const AdminTravelConsole: React.FC = () => {
                       <Badge className={getStatusColor(booking.payment_status)}>
                         {booking.payment_status}
                       </Badge>
-            
-        {/* Availability Tab */}
+                    <TableCell>
+                      <Button variant="outline" size="sm">
+                        <Eye className="w-4 h-4" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Card>
+ {/* Availability Tab */}
         <TabsContent value="availability" className="space-y-6">
           <div className="text-center py-12">
             <CalendarIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
