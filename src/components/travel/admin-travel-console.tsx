@@ -477,7 +477,7 @@ const AdminTravelConsole: React.FC = () => {
                       <Badge className={getStatusColor(booking.payment_status)}>
                         {booking.payment_status}
                       </Badge>
-                    </
+            
         {/* Availability Tab */}
         <TabsContent value="availability" className="space-y-6">
           <div className="text-center py-12">
