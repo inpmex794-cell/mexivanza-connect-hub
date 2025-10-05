@@ -33,39 +33,46 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUserRole(data?.role || 'user');
   };
 
-  useEffect(() => {
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        if (session?.user) {
-          setTimeout(() => {
-            fetchUserRole(session.user.id);
-          }, 0);
-        } else {
-          setUserRole(null);
-        }
-        
-        setLoading(false);
-      }
-    );
+ useEffect(() => {
+  // Set up auth state listener
+  const { data: { subscription } } = supabase.auth.onAuthStateChange(
+    async (event, session) => {
+      console.log("Auth state change event:", event);
+      console.log("Session in production (onAuthStateChange):", session);
+      console.log("Supabase URL:", import.meta.env.VITE_SUPABASE_URL);
 
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        fetchUserRole(session.user.id);
-      }
-      
-      setLoading(false);
-    });
 
-    return () => subscription.unsubscribe();
-  }, []);
+      if (session?.user) {
+        setTimeout(() => {
+          fetchUserRole(session.user.id);
+        }, 0);
+      } else {
+        setUserRole(null);
+      }
+
+      setLoading(false);
+    }
+  );
+
+  // Check for existing session
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    console.log("Initial session check:", session);
+    console.log("Supabase URL:", import.meta.env.VITE_SUPABASE_URL);
+
+    setSession(session);
+    setUser(session?.user ?? null);
+
+    if (session?.user) {
+      fetchUserRole(session.user.id);
+    }
+
+    setLoading(false);
+  });
+
+  return () => subscription.unsubscribe();
+}, []);
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
