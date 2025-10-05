@@ -5,24 +5,6 @@ import DestinationManager from '@/components/admin/DestinationManager';
 import { useAuth } from '@/hooks/use-auth';
 import { Navigate } from 'react-router-dom';
 
-const SuperAdminDashboard: React.FC = () => {
-  const { userRole } = useAuth();
-
-  // Only allow super admins
-  if (userRole !== 'super_admin') {
-    return <Navigate to="/auth" replace />;
-  }
-
-  return (
-    <PageLayout>
-      <div className="space-y-10">
-        <AdminTravelManager />
-        <DestinationManager />
-      </div>
-    </PageLayout>
-  );
-};
-
 export default function SuperAdminDashboard() {
   const { userRole } = useAuth();
 
@@ -33,15 +15,20 @@ export default function SuperAdminDashboard() {
   }
 
   if (userRole !== 'super_admin') {
-    return <div>Access denied. Your role is: {userRole}</div>;
+    return <Navigate to="/auth" replace />;
   }
 
   return (
     <PageLayout>
-      <h1>Super Admin Dashboard Loaded</h1>
+      <div className="space-y-10">
+        <h1 className="text-2xl font-bold">Super Admin Dashboard</h1>
+        <AdminTravelManager />
+        <DestinationManager />
+      </div>
     </PageLayout>
   );
 }
+
 
 
 
