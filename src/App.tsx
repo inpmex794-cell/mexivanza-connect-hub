@@ -37,6 +37,11 @@ import { UserDashboard } from '@/pages/UserDashboard';
 import { AccountBookings } from '@/pages/AccountBookings';
 import NotFound from '@/pages/NotFound';
 import DashboardRouter from './dashboard/DashboardRouter';
+import SuperAdminDashboard from '@/pages/SuperAdminDashboard';
+
+<Routes>
+  <Route path="/super-admin" element={<SuperAdminDashboard />} />
+</Routes>
 
 const queryClient = new QueryClient();
 
