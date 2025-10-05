@@ -40,7 +40,7 @@ import { UserDashboard } from '@/pages/UserDashboard';
 import { AccountBookings } from '@/pages/AccountBookings';
 import NotFound from '@/pages/NotFound';
 import DashboardRouter from './dashboard/DashboardRouter';
-import SuperAdminDashboard from '@/pages/SuperAdminDashboard';
+import AdminTravelConsole from '@/components/travel/admin-travel-console';
 
 const queryClient = new QueryClient();
 
@@ -96,8 +96,9 @@ function App() {
                     <Route path="/verified-dashboard" element={<VerifiedDashboard />} />
                     <Route path="/admin/travel-categories" element={<AdminCategoriesManager />} />
 
-                    {/* Super Admin Dashboard */}
-                    <Route path="/super-admin" element={<SuperAdminDashboard />} />
+              {/* Super Admin Dashboard */}
+<Route path="/super-admin" element={<AdminTravelConsole />} />
+
 
                     {/* Role-based redirect */}
                     <Route path="/dashboard-redirect" element={<RoleBasedRouter />} />
