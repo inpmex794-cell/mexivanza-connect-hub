@@ -1,6 +1,7 @@
 import React from 'react';
 import { PageLayout } from '@/components/layout/page-layout';
 import { AdminTravelManager } from '@/components/travel/admin-travel-manager';
+import DestinationManager from '@/components/admin/DestinationManager';
 import { useAuth } from '@/hooks/use-auth';
 import { Navigate } from 'react-router-dom';
 
@@ -14,23 +15,15 @@ const SuperAdminDashboard: React.FC = () => {
 
   return (
     <PageLayout>
-      <AdminTravelManager />
+      <div className="space-y-10">
+        <AdminTravelManager />
+        <DestinationManager />
+      </div>
     </PageLayout>
   );
 };
 
 export default SuperAdminDashboard;
-import DestinationManager from '@/components/admin/DestinationManager';
 
-return (
-  <PageLayout>
-    <DestinationManager />
-  </PageLayout>
-);
-import SuperAdminDashboard from '@/pages/SuperAdminDashboard';
-
-<Routes>
-  <Route path="/super-admin" element={<SuperAdminDashboard />} />
-</Routes>
 
 
