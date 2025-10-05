@@ -448,60 +448,45 @@ const AdminTravelConsole: React.FC = () => {
                   <TableHead>{language === 'es' ? 'Acciones' : 'Actions'}</TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody>
-                {filteredBookings.map((booking) => (
-                  <TableRow key={booking.id}>
-                    <TableCell>
-                      <div>
-                        <div className="font-medium">{booking.traveler_name}</div>
-                        <div className="text-sm text-muted-foreground">{booking.traveler_email}</div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div>
-                        <div className="font-medium">{booking.travel_packages?.title?.[language]}</div>
-                        <div className="text-sm text-muted-foreground">
-                          {booking.travel_packages?.city}, {booking.travel_packages?.region}
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>{format(new Date(booking.travel_start_date), 'MMM dd, yyyy')}</TableCell>
-                    <TableCell>{booking.number_of_travelers}</TableCell>
-                    <TableCell className="font-medium">{formatPrice(booking.total_amount)}</TableCell>
-                    <TableCell>
-                      <Badge className={getStatusColor(booking.booking_status)}>
-                        {booking.booking_status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <TableCell>
-  <Badge className={getStatusColor(booking.payment_status)}>
-    {booking.payment_status}
-  </Badge>
-</TableCell>
-<TableCell>
-  <Button variant="outline" size="sm">
-    <Eye className="w-4 h-4" />
-  </Button>
-</TableCell>
-
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
- {/* Availability Tab */}
-        <TabsContent value="availability" className="space-y-6">
-          <div className="text-center py-12">
-            <CalendarIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-medium mb-2">
-              {language === 'es' ? 'Gestión de disponibilidad' : 'Availability management'}
-            </h3>
-            <p className="text-muted-foreground">
-              {language === 'es' ? 'Próximamente' : 'Coming soon'}
-            </p>
+           <TableBody>
+  {filteredBookings.map((booking) => (
+    <TableRow key={booking.id}>
+      <TableCell>
+        <div>
+          <div className="font-medium">{booking.traveler_name}</div>
+          <div className="text-sm text-muted-foreground">{booking.traveler_email}</div>
+        </div>
+      </TableCell>
+      <TableCell>
+        <div>
+          <div className="font-medium">{booking.travel_packages?.title?.[language]}</div>
+          <div className="text-sm text-muted-foreground">
+            {booking.travel_packages?.city}, {booking.travel_packages?.region}
           </div>
-        </TabsContent>
+        </div>
+      </TableCell>
+      <TableCell>{format(new Date(booking.travel_start_date), 'MMM dd, yyyy')}</TableCell>
+      <TableCell>{booking.number_of_travelers}</TableCell>
+      <TableCell className="font-medium">{formatPrice(booking.total_amount)}</TableCell>
+      <TableCell>
+        <Badge className={getStatusColor(booking.booking_status)}>
+          {booking.booking_status}
+        </Badge>
+      </TableCell>
+      <TableCell>
+        <Badge className={getStatusColor(booking.payment_status)}>
+          {booking.payment_status}
+        </Badge>
+      </TableCell>
+      <TableCell>
+        <Button variant="outline" size="sm">
+          <Eye className="w-4 h-4" />
+        </Button>
+      </TableCell>
+    </TableRow>
+  ))}
+</TableBody>
+
 
         {/* Extras Tab */}
         <TabsContent value="extras" className="space-y-6">
