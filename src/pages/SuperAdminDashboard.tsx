@@ -27,5 +27,10 @@ return (
     <DestinationManager />
   </PageLayout>
 );
-<Route path="/super-admin" element={<SuperAdminDashboard />} />
+import SuperAdminDashboard from '@/pages/SuperAdminDashboard';
+
+<Routes>
+  <Route path="/super-admin" element={<SuperAdminDashboard />} />
+</Routes>
+
 
